@@ -14,6 +14,9 @@ import { HtwgscheduleService } from "./services/htwgschedule.service";
 
 // Uncomment and add to NgModule imports if you need to use the HttpClient wrapper
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { GradesComponent } from './main/grades/grades.component';
+import { DefaultComponent } from './main/default/default.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
     bootstrap: [
@@ -28,7 +31,10 @@ import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
     declarations: [
         AppComponent,
         MainComponent,
-        ScheduleComponent
+        ScheduleComponent,
+        GradesComponent,
+        DefaultComponent,
+        SettingsComponent
     ],
     providers: [ HtwgscheduleService ],
     schemas: [

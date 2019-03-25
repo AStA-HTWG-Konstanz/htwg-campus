@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HtwgscheduleService } from "../../services/htwgschedule.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
+import { environment } from "~/app/environment/environment";
 
 @Component({
   selector: 'ns-schedule',
@@ -11,7 +12,10 @@ import * as app from "tns-core-modules/application";
 })
 export class ScheduleComponent implements OnInit {
 
-  constructor( private client: HtwgscheduleService ) { }
+  constructor( private client: HtwgscheduleService ) { 
+    app.setCssFileName(environment.style);
+    app.loadAppCss();
+  }
 
   htmlString: String = "test";
   

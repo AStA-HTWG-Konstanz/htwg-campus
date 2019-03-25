@@ -22,4 +22,9 @@ export class AppComponent {
     get sideDrawerTransition(): DrawerTransitionBase {
         return this._sideDrawerTransition;
     }
+
+    closeDrawer() {
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.closeDrawer();
+    }
  }
