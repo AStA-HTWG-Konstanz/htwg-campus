@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer"
 import * as app from "tns-core-modules/application";
+import * as dialogsModule from "tns-core-modules/ui/dialogs";
+
 
 @Component({
     selector: "ns-app",
@@ -28,3 +30,11 @@ export class AppComponent {
         sideDrawer.closeDrawer();
     }
  }
+ 
+ export function alert(message: string) {
+    return dialogsModule.alert({
+        title: "Groceries",
+        okButtonText: "OK",
+        message: message
+    });
+}

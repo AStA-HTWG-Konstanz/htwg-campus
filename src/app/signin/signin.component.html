@@ -1,0 +1,14 @@
+<ActionBar title="HTWGapp" class="action-bar">
+    <ActionItem (tap)="onDrawerButtonTap()" ios.systemIcon="4" android.systemIcon="ic_menu_btn_add" ios.position="left"></ActionItem>
+</ActionBar>
+<FlexboxLayout class="loginframe">
+    <StackLayout class="form">
+    <Image src="~/images/logo.png"></Image>
+
+    <TextField hint="Username" autocorrect="false" autocapitalizationType="none" (textChange)="onNameChange($event)"
+     class="input input-border"></TextField>
+    <TextField hint="Password" secure="true" (textChange)="onPasswordChange($event)" class="input input-border"></TextField>
+
+    <Button text="Sign in" class="btn btn-primary" (tap)="login()"></Button>
+</StackLayout>
+</FlexboxLayout>

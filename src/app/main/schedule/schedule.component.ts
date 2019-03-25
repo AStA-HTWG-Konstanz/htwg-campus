@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HtwgscheduleService } from "../../services/htwgschedule.service";
+import { HtwgscheduleService } from "~/app/services/schedule/htwgschedule.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 import { environment } from "~/app/environment/environment";

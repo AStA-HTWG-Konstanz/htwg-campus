@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { RouterExtensions } from "nativescript-angular/router";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 import { environment } from "~/app/environment/environment";
 

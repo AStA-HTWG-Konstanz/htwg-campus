@@ -7,7 +7,7 @@ import { AppComponent } from "./app.component";
 import { MainComponent } from "./main/main.component";
 import { ScheduleComponent } from './main/schedule/schedule.component';
 
-import { HtwgscheduleService } from "./services/htwgschedule.service";
+import { HtwgscheduleService } from "~/app/services/schedule/htwgschedule.service";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
@@ -17,6 +17,10 @@ import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { GradesComponent } from './main/grades/grades.component';
 import { DefaultComponent } from './main/default/default.component';
 import { SettingsComponent } from './settings/settings.component';
+import { SigninComponent } from './signin/signin.component';
+import { AuthGuard } from "~/app/services/auth/authGuard.service";
+import { BackendService } from "~/app/services/backend/backend.service";
+import { LoginService } from "~/app/services/login/login.service";
 
 @NgModule({
     bootstrap: [
@@ -34,9 +38,15 @@ import { SettingsComponent } from './settings/settings.component';
         ScheduleComponent,
         GradesComponent,
         DefaultComponent,
-        SettingsComponent
+        SettingsComponent,
+        SigninComponent
     ],
-    providers: [ HtwgscheduleService ],
+    providers: [ 
+        HtwgscheduleService,
+        AuthGuard,
+        BackendService,
+        LoginService
+    ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
