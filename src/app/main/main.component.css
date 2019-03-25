@@ -1,1 +1,50 @@
 /* Add mobile styles for the component here.  */
+/*.page {
+    background-image: url("~/images/htwg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.center {
+    horizontal-align: center;
+}*/
+.top {
+	animation-name: fade;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-duration: 10s;
+    animation-direction: alternate;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+}
+
+.bottom {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+}
+
+@keyframes fade {
+	0% {
+		opacity: 1;
+	}
+	20% {
+		opacity: 1;
+	}
+	40% {
+		opacity: 0;
+	}
+	60% {
+		opacity: 0;
+    }
+    80% {
+		opacity: 1;
+    }
+    100% {
+		opacity: 1;
+    }
+}
