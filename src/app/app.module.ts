@@ -30,7 +30,7 @@ import { LoginService } from "~/app/services/login/login.service";
         NativeScriptModule,
         AppRoutingModule,
         NativeScriptHttpClientModule,
-        NativeScriptUISideDrawerModule
+        NativeScriptUISideDrawerModule,
     ],
     declarations: [
         AppComponent,
