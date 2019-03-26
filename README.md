@@ -76,6 +76,7 @@ We use [GithubBoard](https://github.com/stefan0612/HTWGapp/projects) as a task b
 ## Authors
 
 * **Stefan Schmunk** - [Stefan0612](https://github.com/stefan0612)
+* **Patrick Sterk** - [pat-St](https://github.com/pat-st)
 
 See also the list of [contributors](https://github.com/stefan0612/HTWGapp/contributors) who participated in this project.
 
