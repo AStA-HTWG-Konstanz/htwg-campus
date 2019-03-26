@@ -70,6 +70,17 @@ $ tns
 * [Android](https://play.google.com/store/apps/details?id=org.nativescript.play)
 * [IOS](https://itunes.apple.com/us/app/nativescript-playground/id1263543946?mt=8&ls=1)
 
+## Workflow
+
+* 1.) Create a new Issue, assign it to you and add a label
+* 2.) Press the "+ add cards" button on the projects board and pull the issue in "in progress"-column
+* 3.) Create a new Branch for the issue named <br/>
+feauture/{here goes the issue id} for enhancement label <br>
+fix/{here goes the issue id} for bugs label
+* 4.) `git push -u origin branchname` for pushing a feature branch
+* 5.) Make a pullrequest into master and wait for confirmation
+
+
 ## Running the app
 ```
 $ tns preview
