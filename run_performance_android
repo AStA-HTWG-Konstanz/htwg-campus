@@ -1,0 +1,2 @@
+#!/bin/bash
+tns run android --bundle --env.uglify --env.snapshot
