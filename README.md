@@ -1,6 +1,6 @@
 # HTWGapp
 
-One Paragraph of project description goes here
+The HTWGapp is a free application, for student from the HTWG in constance.
 
 ## Getting Started
 
@@ -14,8 +14,6 @@ What things you need to install the software and how to install them
 * Playground app
 
 ### Installing
-
-A step by step series of examples that tell you how to get a development env running
 
 * 1.) Install Node.js
 * 2.) Install the NativeScript CLI
@@ -35,33 +33,32 @@ $ tns
 │ Alias   │ $ nativescript <Command> [Command Parameters] [--command <Options>] │
 └─────────┴─────────────────────────────────────────────────────────────────────┘
 ```
-* 3.) Install the Nativescript Playground app on your mobile Device:
-[Android](https://play.google.com/store/apps/details?id=org.nativescript.play)
-[IOS](https://itunes.apple.com/us/app/nativescript-playground/id1263543946?mt=8&ls=1)
+3.) Install the Nativescript Playground app on your mobile Device:
+* [Android](https://play.google.com/store/apps/details?id=org.nativescript.play)
+* [IOS](https://itunes.apple.com/us/app/nativescript-playground/id1263543946?mt=8&ls=1)
+
+## Running the app
+```
+$ tns preview
+```
+Scan the appeared QR-Code with your Playground app on your mobile device, any
+source code changes in form of saves will directly appear on your mobile device.
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+//no tests yet
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
-
-```
-Give an example
-```
+//no tests yet
 
 ### And coding style tests
 
-Explain what these tests test and why
-
-```
-Give an example
-```
+//no tests yet
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+//TODO: add deployment guide
 
 ## Built With
 
