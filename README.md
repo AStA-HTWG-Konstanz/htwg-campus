@@ -15,7 +15,30 @@ What things you need to install the software and how to install them
 
 ### Installing
 
-* 1.) Install Node.js
+* 1.) Install Node.js <br/>
+<br/>
+First update your system
+```
+$ sudo apt update
+```
+then  install nodejs
+```
+$ sudo apt install nodejs npm
+```
+and verify it was successfull
+```
+$ nodejs --version
+v8.10.0
+```
+finally get the Node package manager npm
+```
+$ sudo apt install npm
+```
+and verify again it was successfull
+```
+$ npm --version
+3.5.2
+```
 * 2.) Install the NativeScript CLI
 
 ```
