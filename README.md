@@ -76,6 +76,25 @@ $ tns preview
 ```
 Scan the appeared QR-Code with your Playground app on your mobile device, any
 source code changes in form of saves will directly appear on your mobile device.
+## Generating new Components
+Install the Nativescript schematics
+
+```
+$ npm i -g @angular/cli
+$ npm i -g @nativescript/schematics
+```
+
+Now you can genarete new Components by using
+
+```
+$ ng generate component (subfolder/)my-name
+```
+
+or 
+
+```
+$ ng g c (subfolder/)my-name
+```
 
 ## Running the tests
 
