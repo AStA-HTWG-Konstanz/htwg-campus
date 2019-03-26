@@ -1,2 +1,2 @@
-@import 'nativescript-theme-core/css/ruby.css';
+@import '~nativescript-theme-core/css/ruby.css';
 @import "~/custom-app.css";
