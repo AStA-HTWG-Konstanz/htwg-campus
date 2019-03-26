@@ -3,12 +3,25 @@
 </ActionBar>
 <FlexboxLayout class="loginframe">
     <StackLayout class="form">
-    <Image src="~/images/logo.png"></Image>
-
-    <TextField hint="Username" autocorrect="false" autocapitalizationType="none" (textChange)="onNameChange($event)"
-     class="input input-border"></TextField>
-    <TextField hint="Password" secure="true" (textChange)="onPasswordChange($event)" class="input input-border"></TextField>
-
-    <Button text="Sign in" class="btn btn-primary" (tap)="login()"></Button>
-</StackLayout>
+        <Image src="~/images/logo.png"></Image>
+        <TextField 
+            hint="Username"
+            autocorrect="false"
+            autocapitalizationType="none"
+            (textChange)="onNameChange($event)"
+            class="input input-border" 
+            [isEnabled]="!processing">
+        </TextField>
+        <TextField
+            hint="Password"
+            secure="true"
+            (textChange)="onPasswordChange($event)"
+            class="input input-border"
+            [isEnabled]="!processing">
+        </TextField>
+        <CheckBox text="CheckBox Label" checked="true"></CheckBox>
+        <Label *ngIf="error" text="Username or Password ist incorrect" class="errormessage"></Label>
+        <Button text="Sign in" class="btn btn-primary" (tap)="login()" [isEnabled]="!processing"></Button>
+    </StackLayout>
 </FlexboxLayout>
+<ActivityIndicator [busy]="processing" class="activityBar"></ActivityIndicator>

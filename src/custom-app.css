@@ -62,5 +62,15 @@
 .sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
     color:#3A53FF;
 }
+.activityBar {
+    width: 50;
+    height: 50;
+}
+:disabled {
+    opacity: 0.5;
+}
+.errormessage {
+    color: red;
+}
  
 

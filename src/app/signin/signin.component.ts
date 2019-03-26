@@ -7,6 +7,8 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { environment } from '~/app/environment/environment';
 import { Page } from "tns-core-modules/ui/page";
 import { TextField } from "tns-core-modules/ui/text-field";
+import * as appSettings from "tns-core-modules/application-settings";
+
 
 @Component({
   selector: 'ns-signin',
@@ -17,6 +19,8 @@ import { TextField } from "tns-core-modules/ui/text-field";
 export class SigninComponent implements OnInit {
 
   user: User;
+  processing: boolean = false;
+  error: boolean = false;
 
   constructor(
     private loginservice: LoginService,
@@ -35,12 +39,18 @@ export class SigninComponent implements OnInit {
   }
 
   login() {
+    this.processing = true;
+    this.error = false;
     this.loginservice.login(this.user).subscribe(
       response => {
-        environment.user.isLoggedIn = true;
+        appSettings.setBoolean("isLoggedIn", true);
+        this.processing = false;
         this.routerExtensions.navigateByUrl("main", {clearHistory: true});
       },
-      error => alert(JSON.stringify(error))
+      error => {
+        this.error = true;
+        this.processing = false;
+      }
     )
   }
 
