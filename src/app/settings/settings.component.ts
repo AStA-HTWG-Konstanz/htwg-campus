@@ -30,7 +30,6 @@ export class SettingsComponent implements OnInit {
   }
 
   changeTheme() {
-    environment.style = "~themes/" + this.picked + ".css";
     this.routerExtensions.navigateByUrl('/main', { clearHistory: true})
   }
 
