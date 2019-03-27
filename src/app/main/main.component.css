@@ -1,14 +1,4 @@
 /* Add mobile styles for the component here.  */
-/*.page {
-    background-image: url("~/images/htwg.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-.center {
-    horizontal-align: center;
-}*/
 .top {
 	animation-name: fade;
 	animation-timing-function: ease-in-out;
@@ -47,4 +37,18 @@
     100% {
 		opacity: 1;
     }
+}
+
+.home-panel{
+    vertical-align: center; 
+    font-size: 20;
+    margin: 15;
+}
+
+.description-label{
+    margin-bottom: 15;
+}
+
+.cardImage {
+    margin: 50px;
 }

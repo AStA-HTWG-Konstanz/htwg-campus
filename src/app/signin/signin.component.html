@@ -19,7 +19,6 @@
             class="input input-border"
             [isEnabled]="!processing">
         </TextField>
-        <CheckBox text="CheckBox Label" checked="true"></CheckBox>
         <Label *ngIf="error" text="Username or Password ist incorrect" class="errormessage"></Label>
         <Button text="Sign in" class="btn btn-primary" (tap)="login()" [isEnabled]="!processing"></Button>
     </StackLayout>

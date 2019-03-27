@@ -1,6 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular"
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -21,6 +22,8 @@ import { SigninComponent } from './signin/signin.component';
 import { AuthGuard } from "~/app/services/auth/authGuard.service";
 import { BackendService } from "~/app/services/backend/backend.service";
 import { LoginService } from "~/app/services/login/login.service";
+import { CanteenComponent } from './main/canteen/canteen.component';
+import { ActionButtonComponent } from './action-button/action-button.component';
 
 @NgModule({
     bootstrap: [
@@ -30,6 +33,7 @@ import { LoginService } from "~/app/services/login/login.service";
         NativeScriptModule,
         AppRoutingModule,
         NativeScriptHttpClientModule,
+        NativeScriptUIListViewModule,
         NativeScriptUISideDrawerModule,
     ],
     declarations: [
@@ -39,7 +43,9 @@ import { LoginService } from "~/app/services/login/login.service";
         GradesComponent,
         DefaultComponent,
         SettingsComponent,
-        SigninComponent
+        SigninComponent,
+        CanteenComponent,
+        ActionButtonComponent
     ],
     providers: [ 
         HtwgscheduleService,
