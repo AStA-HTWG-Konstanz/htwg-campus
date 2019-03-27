@@ -49,6 +49,6 @@ export class MainComponent implements OnInit {
   }
 
   public onNavigationItemTap(args: any) {
-    this.routerExtensions.navigateByUrl(this.components[args.index].navigate)
+    this.routerExtensions.navigateByUrl(this.components[args.index].navigate,{ transition: { name: 'slideLeft' }})
   }
 }
