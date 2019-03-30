@@ -2,8 +2,8 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular"
-
 import { AppRoutingModule } from "./app-routing.module";
+
 import { AppComponent } from "./app.component";
 import { MainComponent } from "./main/main.component";
 import { ScheduleComponent } from './main/schedule/schedule.component';
@@ -22,8 +22,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { SigninComponent } from './signin/signin.component';
 import { AuthGuard } from "~/app/services/auth/authGuard.service";
 import { LoginService } from "~/app/services/login/login.service";
-import { CanteenComponent } from './main/canteen/canteen.component';
+import { ItemDetailComponentA, ItemDetailComponentB } from './main/canteen/canteen.component';
 import { ActionButtonComponent } from './action-button/action-button.component';
+
 
 @NgModule({
     bootstrap: [
@@ -34,7 +35,7 @@ import { ActionButtonComponent } from './action-button/action-button.component';
         AppRoutingModule,
         NativeScriptHttpClientModule,
         NativeScriptUIListViewModule,
-        NativeScriptUISideDrawerModule,
+        NativeScriptUISideDrawerModule
     ],
     declarations: [
         AppComponent,
@@ -44,8 +45,9 @@ import { ActionButtonComponent } from './action-button/action-button.component';
         DefaultComponent,
         SettingsComponent,
         SigninComponent,
-        CanteenComponent,
-        ActionButtonComponent
+        ActionButtonComponent,
+        ItemDetailComponentA,
+        ItemDetailComponentB,
     ],
     providers: [
         AuthGuard,
