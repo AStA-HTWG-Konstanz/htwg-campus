@@ -18,7 +18,7 @@ export class CanteenComponent implements OnInit, AfterViewInit {
   private currentSlideNum: number = 0;
   private slideCount = 3;
   private menu: Menu;
-  private date: Date;
+  private date: string;
 
   constructor(
     private routerExtensions: RouterExtensions,
@@ -31,7 +31,7 @@ export class CanteenComponent implements OnInit, AfterViewInit {
     //this.item = this.itemService.getItem(id);
       this.canteenService.getMenu().then((resolved: Canteen) => {
         this.menu = resolved.menu[id];
-        this.date = new Date(this.menu.date);
+        this.date = new Date(this.menu.date).toLocaleDateString();
         this.currentSlideNum = id;
         this.slideCount = resolved.menu.length
       }, (rejected: any) => {
@@ -51,7 +51,6 @@ export class CanteenComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._buttonRef.makeArrow();
     
   }
 

@@ -7,6 +7,7 @@ import { isIOS } from "tns-core-modules/platform";
 import { Color } from 'tns-core-modules/color/color';
 import { LoginService } from '~/app/services/login/login.service';
 import { User } from '~/app/model/user/user.model';
+import * as appSettings from "tns-core-modules/application-settings";
 
 @Component({
   selector: 'ns-main',
@@ -21,7 +22,7 @@ export class MainComponent implements OnInit {
   components: { name: string, desc: string, navigate: string, imageSrc: string }[] = [
     { name: "Canteen", desc: "TODO: Add short description here!", navigate: "item-a/0", imageSrc:  "~/images/coffee.png" },
     { name: "Grades", desc: "TODO: Add short description here!", navigate: "grades", imageSrc:  "~/images/student_hat.png" },
-    { name: "Lecture", desc: "TODO: Add short description here!", navigate: "schedule", imageSrc:  "~/images/schedule.png" }
+    { name: "Lectures", desc: "TODO: Add short description here!", navigate: "schedule", imageSrc:  "~/images/schedule.png" },
   ];
 
   constructor(private routerExtensions: RouterExtensions, private login: LoginService) {
@@ -29,8 +30,15 @@ export class MainComponent implements OnInit {
     app.loadAppCss();
   }
 
+  // TODO workaround with login session
   ngOnInit() {
-    this.login.login(new User("testUser","testPass1")).subscribe(response => {},error => {});
+    if(appSettings.hasKey("account")) {
+      this.login.login(JSON.parse(appSettings.getString("account"))).subscribe(response => {
+        appSettings.setBoolean("isLoggedIn", true);
+      },error => {});
+    } else {
+      this.login.login(new User("testUser","testPass1")).subscribe(response => {},error => {});
+    }
   }
 
   onDrawerButtonTap(): void {

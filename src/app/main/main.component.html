@@ -15,12 +15,12 @@
         (itemLoading)="onItemLoading($event)" (itemTap)="onNavigationItemTap($event)">
         <ListViewStaggeredLayout tkListViewLayout scrollDirection="Vertical"
             spanCount="2"></ListViewStaggeredLayout>
-        <ng-template tkListItemTemplate let-item="item">
-            <StackLayout margin="15" borderRadius="10" backgroundColor="lightblue">
-                <Image src="{{ item.imageSrc }}" class="cardImage"></Image>
-                <StackLayout backgroundColor="white" padding="10">
-                    <Label text="{{ item.name }}" class="item-name" textWrap="true"></Label>
-                    <Label text="{{ item.desc }}" class="item-desc" textWrap="true"></Label>
+        <ng-template tkListItemTemplate let-item="item" >
+            <StackLayout margin="5" borderRadius="2" padding="2"  height="180" backgroundcolor="#334152">
+                <StackLayout class="card-item" padding="0">
+                    <Label fontSize="20" text="{{ item.name }}" verticalAlignment="center" horizontalAlignment="center" class="item-name" textWrap="true" color="white"></Label>
+                    <!-- <Label fontSize="16" text="{{ item.desc }}" verticalAlignment="center" horizontalAlignment="center" class="item-desc" textWrap="true" color="white"></Label> -->
+                    <Image src="{{ item.imageSrc }}" class="cardImage"></Image>
                 </StackLayout>
             </StackLayout>
         </ng-template>

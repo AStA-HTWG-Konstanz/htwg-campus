@@ -21,7 +21,7 @@
             </StackLayout>
         </ScrollView>
             <StackLayout orientation="horizontal" horizontalAlignment="center" style="vertical-align: bottom;align-content: center; margin-bottom: 50px;">
-                <Button 
+                <Button
                     *ngFor="let item of [].constructor(slideCount); let i = index"
                     style="width:40px;height:40px;border-radius:50%;"
                     [style.background-color]="getStyle(i)"

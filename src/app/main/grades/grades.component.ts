@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RouterExtensions } from "nativescript-angular/router";
+import { ActionButtonComponent } from "../../action-button/action-button.component";
 
 @Component({
   selector: 'ns-grades',
@@ -7,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   moduleId: module.id,
 })
 export class GradesComponent implements OnInit {
-
-  constructor() { }
+  @ViewChild("actionButton")
+  _buttonRef: ActionButtonComponent;
+  constructor(private routerExtensions: RouterExtensions,) { }
 
   ngOnInit() {
+  }
+
+  navigateBack() {
+		this.routerExtensions.navigateByUrl("main", {clearHistory: true})
   }
 
 }

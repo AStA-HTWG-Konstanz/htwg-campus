@@ -44,6 +44,8 @@ export class SigninComponent implements OnInit {
     this.loginservice.login(this.user).subscribe(
       response => {
         appSettings.setBoolean("isLoggedIn", true);
+        appSettings.setString("account",JSON.stringify(this.user))
+        appSettings.setString("username",this.user.username)
         this.processing = false;
         this.routerExtensions.navigateByUrl("main", {clearHistory: true});
       },

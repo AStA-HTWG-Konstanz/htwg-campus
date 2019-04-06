@@ -19,7 +19,7 @@ export class CanteenService {
 
     getMenu(): Promise<Canteen> {
         return new Promise((resolve, reject) => {
-            if(this.canteen && new Date(this.canteen.menu[1].date) > new Date()) {
+            if(this.canteen && new Date(this.canteen.menu[0].date) > new Date()) {
                 resolve(this.canteen);
             } else {
                 this.getCanteen().subscribe((response: Canteen) => {

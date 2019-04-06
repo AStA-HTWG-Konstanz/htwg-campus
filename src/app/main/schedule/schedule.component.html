@@ -1,9 +1,17 @@
-<ActionBar title="HTWGapp" class="action-bar">
-    <ActionItem (tap)="onDrawerButtonTap()" ios.systemIcon="4" android.systemIcon="ic_menu_btn_add" ios.position="left"></ActionItem>
+<ActionBar class="action-bar">
+    <NavigationButton visibility="collapsed"></NavigationButton>
+    <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
+        <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
+        <Label col="1" text="Time table" class="action-bar-label"></Label>
+    </GridLayout>
 </ActionBar>
 
 <GridLayout class="page page-content" tkMainContent>
-    <Label class="page-icon fa" text="&#xf015;"></Label>
-    <Label class="page-placeholder" text="<!-- Page content goes here -->"></Label>
+    <ScrollView class="page">
+		<StackLayout class="home-panel">
+			<!--Add your page content here-->
+			<Label textWrap="true" text="{{scheduleResponse}}" class="h2 description-label opensans-semi-bold"></Label>
+		</StackLayout>
+	</ScrollView>
 </GridLayout>
     

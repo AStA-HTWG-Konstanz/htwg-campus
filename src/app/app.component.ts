@@ -11,8 +11,9 @@ import * as appSettings from "tns-core-modules/application-settings";
     moduleId: module.id,
     templateUrl: "./app.component.html"
 })
-export class AppComponent {
+export class AppComponent{
     private _sideDrawerTransition: DrawerTransitionBase;
+    userNameInSideBar: String = "user"
 
     constructor(private routerExtensions: RouterExtensions) {
         // Use the component constructor to inject services.
@@ -20,6 +21,9 @@ export class AppComponent {
 
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
+        if (appSettings.hasKey("username")) {
+            this.userNameInSideBar = appSettings.getString("username")
+        }
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
@@ -33,6 +37,9 @@ export class AppComponent {
 
     logout() {
         appSettings.remove("isLoggedIn");
+        appSettings.remove("account");
+        appSettings.remove("username");
+        //appSettings.clear();
         this.closeDrawer()
     }
  }
