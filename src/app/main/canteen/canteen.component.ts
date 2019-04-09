@@ -17,8 +17,8 @@ export class CanteenComponent implements OnInit, AfterViewInit {
 
   private currentSlideNum: number = 0;
   private slideCount = 3;
-  private menu: Menu;
-  private date: string;
+  menu: Menu;
+  date: string;
 
   constructor(
     private routerExtensions: RouterExtensions,

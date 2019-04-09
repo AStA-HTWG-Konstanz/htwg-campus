@@ -47,7 +47,7 @@ import { ActionButtonComponent } from './action-button/action-button.component';
         SigninComponent,
         ActionButtonComponent,
         ItemDetailComponentA,
-        ItemDetailComponentB,
+        ItemDetailComponentB
     ],
     providers: [
         AuthGuard,

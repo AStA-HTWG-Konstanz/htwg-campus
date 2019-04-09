@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
-
 import { MainComponent } from "./main/main.component";
 import { ScheduleComponent } from "./main/schedule/schedule.component";
 import { GradesComponent } from "./main/grades/grades.component";
@@ -15,13 +14,13 @@ import {} from "./main/canteen/canteen.component"
 const routes: Routes = [
     { path: "", redirectTo: "/main", pathMatch: "full" },
     { path: "main", component: MainComponent, canActivate: [AuthGuard] },
-    { path: "schedule", component: ScheduleComponent, canActivate: [AuthGuard] },
     { path: "grades", component: GradesComponent, canActivate: [AuthGuard] },
     { path: "item-a/:id", component: ItemDetailComponentA },
     { path: "item-b/:id", component: ItemDetailComponentB },
     { path: "default", component: DefaultComponent, canActivate: [AuthGuard] },
     { path: "settings", component: SettingsComponent, canActivate: [AuthGuard] },
-    { path: "login", component: SigninComponent }
+    { path: "login", component: SigninComponent },
+    { path: "schedule", component: ScheduleComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

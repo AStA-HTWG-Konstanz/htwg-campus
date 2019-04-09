@@ -8,6 +8,9 @@ import { User } from "~/app/model/user/user.model";
 import { scheduleUser } from "~/app/model/scheduleuser/scheduleuser.model";
 import * as appSettings from "tns-core-modules/application-settings";
 import { ActionButtonComponent } from "../../action-button/action-button.component";
+import { SwipeGestureEventData } from "tns-core-modules/ui/gestures";
+import { ActivatedRoute } from '@angular/router';
+import { Page } from "tns-core-modules/ui/page";
 
 @Component({
     selector: "ns-schedule",
@@ -20,17 +23,19 @@ export class ScheduleComponent implements OnInit {
     @ViewChild("actionButton")
     _buttonRef: ActionButtonComponent;
 
-    scheduleResponse: string = "";
+    scheduleResponse: string;
 
     constructor(
         private scheduleService: HtwgscheduleService,
-        private routerExtensions: RouterExtensions
+        private routerExtensions: RouterExtensions,
+        private activatedRoute: ActivatedRoute,
     ) {
         app.setCssFileName(environment.style);
         app.loadAppCss();
     }
 
     ngOnInit() {
+        this.scheduleResponse = "";
         this.getSchedule();
     }
 
@@ -47,7 +52,9 @@ export class ScheduleComponent implements OnInit {
                         this.scheduleResponse = (resolved == null)? "Not Lectures found": resolved;
                         console.log(JSON.stringify(resolved));
                     },
-                    (rejected: any) => {alert(JSON.stringify(rejected));}
+                    (rejected: any) => {
+                        alert(JSON.stringify(rejected));
+                    }
                 );
         } else {
             alert(JSON.stringify("user isnt login"));
