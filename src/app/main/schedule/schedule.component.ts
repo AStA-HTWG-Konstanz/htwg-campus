@@ -50,7 +50,7 @@ export class ScheduleComponent implements OnInit {
                 this.scheduleService.getTimeTable(user).then(
                     (resolved: any) => {
                         this.scheduleResponse = (resolved == null)? "Not Lectures found": resolved;
-                        console.log(JSON.stringify(resolved));
+                        //console.log(JSON.stringify(resolved));
                     },
                     (rejected: any) => {
                         alert(JSON.stringify(rejected));

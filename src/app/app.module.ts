@@ -15,7 +15,6 @@ import { CanteenService } from "~/app/services/canteen/canteen.service";
 // import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
 // Uncomment and add to NgModule imports if you need to use the HttpClient wrapper
-import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { GradesComponent } from './main/grades/grades.component';
 import { DefaultComponent } from './main/default/default.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -33,7 +32,6 @@ import { ActionButtonComponent } from './action-button/action-button.component';
     imports: [
         NativeScriptModule,
         AppRoutingModule,
-        NativeScriptHttpClientModule,
         NativeScriptUIListViewModule,
         NativeScriptUISideDrawerModule
     ],

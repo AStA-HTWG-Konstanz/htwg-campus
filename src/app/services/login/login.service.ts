@@ -1,17 +1,26 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { User } from "~/app/model/user/user.model";
-import * as dialogsModule from "tns-core-modules/ui/dialogs";
+import { request } from "tns-core-modules/http";
 
 @Injectable()
 export class LoginService {
     private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/auth"
+    private header = {"Content-Type": "application/json"}
     
-    constructor(private http: HttpClient) { }
+    constructor() { }
 
     login(user: User): Observable<Object> {
-        return this.http.post(this.serverUrl, JSON.stringify(user));
+        return from(request({
+            url: this.serverUrl, 
+            method: "POST",
+            headers: this.header,
+            content: this.getRequestBody(user)
+        }))
+    }
+
+    private getRequestBody(user: User) {
+        return JSON.stringify({username: user.username, password: user.password})
     }
     
 }
