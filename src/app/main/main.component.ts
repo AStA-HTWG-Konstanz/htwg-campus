@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ThemeService } from './../services/theme/theme.service';
+import { Component, OnInit, ViewChild, OnChanges, EventEmitter, OnDestroy } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as app from 'tns-core-modules/application';
@@ -8,6 +9,8 @@ import { Color } from 'tns-core-modules/color/color';
 import { LoginService } from '~/app/services/login/login.service';
 import { User } from '~/app/model/user/user.model';
 import * as appSettings from 'tns-core-modules/application-settings';
+import { Theme } from '../model/theme/theme.model';
+import { Subscribable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ns-main',
@@ -18,6 +21,7 @@ import * as appSettings from 'tns-core-modules/application-settings';
 export class MainComponent implements OnInit {
 
   img: String = "~/images/htwg.jpg"
+  private themeEvent: Subscription;
   //TODO: Add new JSON-Item, if you want to add a new component
   components: { name: string, desc: string, navigate: string, imageSrc: string }[] = [
     { name: "Canteen", desc: "TODO: Add short description here!", navigate: "item-a/0", imageSrc:  "~/images/coffee.png" },
@@ -28,12 +32,11 @@ export class MainComponent implements OnInit {
   ];
 
   constructor(private routerExtensions: RouterExtensions, private login: LoginService) {
-    // app.setCssFileName(environment.style);
-    // app.loadAppCss();
   }
 
   // TODO workaround with login session
   ngOnInit() {
+    
     if(appSettings.hasKey("account")) {
       this.login.login(JSON.parse(appSettings.getString("account"))).subscribe(response => {
         appSettings.setBoolean("isLoggedIn", true);

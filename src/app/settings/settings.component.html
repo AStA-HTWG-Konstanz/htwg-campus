@@ -11,7 +11,7 @@
                 <StackLayout *tabItem="{title: 'Themes'}"> -->
                     <StackLayout>
                         <Label text="Choose a new Theme" textWrap="true" class="page-header-green"></Label>
-                        <ListPicker [items]="themes" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
+                        <ListPicker [items]="themes" [selectedIndex]="currentActive" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
                         <Button class="page-button-grey" text="apply" (tap)="changeTheme()"></Button>
                     </StackLayout>
                 <!-- </StackLayout>

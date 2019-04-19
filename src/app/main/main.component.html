@@ -16,7 +16,7 @@
         <ListViewStaggeredLayout tkListViewLayout scrollDirection="Vertical"
             spanCount="2"></ListViewStaggeredLayout>
         <ng-template tkListItemTemplate let-item="item" >
-            <StackLayout margin="5" borderRadius="2" padding="2"  height="180" backgroundcolor="#334152">
+            <StackLayout class="card-tile" margin="5" borderRadius="2" padding="2"  height="180">
                 <StackLayout class="card-item" padding="0">
                     <Label fontSize="20" text="{{ item.name }}" verticalAlignment="center" horizontalAlignment="center" class="item-name" textWrap="true" color="white"></Label>
                     <!-- <Label fontSize="16" text="{{ item.desc }}" verticalAlignment="center" horizontalAlignment="center" class="item-desc" textWrap="true" color="white"></Label> -->

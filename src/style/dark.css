@@ -1,0 +1,64 @@
+@import '~nativescript-theme-core/css/core.dark.css';
+@import 'default-style.css';
+
+.hr {
+    background-color:#303030;
+}
+.page-content .page-placeholder {
+    color: #334152;
+}
+.page-content .page-icon {
+    color: #334152;
+}
+
+.sidedrawer-list-item-icon,.sidedrawer-list-item{
+    color: #334152;
+}
+.sidedrawer.sidedrawer-left {
+    background-color: #009b91;
+}
+.sidedrawer.sidedrawer-left .footnote {
+    color: #334152;
+}
+.sidedrawer .sidedrawer-header {
+    background-color: #009b91;
+}
+.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
+    color: #fff;
+}
+.sidedrawer .sidedrawer-content{ 
+    background-color: #334152;
+}
+
+.sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
+    color: black;
+}
+
+.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
+    background-color: #334152;
+}
+.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
+    color:#3A53FF;
+}
+.action-bar-label {
+    color: #fff;
+}
+.action-bar {
+    background-color: #334152;
+    border-color: transparent;    
+    color: #fff;
+}
+.page-header-green {
+    color: #009b91;
+}
+.page-button-grey {
+    background-color: #334152;
+    color: #fff;
+}
+.card-tile {
+    background-color: black;
+}
+.meal-category {
+    background-color:#334152; 
+    color: #fff;
+}

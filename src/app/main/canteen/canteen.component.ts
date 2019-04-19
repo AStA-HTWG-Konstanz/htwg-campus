@@ -25,9 +25,7 @@ export class CanteenComponent implements OnInit, AfterViewInit {
     private routerExtensions: RouterExtensions,
     private canteenService: CanteenService,
     private activatedRoute: ActivatedRoute
-  ) { 
-    // app.setCssFileName(environment.style);
-    // app.loadAppCss();
+  ) {
   }
 
   ngOnInit() {
