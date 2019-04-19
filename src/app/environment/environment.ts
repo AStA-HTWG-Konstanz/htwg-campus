@@ -1,8 +1,6 @@
 export const environment = {
-    style: "~/app.css",
-    user: {
-        isLoggedIn: false,
-        name: "",
-        password: "",
-    }
+    style: [
+        {name: "light", path:"~/style/light.css"},
+        {name: "dark", path:"~/style/dark.css"}
+    ],
 };

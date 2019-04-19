@@ -11,8 +11,8 @@ import { environment } from "~/app/environment/environment";
 export class DefaultComponent implements OnInit {
 
   constructor() {
-    app.setCssFileName(environment.style);
-    app.loadAppCss();
+    // app.setCssFileName(environment.style);
+    // app.loadAppCss();
    }
 
   ngOnInit() {

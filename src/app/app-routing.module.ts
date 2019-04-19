@@ -1,3 +1,4 @@
+import { AstaComponent } from './main/asta/asta.component';
 import { NgModule } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { Routes } from "@angular/router";
@@ -10,6 +11,7 @@ import { SettingsComponent } from "./settings/settings.component";
 import { AuthGuard } from "~/app/services/auth/authGuard.service";
 import { SigninComponent } from "./signin/signin.component";
 import {} from "./main/canteen/canteen.component"
+import { DepartmentInformatikComponent } from './main/department-informatik/department-informatik.component';
 
 const routes: Routes = [
     { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -20,7 +22,9 @@ const routes: Routes = [
     { path: "default", component: DefaultComponent, canActivate: [AuthGuard] },
     { path: "settings", component: SettingsComponent, canActivate: [AuthGuard] },
     { path: "login", component: SigninComponent },
-    { path: "schedule", component: ScheduleComponent, canActivate: [AuthGuard]}
+    { path: "schedule", component: ScheduleComponent, canActivate: [AuthGuard]},
+    { path: "asta", component: AstaComponent},
+    { path: "department", component: DepartmentInformatikComponent}
 ];
 
 @NgModule({

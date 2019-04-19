@@ -1,21 +1,25 @@
-<ActionBar title="HTWGapp" class="action-bar">
-    <ActionItem (tap)="onDrawerButtonTap()" ios.systemIcon="4" android.systemIcon="ic_menu_btn_add" ios.position="left"></ActionItem>
+<ActionBar class="action-bar">
+    <NavigationButton visibility="collapsed"></NavigationButton>
+    <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
+        <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
+        <Label col="1" text="Settings" class="action-bar-label"></Label>
+    </GridLayout>
 </ActionBar>
 
 <GridLayout class="page page-content" tkMainContent>
-        <TabView id="tabViewContainer">
-                <StackLayout *tabItem="{title: 'Themes'}">
+        <!-- <TabView id="tabViewContainer">
+                <StackLayout *tabItem="{title: 'Themes'}"> -->
                     <StackLayout>
-                        <Label text="Choose a new Theme" textWrap="true" class="m-15 h2 text-left" color="blue"></Label>
+                        <Label text="Choose a new Theme" textWrap="true" class="page-header-green"></Label>
                         <ListPicker [items]="themes" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>
-                        <Button text="apply" (tap)="changeTheme()"></Button>
+                        <Button class="page-button-grey" text="apply" (tap)="changeTheme()"></Button>
                     </StackLayout>
-                </StackLayout>
-                <StackLayout *tabItem="{title: 'Second Tab'}">
-                    <StackLayout>
+                <!-- </StackLayout>
+                <StackLayout *tabItem="{title: 'Second Tab'}"> -->
+                    <!-- <StackLayout>
                         <Label text="Second Tab" textWrap="true" class="m-15 h2 text-left" color="blue"></Label>
-                    </StackLayout>
-                </StackLayout>
-            </TabView>
+                    </StackLayout> -->
+                <!-- </StackLayout>
+            </TabView> -->
    <!-- <ListPicker [items]="themes" selectedIndex="0" (selectedIndexChange)="selectedIndexChanged($event)" class="p-15"></ListPicker>-->
 </GridLayout>

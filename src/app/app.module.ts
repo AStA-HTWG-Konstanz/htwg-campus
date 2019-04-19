@@ -24,6 +24,8 @@ import { AuthGuard } from "~/app/services/auth/authGuard.service";
 import { LoginService } from "~/app/services/login/login.service";
 import { ItemDetailComponentA, ItemDetailComponentB } from './main/canteen/canteen.component';
 import { ActionButtonComponent } from './action-button/action-button.component';
+import { AstaComponent } from './main/asta/asta.component';
+import { DepartmentInformatikComponent } from './main/department-informatik/department-informatik.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { ActionButtonComponent } from './action-button/action-button.component';
         SigninComponent,
         ActionButtonComponent,
         ItemDetailComponentA,
-        ItemDetailComponentB
+        ItemDetailComponentB,
+        AstaComponent,
+        DepartmentInformatikComponent,
     ],
     providers: [
         AuthGuard,

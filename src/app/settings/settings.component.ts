@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListPicker } from "tns-core-modules/ui/list-picker";
 import { environment } from "~/app/environment/environment";
 import { RouterExtensions } from "nativescript-angular/router";
 import * as app from "tns-core-modules/application";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { ActionButtonComponent } from '../action-button/action-button.component';
 
 @Component({
   selector: 'ns-settings',
@@ -13,15 +14,13 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 })
 export class SettingsComponent implements OnInit {
 
-  themes: Array<string> = [
-    "aqua","blue","brown", "dark", "forest", "grey", "lemon",
-    "light", "lime", "orange", "purple", "ruby", "sky"
-  ];
+  themes: Array<string>;
   picked: string;
 
   constructor(private routerExtensions: RouterExtensions) { }
 
   ngOnInit() {
+    this.themes = environment.style.map(x =>x.name);
   }
 
   public selectedIndexChanged(args) {
@@ -36,6 +35,10 @@ export class SettingsComponent implements OnInit {
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();
+  }
+
+  navigateBack() {
+		this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' },clearHistory: true})
   }
 
 }

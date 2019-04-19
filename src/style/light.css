@@ -1,0 +1,101 @@
+.hr {
+    height:1;
+    background-color:#303030;
+    width:100%;
+}
+.fa {
+    font-family: "FontAwesome";
+}
+.page-content .page-placeholder {
+    color: #334152;
+    font-size: 20;
+    vertical-align: center;
+    horizontal-align: center;
+}
+.page-content .page-icon {
+    font-size: 72;
+    vertical-align: top;
+    horizontal-align: center;
+    color: #334152;
+    margin-top: 20%;
+}
+
+.sidedrawer {
+    margin-bottom: -100;
+}
+.sidedrawer-list-item-icon,.sidedrawer-list-item{
+    color: #334152;
+}
+.sidedrawer.sidedrawer-left {
+    background-color: #009b91;
+}
+.sidedrawer.sidedrawer-left .footnote {
+    color: #334152;
+}
+.sidedrawer .sidedrawer-header {
+    background-color: #009b91;
+    height: 50;
+}
+.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
+    color: #fff;
+    font-size: 17;
+}
+.sidedrawer .sidedrawer-content{ 
+    background-color: #d9e5ec;
+}
+.sidedrawer .sidedrawer-content .sidedrawer-list-item{
+    padding-left: 15;
+}
+.sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
+    vertical-align: center;
+    color: black;
+}
+.sidedrawer .sidedrawer-content .sidedrawer-list-item .fa {
+    width: 20;
+    margin-right: 10;
+}
+.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
+    background-color: #d9e5ec;
+}
+.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
+    color:#3A53FF;
+}
+.activityBar {
+    width: 50;
+    height: 50;
+}
+:disabled {
+    opacity: 0.5;
+}
+.errormessage {
+    color: red;
+}
+.action-bar-label {
+    font-size: 20;
+    horizontal-align: center;
+    vertical-align: center;
+    color: black;
+}
+.action-bar {
+    background-color: #d9e5ec;
+    border-color: transparent;    
+    color: #009b91; 
+}
+.page-header-green {
+    padding-top: 2;
+    padding-bottom: 2;
+    color: #009b91;
+    font-size: 20;
+    horizontal-align: center;
+    vertical-align: center;
+}
+.page-button-grey {
+    background-color: #334152;
+    color: #fff;
+}
+.meal-category {
+    text-align: center;
+    background-color:#334152; 
+    font-size: 20;
+    color: #fff;
+}

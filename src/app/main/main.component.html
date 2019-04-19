@@ -2,14 +2,14 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="onDrawerButtonTap()" #actionButton ></ActionButton>
-        <Label col="1" text="HTWGapp" class="action-bar-label"></Label>
+        <Label col="1" text="HTWG App" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
 
-<GridLayout class="page page-content" tkMainContent>
+<GridLayout class="page page-content" backgroundImage="~/images/login.png" tkMainContent>
 
-    <Image class="bottom" backgroundImage="~/images/htwg.jpg" loadMode="async"></Image>
-    <Image class="top" backgroundImage="~/images/htwg2.jpg" loadMode="async"></Image>
+    <!-- <Image class="bottom" backgroundImage="~/images/htwg.jpg" loadMode="async"></Image>
+    <Image class="top" backgroundImage="~/images/htwg2.jpg" loadMode="async"></Image> -->
 
     <RadListView [items]="components" marginRight="-2" itemReorder="true"
         (itemLoading)="onItemLoading($event)" (itemTap)="onNavigationItemTap($event)">
