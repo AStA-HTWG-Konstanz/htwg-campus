@@ -28,7 +28,7 @@ tests/test-output.txt
 ng-sample/app/**/*.js
 
 # Webpack configuration files
-webpack.config.js
+#webpack.config.js
 tsconfig.esm.json
 
 # IDEs and editors
