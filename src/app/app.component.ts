@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
+import { ThemeService } from './services/theme/theme.service';
+import { Component} from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer"
 import * as app from "tns-core-modules/application";
 import * as dialogsModule from "tns-core-modules/ui/dialogs";
 import * as appSettings from "tns-core-modules/application-settings";
-
 
 @Component({
     selector: "ns-app",
@@ -14,8 +14,9 @@ import * as appSettings from "tns-core-modules/application-settings";
 export class AppComponent{
     private _sideDrawerTransition: DrawerTransitionBase;
     userNameInSideBar: String = "user"
-
-    constructor(private routerExtensions: RouterExtensions) {
+    
+    constructor(private routerExtensions: RouterExtensions,
+        private themeService: ThemeService) {
         // Use the component constructor to inject services.
     }
 

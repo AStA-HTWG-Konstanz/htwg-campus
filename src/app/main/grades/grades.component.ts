@@ -17,7 +17,7 @@ export class GradesComponent implements OnInit {
   }
 
   navigateBack() {
-		this.routerExtensions.navigateByUrl("main", {clearHistory: true})
+		this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' },clearHistory: true})
   }
 
 }

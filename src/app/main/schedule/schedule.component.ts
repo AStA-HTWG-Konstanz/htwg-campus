@@ -30,8 +30,8 @@ export class ScheduleComponent implements OnInit {
         private routerExtensions: RouterExtensions,
         private activatedRoute: ActivatedRoute,
     ) {
-        app.setCssFileName(environment.style);
-        app.loadAppCss();
+        // app.setCssFileName(environment.style);
+        // app.loadAppCss();
     }
 
     ngOnInit() {
@@ -40,7 +40,7 @@ export class ScheduleComponent implements OnInit {
     }
 
     navigateBack() {
-        this.routerExtensions.navigateByUrl("main", { clearHistory: true });
+        this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' },clearHistory: true});
     }
 
     getSchedule() {
@@ -59,9 +59,5 @@ export class ScheduleComponent implements OnInit {
         } else {
             alert(JSON.stringify("user isnt login"));
         }
-    }
-    onDrawerButtonTap(): void {
-        const sideDrawer = <RadSideDrawer>app.getRootView();
-        sideDrawer.showDrawer();
     }
 }

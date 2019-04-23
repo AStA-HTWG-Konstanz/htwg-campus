@@ -6,7 +6,8 @@ import { Canteen } from '~/app/model/canteen/canteen';
 import { Menu } from '~/app/model/canteen/menu/menu';
 import { SwipeGestureEventData } from "tns-core-modules/ui/gestures/gestures";
 import { ActivatedRoute } from '@angular/router';
-
+import { environment } from '~/app/environment/environment';
+import * as app from "tns-core-modules/application";
 
 export class CanteenComponent implements OnInit, AfterViewInit {
 
@@ -24,7 +25,8 @@ export class CanteenComponent implements OnInit, AfterViewInit {
     private routerExtensions: RouterExtensions,
     private canteenService: CanteenService,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     const id = +this.activatedRoute.snapshot.params['id'];
@@ -55,7 +57,7 @@ export class CanteenComponent implements OnInit, AfterViewInit {
   }
 
   navigateBack() {
-		this.routerExtensions.navigateByUrl("main", {clearHistory: true})
+		this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' },clearHistory: true})
   }
 
   onSwipe(args: SwipeGestureEventData) {

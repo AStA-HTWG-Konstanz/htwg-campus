@@ -12,7 +12,7 @@
     <ScrollView (swipe)="onSwipe($event)">
             <StackLayout>
                 <StackLayout *ngFor="let meal of menu.meals">
-                    <Label text="{{meal.ctgry}}" style="text-align: center;background-color:lightblue; font-size: 20pt;"></Label>
+                    <Label text="{{meal.ctgry}}" class="meal-category"></Label>
                     <Label text="{{meal.title}}" textWrap="true" style="font-size: 16pt"></Label>
                     <Label text=""></Label>
                     <Label text="Students: {{meal.priceStud}} €" style="text-align: right"></Label>
