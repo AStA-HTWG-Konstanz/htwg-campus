@@ -40,7 +40,6 @@ export class AppComponent{
         appSettings.remove("isLoggedIn");
         appSettings.remove("account");
         appSettings.remove("username");
-        //appSettings.clear();
         this.closeDrawer()
     }
  }
