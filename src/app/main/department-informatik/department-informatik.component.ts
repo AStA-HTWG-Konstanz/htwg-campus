@@ -16,10 +16,7 @@ export class DepartmentInformatikComponent implements OnInit {
   constructor(
     private routerExtensions: RouterExtensions,
     private activatedRoute: ActivatedRoute
-  ) { 
-    // app.setCssFileName(environment.style);
-    // app.loadAppCss();
-  }
+  ) {}
 
   ngOnInit() {
   }

@@ -2,7 +2,7 @@ FlexboxLayout {
     justify-content: center;
     align-items: center;
     background-size: cover;
-    background-image: url("~/images/login.png");
+    background-image: url("~/images/background_light_2.png");
   }
   StackLayout {
     width: 300;
@@ -21,6 +21,7 @@ FlexboxLayout {
     background-color: #CB1D00;
     margin-left: 0;
     margin-right: 0;
+    color: white;
   }
   TextField {
     placeholder-color: #C4AFB4;
