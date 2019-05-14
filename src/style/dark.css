@@ -10,6 +10,10 @@
 .page-content .page-icon {
     color: #334152;
 }
+.page {
+    background-color: black;
+    color: white;
+}
 
 .sidedrawer-list-item-icon,.sidedrawer-list-item{
     color: #334152;
@@ -31,7 +35,7 @@
 }
 
 .sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
-    color: black;
+    color: white;
 }
 
 .sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
@@ -52,7 +56,7 @@
     color: #009b91;
 }
 .page-button-grey {
-    background-color: #334152;
+    background-color: #009b91;
     color: #fff;
 }
 .card-tile {
@@ -61,4 +65,12 @@
 .meal-category {
     background-color:#334152; 
     color: #fff;
+}
+.grades-table-header {
+    background-color:#334152; 
+    color: #fff;
+}
+ListPicker {
+    border-color: white;
+    color: white;
 }

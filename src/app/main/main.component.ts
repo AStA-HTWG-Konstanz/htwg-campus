@@ -25,7 +25,8 @@ export class MainComponent implements OnInit {
     { name: "Grades", desc: "TODO: Add short description here!", navigate: "grades", imageSrc:  "~/images/student_hat.png" },
     { name: "Lectures", desc: "TODO: Add short description here!", navigate: "schedule", imageSrc:  "~/images/schedule.png" },
     { name: "ASTA", desc: "TODO: Add short description here!", navigate: "asta", imageSrc: "~/images/student_hat.png"},
-    { name: "Department", desc: "TODO: Add short description here!", navigate: "department", imageSrc: "~/images/student_hat.png"}
+    { name: "Department", desc: "TODO: Add short description here!", navigate: "department", imageSrc: "~/images/student_hat.png"},
+    { name: "Balance", desc: "TODO: Add short description here!", navigate: "print-balance", imageSrc: "~/images/student_hat.png"}
   ];
 
   constructor(private routerExtensions: RouterExtensions, private login: LoginService) {

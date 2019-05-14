@@ -21,10 +21,14 @@ import { SettingsComponent } from './settings/settings.component';
 import { SigninComponent } from './signin/signin.component';
 import { AuthGuard } from "~/app/services/auth/authGuard.service";
 import { LoginService } from "~/app/services/login/login.service";
+import { GradesService } from './services/grades/grades.service'
 import { ItemDetailComponentA, ItemDetailComponentB } from './main/canteen/canteen.component';
 import { ActionButtonComponent } from './action-button/action-button.component';
 import { AstaComponent } from './main/asta/asta.component';
 import { DepartmentInformatikComponent } from './main/department-informatik/department-informatik.component';
+import { PrintBalanceComponent } from './main/print-balance/print-balance.component';
+import { PagerModule } from "nativescript-pager/angular";
+
 
 
 @NgModule({
@@ -35,7 +39,8 @@ import { DepartmentInformatikComponent } from './main/department-informatik/depa
         NativeScriptModule,
         AppRoutingModule,
         NativeScriptUIListViewModule,
-        NativeScriptUISideDrawerModule
+        NativeScriptUISideDrawerModule,
+        PagerModule
     ],
     declarations: [
         AppComponent,
@@ -50,12 +55,14 @@ import { DepartmentInformatikComponent } from './main/department-informatik/depa
         ItemDetailComponentB,
         AstaComponent,
         DepartmentInformatikComponent,
+        PrintBalanceComponent,
     ],
     providers: [
         AuthGuard,
         CanteenService,
         HtwgscheduleService,
-        LoginService
+        LoginService,
+        GradesService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

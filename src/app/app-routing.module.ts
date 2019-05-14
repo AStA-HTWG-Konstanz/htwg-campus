@@ -1,3 +1,4 @@
+import { PrintBalanceComponent } from './main/print-balance/print-balance.component';
 import { AstaComponent } from './main/asta/asta.component';
 import { NgModule } from "@angular/core";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
@@ -23,6 +24,7 @@ const routes: Routes = [
     { path: "settings", component: SettingsComponent, canActivate: [AuthGuard] },
     { path: "login", component: SigninComponent },
     { path: "schedule", component: ScheduleComponent, canActivate: [AuthGuard]},
+    { path: "print-balance", component: PrintBalanceComponent, canActivate: [AuthGuard]},
     { path: "asta", component: AstaComponent},
     { path: "department", component: DepartmentInformatikComponent}
 ];

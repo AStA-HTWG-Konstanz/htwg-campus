@@ -2,8 +2,11 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
-        <Label col="1" text="ASTA" class="action-bar-label"></Label>
+        <Label col="1" text="Print-Balance" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
 <GridLayout class="page page-content" tkMainContent>
+    <StackLayout class="home-panel">
+        <Label textWrap="true" text="{{balance}}" class="h2 description-label opensans-semi-bold"></Label> 
+    </StackLayout>
 </GridLayout>

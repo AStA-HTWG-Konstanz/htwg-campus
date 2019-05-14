@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as app from "tns-core-modules/application";
 import { environment } from "~/app/environment/environment";
 

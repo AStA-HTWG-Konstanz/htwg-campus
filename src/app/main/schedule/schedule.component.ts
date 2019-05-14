@@ -47,7 +47,7 @@ export class ScheduleComponent implements OnInit {
         if (appSettings.getBoolean("isLoggedIn") && appSettings.hasKey("account")) {
                 var storedUser: User = JSON.parse(appSettings.getString("account"));
                 var user = new scheduleUser(storedUser.username, storedUser.password, true);
-                this.scheduleService.getTimeTable(user).then(
+                this.scheduleService.getTimeTable().then(
                     (resolved: any) => {
                         this.scheduleResponse = (resolved == null)? "Not Lectures found": resolved;
                         //console.log(JSON.stringify(resolved));

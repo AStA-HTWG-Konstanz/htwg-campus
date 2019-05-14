@@ -1,10 +1,13 @@
 import { ThemeService } from './services/theme/theme.service';
-import { Component} from "@angular/core";
+import { Component, ViewChild, ElementRef} from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer"
 import * as app from "tns-core-modules/application";
 import * as dialogsModule from "tns-core-modules/ui/dialogs";
 import * as appSettings from "tns-core-modules/application-settings";
+
+// Register custom elements from nativescript-slides plugin
+
 
 @Component({
     selector: "ns-app",

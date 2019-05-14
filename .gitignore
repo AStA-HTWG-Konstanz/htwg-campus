@@ -48,3 +48,6 @@ tsconfig.esm.json
 
 # Yarn
 yarn.lock
+
+# Sidekick generated folder
+.cloud/
