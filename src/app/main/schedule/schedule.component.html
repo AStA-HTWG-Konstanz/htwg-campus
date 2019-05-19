@@ -6,9 +6,37 @@
     </GridLayout>
 </ActionBar>
    
-<GridLayout class="page page-content" tkMainContent>
-		<StackLayout class="home-panel">
-            <Label textWrap="true" text="{{scheduleResponse}}" class="h2 description-label opensans-semi-bold"></Label> 
-		</StackLayout>
-</GridLayout>
+<StackLayout class="page page-content"  width="100%" height="100%" tkMainContent>
+    <!-- <ScrollView orientation="horizontal"> -->
+            <ListView #scheduleView [items]="lectures" width="100%" height="100%">
+                <ng-template let-item="item" let-i="index">
+                    <StackLayout orientation="vertical" class="schedule-lecture-block">
+                        <AbsoluteLayout>
+                        <Label left="0" top="0" width="100%" height="30" text="{{item.date}}" (tap)="clicked(i)" textAlignment="center" verticalAlignment="center" class="h2 schedule-day-header" width="100%"></Label>
+                        <label left="376" top="-8" width="40" height="30" text="+" class="schedule-collapse-symbol" [visibility]="isVisible(i) ? 'visible' : 'collapsed'"></label>
+                        <label left="380" top="-9" width="40" height="30" text="-" class="schedule-collapse-symbol" [visibility]="isVisible(i) ? 'collapsed' : 'visible'"></label>
+                        </AbsoluteLayout>
+                        <StackLayout [visibility]="isVisible(i) ? 'visible' : 'collapsed'">
+                            <AbsoluteLayout class="schedule-table-header">
+                                    <Label text="Name" left="0" top="0" height="25" width="150"></Label>
+                                    <Label text="Room" left="170" top="0" height="25" width="40"></Label>
+                                    <Label text="Start" left="220" top="0" height="25" width="40"></Label>
+                                    <Label text="End" left="270" top="0" height="25" width="40"></Label>
+                                    <Label text="Category" left="320" top="0" height="25" width="80"></Label>
+                            </AbsoluteLayout>
+                            <AbsoluteLayout *ngFor="let lecture of item.lectures">
+                                <Label [text]="lecture.name" left="0" top="0" height="25" width="150"></Label>
+                                <Label [text]="lecture.room" left="170" top="0" height="25" width="40"></Label>
+                                <Label [text]="lecture.startTime" left="220" top="0" height="25" width="40"></Label>
+                                <Label [text]="lecture.endTime" left="270" top="0" height="25" width="40"></Label>
+                                <Label [text]="lecture.category" left="320" top="0" height="25" width="80"></Label>
+                            </AbsoluteLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </ng-template>
+            </ListView>
+        <!-- </StackLayout>    -->
+    <!-- </ScrollView> -->
+</StackLayout>
+<ActivityIndicator [busy]="processing" class="activityBar"></ActivityIndicator>
     

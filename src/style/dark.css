@@ -11,7 +11,7 @@
     color: #334152;
 }
 .page {
-    background-color: black;
+    background-color: rgb(49, 49, 49);
     color: white;
 }
 
@@ -52,6 +52,10 @@
     border-color: transparent;    
     color: #fff;
 }
+ListPicker {
+    border-color: white;
+    color: white;
+}
 .page-header-green {
     color: #009b91;
 }
@@ -60,7 +64,7 @@
     color: #fff;
 }
 .card-tile {
-    background-color: black;
+    background-color: #334152;
 }
 .meal-category {
     background-color:#334152; 
@@ -70,7 +74,14 @@
     background-color:#334152; 
     color: #fff;
 }
-ListPicker {
-    border-color: white;
-    color: white;
+.schedule-table-header {
+    background-color:#009b91;
+    color: #fff;
+}
+.schedule-day-header {
+    background-color: #334152;
+    color: #fff;
+}
+.schedule-collapse-symbol {
+    color: #009b91;
 }

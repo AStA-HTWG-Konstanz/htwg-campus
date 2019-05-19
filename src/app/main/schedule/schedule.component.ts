@@ -1,4 +1,6 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Schedule } from './../../model/schedule/Schedule';
+import { LecturesPerDay} from './../../model/schedule/lectures/LecturesPerDay'
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { HtwgscheduleService } from "~/app/services/schedule/htwgschedule.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
@@ -23,20 +25,27 @@ export class ScheduleComponent implements OnInit {
     @ViewChild("actionButton")
     _buttonRef: ActionButtonComponent;
 
-    scheduleResponse: string;
+    @ViewChild('scheduleView') 
+    scheduleView: ElementRef;
 
+    currentSchedule: Schedule = new Schedule(<Array<LecturesPerDay>>[]);
+    clickedList: Array<number> = new Array();
+
+    lectures: LecturesPerDay[] = [];
+    selectedIndex: number = 0;
+    processing = false;
     constructor(
         private scheduleService: HtwgscheduleService,
         private routerExtensions: RouterExtensions,
         private activatedRoute: ActivatedRoute,
     ) {
-        // app.setCssFileName(environment.style);
-        // app.loadAppCss();
+        this.processing = true;
+        this.getSchedule();
     }
 
     ngOnInit() {
-        this.scheduleResponse = "";
-        this.getSchedule();
+        this.currentSchedule = null;
+        //this.getSchedule();
     }
 
     navigateBack() {
@@ -44,20 +53,30 @@ export class ScheduleComponent implements OnInit {
     }
 
     getSchedule() {
-        if (appSettings.getBoolean("isLoggedIn") && appSettings.hasKey("account")) {
-                var storedUser: User = JSON.parse(appSettings.getString("account"));
-                var user = new scheduleUser(storedUser.username, storedUser.password, true);
-                this.scheduleService.getTimeTable().then(
-                    (resolved: any) => {
-                        this.scheduleResponse = (resolved == null)? "Not Lectures found": resolved;
-                        //console.log(JSON.stringify(resolved));
-                    },
-                    (rejected: any) => {
-                        alert(JSON.stringify(rejected));
-                    }
-                );
+        this.scheduleService.getTimeTable().then(
+            (resolved: any) => {
+                this.currentSchedule = (resolved)? resolved: null;
+                this.lectures = this.currentSchedule.lectures;
+                this.processing = false;
+                //console.log(JSON.stringify(resolved));
+            },
+            (rejected: any) => {
+                alert(JSON.stringify(rejected));
+            }
+        );        
+    }
+    clicked(index: number) {
+        if (this.clickedList.some(i => i == index)){
+            let tmp = this.clickedList.indexOf(index);
+            this.clickedList.splice(tmp,1);
         } else {
-            alert(JSON.stringify("user isnt login"));
+            this.clickedList.push(index);
         }
+    }
+    isVisible(item: number) {
+        if (this.clickedList.length < 1) {
+            return false;
+        }
+        return this.clickedList.some(i => i == item)? true : false;
     }
 }

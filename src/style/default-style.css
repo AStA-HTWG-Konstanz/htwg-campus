@@ -94,3 +94,21 @@
     text-align: center;
     font-size: 16;
 }
+.schedule-lecture-block {
+    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.schedule-table-header {
+    text-align: center;
+}
+.schedule-day-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20;
+    margin-bottom: 10px;
+}
+.schedule-collapse-symbol {
+    font-size: 31;
+}

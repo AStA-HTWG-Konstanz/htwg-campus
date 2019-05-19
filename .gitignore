@@ -51,3 +51,6 @@ yarn.lock
 
 # Sidekick generated folder
 .cloud/
+
+# should be generated
+schema/
