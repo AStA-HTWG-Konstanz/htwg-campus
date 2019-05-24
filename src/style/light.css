@@ -10,6 +10,10 @@
 .page-content .page-icon {
     color: #334152;
 }
+.page {
+    background-color: #d9e5ec;
+    color: black;
+}
 
 .sidedrawer-list-item-icon,.sidedrawer-list-item{
     color: #334152;
@@ -27,7 +31,7 @@
     color: #fff;
 }
 .sidedrawer .sidedrawer-content{ 
-    background-color: #d9e5ec;
+    background-image: url("~/images/background_light_1.png");
 }
 .sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
     color: black;
@@ -63,4 +67,15 @@
 .grades-table-header {
     background-color:#334152; 
     color: #fff;
+}
+.schedule-table-header {
+    background-color:#334152; 
+    color: #fff;
+}
+.schedule-day-header {
+    background-color: white; 
+    color: black;
+}
+.schedule-collapse-symbol {
+    color: #009b91;
 }
