@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from "@angular/core";
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from "@angular/core";
 import { View } from "tns-core-modules/ui/core/view";
 import { GestureEventData } from "tns-core-modules/ui/gestures";
 
@@ -14,9 +14,9 @@ export class ActionButtonComponent {
 
 	@Output("tap") tap: EventEmitter<GestureEventData> = new EventEmitter<GestureEventData>();
 
-	@ViewChild("lineTop") _lineTopRef: ElementRef;
-	@ViewChild("lineCenter") _lineCenterRef: ElementRef;
-	@ViewChild("lineBottom") _lineBottomRef: ElementRef;
+	@ViewChild('lineTop', { static: false }) _lineTopRef: ElementRef;
+	@ViewChild('lineCenter', { static: false }) _lineCenterRef: ElementRef;
+	@ViewChild('lineBottom', { static: false }) _lineBottomRef: ElementRef;
 
 	constructor() {
 	}
@@ -25,7 +25,7 @@ export class ActionButtonComponent {
 		this.tap.next(args);
 	}
 
-	updateTop(element: View,animate:boolean) {
+	updateTop(element: View, animate: boolean) {
 		if (animate) {
 			if (this.isArrow) {
 				element.animate({
@@ -45,7 +45,7 @@ export class ActionButtonComponent {
 		}
 	}
 
-	updateCenter(element: View,animate:boolean) {
+	updateCenter(element: View, animate: boolean) {
 		if (animate) {
 			if (this.isArrow) {
 				element.animate({
@@ -65,7 +65,7 @@ export class ActionButtonComponent {
 		}
 	}
 
-	updateBottom(element: View, animate:boolean) {
+	updateBottom(element: View, animate: boolean) {
 		if (animate) {
 			if (this.isArrow) {
 				element.animate({

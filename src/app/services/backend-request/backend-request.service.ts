@@ -5,7 +5,7 @@ import { scheduleUser } from '~/app/model/scheduleuser/scheduleuser.model';
 import * as appSettings from "tns-core-modules/application-settings";
 import * as app from "tns-core-modules/application";
 import { User } from '~/app/model/user/user.model';
-import { NoopNgZone } from '@angular/core/src/zone/ng_zone';
+//import { NoopNgZone } from '@angular/core/src/zone/ng_zone';
 
 /**
  * Sends request to backend as loged in user
@@ -14,7 +14,7 @@ import { NoopNgZone } from '@angular/core/src/zone/ng_zone';
   providedIn: 'root'
 })
 export class BackendRequestService {
-  constructor() {}
+  constructor() { }
 
   /**
    * Get the user model from enviroment
@@ -34,15 +34,15 @@ export class BackendRequestService {
    * return reject if no user is loged in
    */
   request(serverUrl: string): Promise<Object> {
-      let user = this.getUser();
-      if (user == null) return new Promise((reject) => reject(JSON.stringify("user hasn`t login")));
-      let headers = { "Content-Type": "application/json" };
-      return request({
-          url: serverUrl,
-          method: "POST",
-          headers: headers,
-          content: JSON.stringify(user)
-      });
+    let user = this.getUser();
+    if (user == null) return new Promise((reject) => reject(JSON.stringify("user hasn`t login")));
+    let headers = { "Content-Type": "application/json" };
+    return request({
+      url: serverUrl,
+      method: "POST",
+      headers: headers,
+      content: JSON.stringify(user)
+    });
   }
 
 }

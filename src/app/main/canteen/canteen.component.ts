@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, AfterViewInit} from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { ActionButtonComponent } from "../../action-button/action-button.component";
 import { RouterExtensions } from "nativescript-angular/router";
 import { CanteenService } from "~/app/services/canteen/canteen.service"
@@ -11,7 +11,7 @@ import * as app from "tns-core-modules/application";
 
 export class CanteenComponent implements OnInit, AfterViewInit {
 
-  @ViewChild("actionButton")
+  @ViewChild("actionButton", { static: false })
   _buttonRef: ActionButtonComponent;
 
   protected container = 'a';
@@ -31,14 +31,14 @@ export class CanteenComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     const id = +this.activatedRoute.snapshot.params['id'];
     //this.item = this.itemService.getItem(id);
-      this.canteenService.getMenu().then((resolved: Canteen) => {
-        this.menu = resolved.menu[id];
-        this.date = new Date(this.menu.date).toLocaleDateString();
-        this.currentSlideNum = id;
-        this.slideCount = resolved.menu.length
-      }, (rejected: any) => {
-        alert(rejected.toString())
-      })
+    this.canteenService.getMenu().then((resolved: Canteen) => {
+      this.menu = resolved.menu[id];
+      this.date = new Date(this.menu.date).toLocaleDateString();
+      this.currentSlideNum = id;
+      this.slideCount = resolved.menu.length
+    }, (rejected: any) => {
+      alert(rejected.toString())
+    })
   }
 
   get detailsPath(): string {
@@ -46,29 +46,29 @@ export class CanteenComponent implements OnInit, AfterViewInit {
   }
 
   getStyle(index: number) {
-    if(index == this.currentSlideNum) {
+    if (index == this.currentSlideNum) {
       return "black";
     }
     return "#bbb";
   }
 
   ngAfterViewInit() {
-    
+
   }
 
   navigateBack() {
-		this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' },clearHistory: true})
+    this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
   }
 
   onSwipe(args: SwipeGestureEventData) {
-    if(args.direction === 2) {
-      if(this.currentSlideNum == this.slideCount - 1) {
+    if (args.direction === 2) {
+      if (this.currentSlideNum == this.slideCount - 1) {
         this.navigateRight(0)
       } else {
         this.navigateRight(this.currentSlideNum + 1);
       }
-    } else if(args.direction === 1) {
-      if(this.currentSlideNum === 0) {
+    } else if (args.direction === 1) {
+      if (this.currentSlideNum === 0) {
         this.navigateLeft(this.slideCount - 1)
       } else {
         this.navigateLeft(this.currentSlideNum - 1)
@@ -78,19 +78,19 @@ export class CanteenComponent implements OnInit, AfterViewInit {
 
   navigateRight(id: number) {
     this.routerExtensions.navigate([this.detailsPath, id], {
-        transition: {
-            name: 'slideLeft',
-            duration: 300
-        }, clearHistory: true
+      transition: {
+        name: 'slideLeft',
+        duration: 300
+      }, clearHistory: true
     });
   }
   navigateLeft(id: number) {
     this.routerExtensions.navigate([this.detailsPath, id], {
-        transition: {
-            name: 'slideRight',
-            duration: 300
-        },
-        clearHistory: true
+      transition: {
+        name: 'slideRight',
+        duration: 300
+      },
+      clearHistory: true
     });
   }
 }
@@ -107,9 +107,9 @@ export class ItemDetailComponentA extends CanteenComponent {
     routerExtensions: RouterExtensions,
     canteenService: CanteenService,
     activatedRoute: ActivatedRoute
-    ) {
-      super(routerExtensions, canteenService, activatedRoute);
-      this.container = 'a';
+  ) {
+    super(routerExtensions, canteenService, activatedRoute);
+    this.container = 'a';
   }
 }
 
@@ -124,8 +124,8 @@ export class ItemDetailComponentB extends CanteenComponent {
     routerExtensions: RouterExtensions,
     canteenService: CanteenService,
     activatedRoute: ActivatedRoute
-    ) {
-      super(routerExtensions, canteenService, activatedRoute);
-      this.container = 'b';
+  ) {
+    super(routerExtensions, canteenService, activatedRoute);
+    this.container = 'b';
   }
 }

@@ -1,5 +1,5 @@
 import { Schedule } from './../../model/schedule/Schedule';
-import { LecturesPerDay} from './../../model/schedule/lectures/LecturesPerDay'
+import { LecturesPerDay } from './../../model/schedule/lectures/LecturesPerDay'
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { HtwgscheduleService } from "~/app/services/schedule/htwgschedule.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
@@ -22,10 +22,10 @@ import { Page } from "tns-core-modules/ui/page";
 })
 export class ScheduleComponent implements OnInit {
 
-    @ViewChild("actionButton")
+    @ViewChild("actionButton", { static: false })
     _buttonRef: ActionButtonComponent;
 
-    @ViewChild('scheduleView') 
+    @ViewChild('scheduleView', { static: false })
     scheduleView: ElementRef;
 
     currentSchedule: Schedule = new Schedule(<Array<LecturesPerDay>>[]);
@@ -49,13 +49,13 @@ export class ScheduleComponent implements OnInit {
     }
 
     navigateBack() {
-        this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' },clearHistory: true});
+        this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true });
     }
 
     getSchedule() {
         this.scheduleService.getTimeTable().then(
             (resolved: any) => {
-                this.currentSchedule = (resolved)? resolved: null;
+                this.currentSchedule = (resolved) ? resolved : null;
                 this.lectures = this.currentSchedule.lectures;
                 this.processing = false;
                 //console.log(JSON.stringify(resolved));
@@ -63,12 +63,12 @@ export class ScheduleComponent implements OnInit {
             (rejected: any) => {
                 alert(JSON.stringify(rejected));
             }
-        );        
+        );
     }
     clicked(index: number) {
-        if (this.clickedList.some(i => i == index)){
+        if (this.clickedList.some(i => i == index)) {
             let tmp = this.clickedList.indexOf(index);
-            this.clickedList.splice(tmp,1);
+            this.clickedList.splice(tmp, 1);
         } else {
             this.clickedList.push(index);
         }
@@ -77,6 +77,6 @@ export class ScheduleComponent implements OnInit {
         if (this.clickedList.length < 1) {
             return false;
         }
-        return this.clickedList.some(i => i == item)? true : false;
+        return this.clickedList.some(i => i == item) ? true : false;
     }
 }

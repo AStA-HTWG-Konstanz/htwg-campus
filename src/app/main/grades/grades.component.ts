@@ -6,7 +6,7 @@ import { ActionButtonComponent } from "../../action-button/action-button.compone
 import * as appSettings from "tns-core-modules/application-settings";
 import { User } from '~/app/model/user/user.model';
 import { scheduleUser } from '~/app/model/scheduleuser/scheduleuser.model';
-import { BehaviorSubject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -16,14 +16,14 @@ import { BehaviorSubject} from 'rxjs';
   moduleId: module.id,
 })
 export class GradesComponent implements OnInit {
-  @ViewChild("actionButton")
+  @ViewChild("actionButton", { static: false })
   _buttonRef: ActionButtonComponent;
-  @ViewChild('pager') 
-  pager: ElementRef;
+  // @ViewChild('pager', { static: true })
+  // pager: ElementRef;
   currentPagerIndex = 0;
   maxPageIndex = 0;
   currentGrades: SemesterGrades[] = [];
-  constructor(private routerExtensions: RouterExtensions,private gradeService: GradesService) {
+  constructor(private routerExtensions: RouterExtensions, private gradeService: GradesService) {
     this.getGrades();
   }
 
@@ -31,33 +31,33 @@ export class GradesComponent implements OnInit {
   }
 
   navigateBack() {
-		this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' },clearHistory: true})
+    this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
   }
 
   getGrades() {
     if (appSettings.getBoolean("isLoggedIn") && appSettings.hasKey("account")) {
-            this.gradeService.getGrades().then(
-                (resolved: any) => {
-                    this.currentGrades = (resolved) ? resolved: null;
-                    this.maxPageIndex = this.currentGrades.length;
-                    //console.log(JSON.stringify(resolved));
-                },
-                (rejected: any) => {
-                    alert(JSON.stringify(rejected));
-                }
-            );
+      this.gradeService.getGrades().then(
+        (resolved: any) => {
+          this.currentGrades = (resolved) ? resolved : null;
+          this.maxPageIndex = this.currentGrades.length;
+          //console.log(JSON.stringify(resolved));
+        },
+        (rejected: any) => {
+          alert(JSON.stringify(rejected));
+        }
+      );
     } else {
-        alert(JSON.stringify("user isnt login"));
+      alert(JSON.stringify("user isnt login"));
     }
   }
   onIndexChanged($event) {
     this.currentPagerIndex = $event.value;
   }
   onLeft() {
-    this.currentPagerIndex = Math.max(0,this.currentPagerIndex - 1);
+    this.currentPagerIndex = Math.max(0, this.currentPagerIndex - 1);
   }
   onRight() {
-    this.currentPagerIndex = Math.min(this.currentPagerIndex + 1,this.maxPageIndex - 1);
+    this.currentPagerIndex = Math.min(this.currentPagerIndex + 1, this.maxPageIndex - 1);
   }
   getHeight(index: number) {
     if (index == 0) {
