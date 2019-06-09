@@ -5,29 +5,22 @@
         <Label col="1" text="Grades" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
-<GridLayout colums="100%" rows="*,40" class="page page-content" tkMainContent>
-    <Pager row="0" [items]="currentGrades" #pager [selectedIndex]="currentPagerIndex" (selectedIndexChange)="onIndexChanged($event)"
-        class="pager" cache="false">
-        <ng-template let-i="index" let-item="item" width="100%">
-            <GridLayout rows="30,auto,70" width="100%">
-                <Label row="0" textAlignment="center" verticalAlignment="center" text="Semester: {{item.semesterIdentifier}}"
-                    class="h2 pt-2 pb-1" style="font-size: 20;"></Label>
-                <AbsoluteLayout row="1">
-                    <Label class="grades-table-header" left="10" top="0" height="20" width="290" text="Course"></Label>
-                    <Label class="grades-table-header" left="300" top="0" height="20" width="60" text="Mark"></Label>
-                    <Label class="grades-table-header" left="360" top="0" height="20" width="50" text="ECTS"></Label>
-                </AbsoluteLayout>
-                <AbsoluteLayout row="2" *ngFor="let performance of item.semesterPerformance; index as i">
-                    <Label left="10" top="{{getHeight(i)}}" height="20" width="290" text="{{performance.name}}"></Label>
-                    <Label left="300" top="{{getHeight(i)}}" height="20" width="60" text="{{performance.grade}}" style="text-align: center;"></Label>
-                    <Label left="360" top="{{getHeight(i)}}" height="20" width="50" text="{{performance.ects}}" style="text-align: center;"></Label>
-                </AbsoluteLayout>
-            </GridLayout>
-        </ng-template>
-    </Pager>
-    <DockLayout row="1" orientation="horizontal" stretchLastChild="true" class="bg-primary">
-        <Button class="page-button-grey" dock="left" text="Prev" (tap)="onLeft()"></Button>
-        <Button class="page-button-grey" dock="right" text="Next" (tap)="onRight()"></Button>
-    </DockLayout>
-
-</GridLayout>
+<StackLayout class="page page-content" tkMainContent>
+    <TabView>
+        <ng-container *ngFor="let item of currentGrades">
+            <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px;" *tabItem="{title: changeIdentifier(item.semesterIdentifier)}">
+                <Label width="100%" height="10" textAlignment="center" verticalAlignment="center" text=""  class="h2 pt-2 pb-1"></Label>
+                <GridLayout columns="*5,*,*" rows="30" width="100%" stlye="padding-top: 20;">
+                    <Label class="grades-table-header" col="0" width="100%" text="Course"></Label>
+                    <Label class="grades-table-header" col="1" width="100%" text="Mark"></Label>
+                    <Label class="grades-table-header" col="2" width="100%" text="ECTS"></Label>
+                </GridLayout>
+                <GridLayout columns="*5,*,*" rows="30" *ngFor="let performance of item.semesterPerformance; index as i" width="100%">
+                    <Label col="0" height="20" width="100%" text="{{performance.name}}" stlye="margin-left: 10px;"></Label>
+                    <Label col="1" height="20" width="100%" text="{{performance.grade}}" style="text-align: center;"></Label>
+                    <Label col="2" height="20" width="100%" text="{{performance.ects}}" style="text-align: center;"></Label>
+                </GridLayout>
+            </StackLayout>
+        </ng-container>
+    </TabView>
+</StackLayout>

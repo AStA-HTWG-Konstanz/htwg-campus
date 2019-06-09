@@ -1,16 +1,14 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from "@angular/core";
 import { View } from "tns-core-modules/ui/core/view";
 import { GestureEventData } from "tns-core-modules/ui/gestures";
-
 @Component({
-	selector: "ActionButton",
-	moduleId: module.id,
-	templateUrl: "./action-button.component.html",
-	styleUrls: ['./action-button.component.css']
+  selector: 'ActionButton',
+  templateUrl: './action-button.component.html',
+  styleUrls: ['./action-button.component.css'],
+  moduleId: module.id,
 })
 export class ActionButtonComponent {
-
-	@Input('isArrow') isArrow: boolean;
+  @Input('isArrow') isArrow: boolean;
 
 	@Output("tap") tap: EventEmitter<GestureEventData> = new EventEmitter<GestureEventData>();
 

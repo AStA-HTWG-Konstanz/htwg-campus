@@ -1,14 +1,11 @@
-import { GradesService } from './../../services/grades/grades.service';
-import { SemesterGrades } from './../../model/grades/semester-grades';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { RouterExtensions } from "nativescript-angular/router";
-import { ActionButtonComponent } from "../../action-button/action-button.component";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TabView, SelectedIndexChangedEventData } from "tns-core-modules/ui/tab-view";
+
 import * as appSettings from "tns-core-modules/application-settings";
-import { User } from '~/app/model/user/user.model';
-import { scheduleUser } from '~/app/model/scheduleuser/scheduleuser.model';
-import { BehaviorSubject } from 'rxjs';
-
-
+import { SemesterGrades } from '~/app/model/grades/semester-grades';
+import { RouterExtensions } from 'nativescript-angular/router';
+import { GradesService } from '~/app/service/grades/grades.service';
+import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 @Component({
   selector: 'ns-grades',
   templateUrl: './grades.component.html',
@@ -16,13 +13,12 @@ import { BehaviorSubject } from 'rxjs';
   moduleId: module.id,
 })
 export class GradesComponent implements OnInit {
+
   @ViewChild("actionButton", { static: false })
-  _buttonRef: ActionButtonComponent;
-  // @ViewChild('pager', { static: true })
-  // pager: ElementRef;
-  currentPagerIndex = 0;
-  maxPageIndex = 0;
-  currentGrades: SemesterGrades[] = [];
+    _buttonRef: ActionButtonComponent;
+    
+  currentGrades: Array<SemesterGrades>;
+
   constructor(private routerExtensions: RouterExtensions, private gradeService: GradesService) {
     this.getGrades();
   }
@@ -38,8 +34,8 @@ export class GradesComponent implements OnInit {
     if (appSettings.getBoolean("isLoggedIn") && appSettings.hasKey("account")) {
       this.gradeService.getGrades().then(
         (resolved: any) => {
+          this.currentGrades = [];
           this.currentGrades = (resolved) ? resolved : null;
-          this.maxPageIndex = this.currentGrades.length;
           //console.log(JSON.stringify(resolved));
         },
         (rejected: any) => {
@@ -50,19 +46,11 @@ export class GradesComponent implements OnInit {
       alert(JSON.stringify("user isnt login"));
     }
   }
-  onIndexChanged($event) {
-    this.currentPagerIndex = $event.value;
-  }
-  onLeft() {
-    this.currentPagerIndex = Math.max(0, this.currentPagerIndex - 1);
-  }
-  onRight() {
-    this.currentPagerIndex = Math.min(this.currentPagerIndex + 1, this.maxPageIndex - 1);
-  }
-  getHeight(index: number) {
-    if (index == 0) {
-      return 1;
+  changeIdentifier (name: string) {
+    if (name.startsWith("Wintersemester")) {
+      return name.replace("Wintersemester" ,"WS")
+    } else {
+      return name.replace("Sommersemester" ,"SS")
     }
-    return (index * 20) + 1;
   }
 }
