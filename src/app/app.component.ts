@@ -1,25 +1,20 @@
-import { ThemeService } from './services/theme/theme.service';
-import { Component, ViewChild, ElementRef} from "@angular/core";
+import { Component } from "@angular/core";
+import { DrawerTransitionBase, SlideInOnTopTransition, RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { RouterExtensions } from "nativescript-angular/router";
-import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer"
 import * as app from "tns-core-modules/application";
 import * as dialogsModule from "tns-core-modules/ui/dialogs";
 import * as appSettings from "tns-core-modules/application-settings";
 
-// Register custom elements from nativescript-slides plugin
-
-
 @Component({
-    selector: "ns-app",
     moduleId: module.id,
-    templateUrl: "./app.component.html"
+    selector: "ns-app",
+    templateUrl: "app.component.html"
 })
-export class AppComponent{
+export class AppComponent { 
     private _sideDrawerTransition: DrawerTransitionBase;
     userNameInSideBar: String = "user"
     
-    constructor(private routerExtensions: RouterExtensions,
-        private themeService: ThemeService) {
+    constructor(private routerExtensions: RouterExtensions) {
         // Use the component constructor to inject services.
     }
 
@@ -43,16 +38,7 @@ export class AppComponent{
         appSettings.remove("isLoggedIn");
         appSettings.remove("account");
         appSettings.remove("username");
+        //appSettings.clear();
         this.closeDrawer()
     }
- }
- 
-export function alert(message: string) {
-    return dialogsModule.alert({
-        title: "Groceries",
-        okButtonText: "OK",
-        message: message
-    });
 }
-
-

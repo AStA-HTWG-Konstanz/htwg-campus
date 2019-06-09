@@ -8,33 +8,33 @@
         <ScrollView row="1">
             <StackLayout class="sidedrawer-content">
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/main']" clearHistory="true" (tap)="closeDrawer()">
-                    <Label col="0" text="&#xf015;" class="fa ico"></Label>
+                    <Label col="0" text="&#xf015;" class="fa"></Label>
                     <Label col="1" text="Home" class="p-r-10"></Label>
                 </GridLayout>
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item">
-                    <Label col="0" text="&#xf1ea;" class="fa ico"></Label>
+                    <Label col="0" text="&#xf1ea;" class="fa"></Label>
                     <Label col="1" text="Language" class="p-r-10"></Label>
                 </GridLayout>
 
                 <!-- <StackLayout class="hr"></StackLayout> -->
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item">
-                    <Label col="0" text="&#xf002;" class="fa ico"></Label>
+                    <Label col="0" text="&#xf002;" class="fa"></Label>
                     <Label col="1" text="About" class="p-r-10"></Label>
                 </GridLayout>
 
                 <!-- <StackLayout class="hr"></StackLayout> -->
 
-                <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/settings']" clearHistory="true" (tap)="closeDrawer()">
-                    <Label col="0" text="&#xf013;" class="fa ico"></Label>
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/settings']" (tap)="closeDrawer()">
+                    <Label col="0" text="&#xf013;" class="fa"></Label>
                     <Label col="1" text="Settings" class="p-r-10"></Label>
                 </GridLayout>
 
                 <!-- <StackLayout class="hr"></StackLayout> -->
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/login']" (tap)="logout()">
-                    <Label col="0" text="&#xf005;" class="fa ico"></Label>
+                    <Label col="0" text="&#xf005;" class="fa"></Label>
                     <Label col="1" text="Logout" class="p-r-10"></Label>
                 </GridLayout>
             </StackLayout>

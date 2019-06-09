@@ -1,131 +1,44 @@
-import { Component, ViewChild, OnInit, AfterViewInit} from '@angular/core';
-import { ActionButtonComponent } from "../../action-button/action-button.component";
-import { RouterExtensions } from "nativescript-angular/router";
-import { CanteenService } from "~/app/services/canteen/canteen.service"
-import { Canteen } from '~/app/model/canteen/canteen';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Menu } from '~/app/model/canteen/menu/menu';
-import { SwipeGestureEventData } from "tns-core-modules/ui/gestures/gestures";
+import { RouterExtensions } from 'nativescript-angular/router';
+import { CanteenService } from '~/app/service/canteen/canteen.service';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '~/app/environment/environment';
-import * as app from "tns-core-modules/application";
+import { Canteen } from '~/app/model/canteen/canteen';
+import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
+import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 
-export class CanteenComponent implements OnInit, AfterViewInit {
-
-  @ViewChild("actionButton")
-  _buttonRef: ActionButtonComponent;
-
-  protected container = 'a';
-
-  private currentSlideNum: number = 0;
-  private slideCount = 3;
-  menu: Menu;
-  date: string;
+@Component({
+  selector: 'ns-canteen',
+  templateUrl: './canteen.component.html',
+  styleUrls: ['./canteen.component.css'],
+  moduleId: module.id,
+})
+export class CanteenComponent implements OnInit {
+  @ViewChild("actionButton", { static: false })
+    _buttonRef: ActionButtonComponent;
+  private canteen: Array<Menu>;
 
   constructor(
     private routerExtensions: RouterExtensions,
-    private canteenService: CanteenService,
-    private activatedRoute: ActivatedRoute
+    private canteenService: CanteenService
   ) {
+    this.canteenService.getMenu().then((resolved: Canteen) => {
+      this.canteen = resolved.menu
+    }, (rejected: any) => {
+      alert(rejected.toString())
+    })
   }
 
-  ngOnInit() {
-    const id = +this.activatedRoute.snapshot.params['id'];
-    //this.item = this.itemService.getItem(id);
-      this.canteenService.getMenu().then((resolved: Canteen) => {
-        this.menu = resolved.menu[id];
-        this.date = new Date(this.menu.date).toLocaleDateString();
-        this.currentSlideNum = id;
-        this.slideCount = resolved.menu.length
-      }, (rejected: any) => {
-        alert(rejected.toString())
-      })
+  reformTabTitel(date: string) {
+    let dateList = date.split('-')
+    let day = dateList[2].length == 1 ? "0" + dateList[2] : dateList[2];
+    let month = dateList[1].length == 1 ? "0" + dateList[1] : dateList[1];
+    return day + "." + month
   }
 
-  get detailsPath(): string {
-    return (this.container === 'a') ? '/item-b' : '/item-a'
-  }
-
-  getStyle(index: number) {
-    if(index == this.currentSlideNum) {
-      return "black";
-    }
-    return "#bbb";
-  }
-
-  ngAfterViewInit() {
-    
-  }
+  ngOnInit() {  }
 
   navigateBack() {
-		this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' },clearHistory: true})
-  }
-
-  onSwipe(args: SwipeGestureEventData) {
-    if(args.direction === 2) {
-      if(this.currentSlideNum == this.slideCount - 1) {
-        this.navigateRight(0)
-      } else {
-        this.navigateRight(this.currentSlideNum + 1);
-      }
-    } else if(args.direction === 1) {
-      if(this.currentSlideNum === 0) {
-        this.navigateLeft(this.slideCount - 1)
-      } else {
-        this.navigateLeft(this.currentSlideNum - 1)
-      }
-    }
-  }
-
-  navigateRight(id: number) {
-    this.routerExtensions.navigate([this.detailsPath, id], {
-        transition: {
-            name: 'slideLeft',
-            duration: 300
-        }, clearHistory: true
-    });
-  }
-  navigateLeft(id: number) {
-    this.routerExtensions.navigate([this.detailsPath, id], {
-        transition: {
-            name: 'slideRight',
-            duration: 300
-        },
-        clearHistory: true
-    });
-  }
-}
-
-
-@Component({
-  selector: 'ns-details-a',
-  moduleId: module.id,
-  templateUrl: './canteen.component.html',
-})
-export class ItemDetailComponentA extends CanteenComponent {
-
-  constructor(
-    routerExtensions: RouterExtensions,
-    canteenService: CanteenService,
-    activatedRoute: ActivatedRoute
-    ) {
-      super(routerExtensions, canteenService, activatedRoute);
-      this.container = 'a';
-  }
-}
-
-@Component({
-  selector: 'ns-details-b',
-  moduleId: module.id,
-  templateUrl: './canteen.component.html',
-})
-export class ItemDetailComponentB extends CanteenComponent {
-
-  constructor(
-    routerExtensions: RouterExtensions,
-    canteenService: CanteenService,
-    activatedRoute: ActivatedRoute
-    ) {
-      super(routerExtensions, canteenService, activatedRoute);
-      this.container = 'b';
+    this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
   }
 }

@@ -1,35 +1,22 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
-import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular"
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { AppRoutingModule } from "./app-routing.module";
-
 import { AppComponent } from "./app.component";
-import { MainComponent } from "./main/main.component";
+import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
+import { AuthGuard } from "./service/auth/authGuard.service";
+import { CanteenService } from "./service/canteen/canteen.service";
+import { HtwgscheduleService } from "./service/schedule/htwgschedule.service";
+import { LoginService } from "./service/login/login.service";
+import { GradesService } from "./service/grades/grades.service";
 import { ScheduleComponent } from './main/schedule/schedule.component';
+//import { CanteenComponent } from './main/canteen/canteen.component';
 
-import { HtwgscheduleService } from "~/app/services/schedule/htwgschedule.service";
-import { CanteenService } from "~/app/services/canteen/canteen.service";
-
-// Uncomment and add to NgModule imports if you need to use two-way binding
-// import { NativeScriptFormsModule } from "nativescript-angular/forms";
-
-// Uncomment and add to NgModule imports if you need to use the HttpClient wrapper
+import { CanteenComponent } from './main/canteen/canteen.component';
 import { GradesComponent } from './main/grades/grades.component';
-import { DefaultComponent } from './main/default/default.component';
-import { SettingsComponent } from './settings/settings.component';
-import { SigninComponent } from './signin/signin.component';
-import { AuthGuard } from "~/app/services/auth/authGuard.service";
-import { LoginService } from "~/app/services/login/login.service";
-import { GradesService } from './services/grades/grades.service'
-import { ItemDetailComponentA, ItemDetailComponentB } from './main/canteen/canteen.component';
 import { ActionButtonComponent } from './action-button/action-button.component';
-import { AstaComponent } from './main/asta/asta.component';
-import { DepartmentInformatikComponent } from './main/department-informatik/department-informatik.component';
-import { PrintBalanceComponent } from './main/print-balance/print-balance.component';
-import { PagerModule } from "nativescript-pager/angular";
-
-
 
 @NgModule({
     bootstrap: [
@@ -38,24 +25,17 @@ import { PagerModule } from "nativescript-pager/angular";
     imports: [
         NativeScriptModule,
         AppRoutingModule,
-        NativeScriptUIListViewModule,
         NativeScriptUISideDrawerModule,
-        PagerModule
+        NativeScriptUIListViewModule,
     ],
     declarations: [
         AppComponent,
+        LoginComponent,
         MainComponent,
         ScheduleComponent,
+        CanteenComponent,
         GradesComponent,
-        DefaultComponent,
-        SettingsComponent,
-        SigninComponent,
-        ActionButtonComponent,
-        ItemDetailComponentA,
-        ItemDetailComponentB,
-        AstaComponent,
-        DepartmentInformatikComponent,
-        PrintBalanceComponent,
+        ActionButtonComponent
     ],
     providers: [
         AuthGuard,
@@ -68,7 +48,4 @@ import { PagerModule } from "nativescript-pager/angular";
         NO_ERRORS_SCHEMA
     ]
 })
-/*
-Pass your application module to the bootstrapModule function located in main.ts to start your app
-*/
 export class AppModule { }
