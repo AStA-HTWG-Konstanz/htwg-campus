@@ -1,0 +1,23 @@
+<ActionBar class="action-bar">
+    <NavigationButton visibility="collapsed"></NavigationButton>
+    <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
+        <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
+        <Label col="1" text="Canteen" class="action-bar-label"></Label>
+    </GridLayout>
+</ActionBar>
+<StackLayout class="page page-content" tkMainContent>
+        <TabView>
+            <ng-container *ngFor="let menu of canteen">
+                <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px;" *tabItem="{title: reformTabTitel(menu.date)}">
+                    <Label height="10"></Label>
+                    <StackLayout *ngFor="let meal of menu.meals">
+                        <Label text="{{meal.ctgry}}" class="meal-category"></Label>
+                        <Label text="{{meal.title}}" textWrap="true" style="font-size: 16pt"></Label>
+                        <Label text=""></Label>
+                        <Label text="Students: {{meal.priceStud}} €" style="text-align: right"></Label>
+                        <Label text="Employee: {{meal.priceEmpl}} €" style="text-align: right"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </ng-container>
+        </TabView>
+</StackLayout>
