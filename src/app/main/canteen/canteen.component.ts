@@ -15,8 +15,8 @@ import { ActionButtonComponent } from '~/app/action-button/action-button.compone
 })
 export class CanteenComponent implements OnInit {
   @ViewChild("actionButton", { static: false })
-    _buttonRef: ActionButtonComponent;
-  private canteen: Array<Menu>;
+  _buttonRef: ActionButtonComponent;
+  canteen: Array<Menu>;
 
   constructor(
     private routerExtensions: RouterExtensions,
@@ -36,9 +36,17 @@ export class CanteenComponent implements OnInit {
     return day + "." + month
   }
 
-  ngOnInit() {  }
+  ngOnInit() {
+    //this.trimItemsByDate();
+  }
 
   navigateBack() {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
   }
+
+  // trimItemsByDate() {
+  //   let curDate = new Date();
+  //   let currentDate: string = JSON.stringify(curDate); //+ "-" + JSON.stringify(curDate.getUTCMonth) + "-" + JSON.stringify(curDate.getUTCFullYear);
+  //   console.log(JSON.stringify(currentDate))
+  // }
 }
