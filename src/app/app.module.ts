@@ -19,6 +19,7 @@ import { StrandbarComponent } from "./main/strandbar/strandbar.component";
 import { EndlichtComponent } from "./main/endlicht/endlicht.component";
 import { SemestereventsComponent } from "./main/semesterevents/semesterevents.component";
 import { PrintBalanceComponent } from "./main/print-balance/print-balance.component";
+import { CacheService } from './service/cache/cache.service';
 
 @NgModule({
     bootstrap: [
@@ -45,6 +46,7 @@ import { PrintBalanceComponent } from "./main/print-balance/print-balance.compon
     ],
     providers: [
         AuthGuard,
+        CacheService,
         CanteenService,
         HtwgscheduleService,
         LoginService,

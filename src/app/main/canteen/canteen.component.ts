@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Canteen } from '~/app/model/canteen/canteen';
 import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
+import { CacheService } from '~/app/service/cache/cache.service';
 
 @Component({
   selector: 'ns-canteen',
@@ -20,14 +21,9 @@ export class CanteenComponent implements OnInit {
 
   constructor(
     private routerExtensions: RouterExtensions,
-    private canteenService: CanteenService
-  ) {
-    this.canteenService.getMenu().then((resolved: Canteen) => {
-      this.canteen = resolved.menu
-    }, (rejected: any) => {
-      alert(rejected.toString())
-    })
-  }
+    private canteenService: CanteenService,
+    private cacheService: CacheService
+  ) { }
 
   reformTabTitel(date: string) {
     let dateList = date.split('-')
@@ -37,7 +33,8 @@ export class CanteenComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.trimItemsByDate();
+    if(this.cacheService.isCanteenInCache())
+      this.canteen = this.cacheService.getCanteenFromCache().menu
   }
 
   navigateBack() {
