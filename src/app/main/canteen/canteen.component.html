@@ -6,18 +6,18 @@
     </GridLayout>
 </ActionBar>
 <StackLayout class="page page-content" tkMainContent>
-        <TabView>
-            <ng-container *ngFor="let menu of canteen">
-                <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px;" *tabItem="{title: reformTabTitel(menu.date)}">
-                    <Label height="10"></Label>
-                    <StackLayout *ngFor="let meal of menu.meals">
-                        <Label text="{{meal.ctgry}}" class="meal-category"></Label>
-                        <Label text="{{meal.title}}" textWrap="true" style="font-size: 16pt"></Label>
-                        <Label text=""></Label>
-                        <Label text="Students: {{meal.priceStud}} €" style="text-align: right"></Label>
-                        <Label text="Employee: {{meal.priceEmpl}} €" style="text-align: right"></Label>
-                    </StackLayout>
+    <TabView androidOffscreenTabLimit="0">
+        <ng-container *ngFor="let menu of canteen">
+            <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px;" *tabItem="{title: reformTabTitel(menu.date)}">
+                <Label height="10"></Label>
+                <StackLayout *ngFor="let meal of menu.meals">
+                    <Label text="{{meal.ctgry}}" class="meal-category"></Label>
+                    <Label text="{{meal.title}}" textWrap="true" style="font-size: 16pt"></Label>
+                    <Label text=""></Label>
+                    <Label text="Students: {{meal.priceStud}} €" style="text-align: right"></Label>
+                    <Label text="Employee: {{meal.priceEmpl}} €" style="text-align: right"></Label>
                 </StackLayout>
-            </ng-container>
-        </TabView>
+            </StackLayout>
+        </ng-container>
+    </TabView>
 </StackLayout>

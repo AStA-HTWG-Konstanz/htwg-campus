@@ -3,37 +3,43 @@ import { Injectable } from "@angular/core";
 import { request, getFile, getImage, getJSON, getString, HttpResponse } from "tns-core-modules/http";
 import { Observable, from } from 'rxjs';
 import { Canteen } from "~/app/model/canteen/canteen";
+import { LoginService } from "../login/login.service";
+import { BackendRequestService } from "../backend-request/backend-request.service";
 
 
 @Injectable()
 export class CanteenService {
     private serverUrl = "https://app.asta.htwg-konstanz.de/api/canteen/en/menu"
-    private header = {"Content-Type": "application/json"}
-    
-    canteen: Canteen;
 
-    constructor() { }
+    canteen: Canteen;
+    currentDate: Date;
+
+    constructor(private loginSession: LoginService, private backendRequest: BackendRequestService) { }
 
     private getCanteen(): Promise<Object> {
-        return getJSON({url: this.serverUrl, method: "GET",headers: this.header});
+        return this.backendRequest.safe_get_request(this.serverUrl, 1);
     }
 
     getMenu(): Promise<Canteen> {
         return new Promise((resolve, reject) => {
-            if(this.canteen && new Date(this.canteen.menu[0].date) > new Date()) {
+            if (this.canteen && this.currentDate > new Date()) {
+                console.log("already responsed")
                 resolve(this.canteen);
             } else {
+                //this.loginSession.login(this.loginSession.getUser());
                 this.getCanteen().then(
-                    (response: Canteen) => {
+                    (response: HttpResponse) => {
+                        let content = response.content.toJSON() as any as Canteen;
                         var today = new Date();
-                        for(var i = 0; i < response.menu.length; ++i) {
-                            var date = new Date(response.menu[i].date)
-                            if(today < date) {
-                                response.menu = response.menu.slice(i)
+                        for (var i = 0; i < content.menu.length; ++i) {
+                            var date = new Date(content.menu[i].date)
+                            if (today < date) {
+                                content.menu = content.menu.slice(i)
                                 break;
                             }
                         }
-                        this.canteen = response;
+                        this.canteen = content;
+                        this.currentDate = new Date(this.canteen.menu[0].date)
                         return resolve(this.canteen);
                     },
                     (err) => reject(err)

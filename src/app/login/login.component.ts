@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.page.actionBarHidden = true;
-    this.user = new User("","");
+    this.user = new User("", "");
   }
 
   onDrawerButtonTap(): void {
@@ -36,20 +36,21 @@ export class LoginComponent implements OnInit {
     sideDrawer.showDrawer();
   }
 
-  login() { 
+  login() {
     this.processing = true;
     this.error = false;
-    this.loginservice.login(this.user).subscribe(
-      response => {
+    this.loginservice.login(this.user).then(
+      (resolved: any) => {
         appSettings.setBoolean("isLoggedIn", true);
-        appSettings.setString("account",JSON.stringify(this.user))
-        appSettings.setString("username",this.user.username)
+        appSettings.setString("account", JSON.stringify(this.user))
+        appSettings.setString("username", this.user.username)
         this.processing = false;
-        this.routerExtensions.navigateByUrl("main", {clearHistory: true});
+        this.routerExtensions.navigateByUrl("main", { clearHistory: true });
       },
-      error => {
+      (rejected: any) => {
         this.error = true;
         this.processing = false;
+        console.log(JSON.stringify(rejected))
       }
     )
   }

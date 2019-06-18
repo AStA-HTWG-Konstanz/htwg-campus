@@ -1,14 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Schedule } from '~/app/model/schedule/Schedule';
 import { LecturesPerDay } from '~/app/model/schedule/lectures/LecturesPerDay';
 import { HtwgscheduleService } from '~/app/service/schedule/htwgschedule.service';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { ActivatedRoute } from '@angular/router';
 import { ListViewEventData } from 'nativescript-ui-listview';
-import { isIOS, isAndroid, booleanConverter } from 'tns-core-modules/ui/page/page';
+import { isIOS, isAndroid } from 'tns-core-modules/ui/page/page';
 declare var UIView, NSMutableArray, NSIndexPath;
-
-import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 
 @Component({
@@ -61,9 +58,9 @@ export class ScheduleComponent implements OnInit {
         dataItem.selected = !dataItem.selected;
         if (isIOS) {
             UIView.animateWithDurationAnimations(0.10, () => {
-            var indexPaths = NSMutableArray.new();
-            indexPaths.addObject(NSIndexPath.indexPathForRowInSection(rowIndex, event.groupIndex));
-            listView.ios.reloadItemsAtIndexPaths(indexPaths);
+                var indexPaths = NSMutableArray.new();
+                indexPaths.addObject(NSIndexPath.indexPathForRowInSection(rowIndex, event.groupIndex));
+                listView.ios.reloadItemsAtIndexPaths(indexPaths);
             });
         }
         if (isAndroid) {
@@ -71,6 +68,6 @@ export class ScheduleComponent implements OnInit {
         }
     }
     calcHeight(item) {
-        return 35 * (item.lectures.length) + 65 
+        return 35 * (item.lectures.length) + 65
     }
 }

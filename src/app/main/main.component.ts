@@ -18,19 +18,23 @@ export class MainComponent implements OnInit {
   }
 
   components: { name: string, desc: string, navigate: string, imageSrc: string }[] = [
-    { name: "Lectures", desc: "TODO: Add short description here!", navigate: "schedule", imageSrc:  "~/images/schedule.png" },
-    { name: "Grades", desc: "TODO: Add short description here!", navigate: "grades", imageSrc:  "~/images/student_hat.png" },
-    { name: "Canteen", desc: "TODO: Add short description here!", navigate: "canteen", imageSrc:  "~/images/coffee.png" },
-  ] 
+    { name: "Lectures", desc: "TODO: Add short description here!", navigate: "schedule", imageSrc: "~/images/schedule.png" },
+    { name: "Grades", desc: "TODO: Add short description here!", navigate: "grades", imageSrc: "~/images/student_hat.png" },
+    { name: "Canteen", desc: "TODO: Add short description here!", navigate: "canteen", imageSrc: "~/images/coffee.png" },
+    { name: "Strandbar", desc: "TODO: Add short description here!", navigate: "strandbar", imageSrc: "~/images/wine.png" },
+    { name: "Endlicht", desc: "TODO: Add short description here!", navigate: "endlicht", imageSrc: "~/images/endlicht_white.png" },
+    { name: "Events", desc: "TODO: Add short description here!", navigate: "events", imageSrc: "~/images/events.png" },
+    { name: "Balance", desc: "TODO: Add short description here!", navigate: "balance", imageSrc: "~/images/balance.png" },
+  ]
 
   // TODO workaround with login session
   ngOnInit() {
-    if(appSettings.hasKey("account")) {
-      this.login.login(JSON.parse(appSettings.getString("account"))).subscribe(response => {
+    if (appSettings.hasKey("account")) {
+      this.login.login(JSON.parse(appSettings.getString("account"))).then((resolved: any) => {
         appSettings.setBoolean("isLoggedIn", true);
-      },error => {});
+      }, (rejected: any) => { console.log(JSON.stringify(rejected)) });
     } else {
-      this.routerExtensions.navigateByUrl("login",{ transition: { name: 'slideRight' }})
+      this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
       //this.login.login(new User("testUser","testPass1")).then((response) => {},error => {});
     }
   }
@@ -41,20 +45,13 @@ export class MainComponent implements OnInit {
   }
 
   reload(): void {
-    // this.routerExtensions.navigateByUrl('/default').then(()=>
-    // this.routerExtensions.backToPreviousPage())
   }
 
   onItemLoading(args) {
-    // hack to get around issue with RadListView ios background colors: https://github.com/telerik/nativescript-ui-feedback/issues/196
-    // if (isIOS) {
-    //     var newcolor = new Color("#334152");
-    //     args.ios.backgroundView.backgroundColor = newcolor.ios;
-    // }
   }
 
   public onNavigationItemTap(args: any) {
-    this.routerExtensions.navigateByUrl(this.components[args.index].navigate,{ transition: { name: 'slideLeft' }})
+    this.routerExtensions.navigateByUrl(this.components[args.index].navigate, { transition: { name: 'slideLeft' } })
   }
 
 }

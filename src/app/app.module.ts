@@ -12,11 +12,13 @@ import { HtwgscheduleService } from "./service/schedule/htwgschedule.service";
 import { LoginService } from "./service/login/login.service";
 import { GradesService } from "./service/grades/grades.service";
 import { ScheduleComponent } from './main/schedule/schedule.component';
-//import { CanteenComponent } from './main/canteen/canteen.component';
-
 import { CanteenComponent } from './main/canteen/canteen.component';
 import { GradesComponent } from './main/grades/grades.component';
 import { ActionButtonComponent } from './action-button/action-button.component';
+import { StrandbarComponent } from "./main/strandbar/strandbar.component";
+import { EndlichtComponent } from "./main/endlicht/endlicht.component";
+import { SemestereventsComponent } from "./main/semesterevents/semesterevents.component";
+import { PrintBalanceComponent } from "./main/print-balance/print-balance.component";
 
 @NgModule({
     bootstrap: [
@@ -35,6 +37,10 @@ import { ActionButtonComponent } from './action-button/action-button.component';
         ScheduleComponent,
         CanteenComponent,
         GradesComponent,
+        StrandbarComponent,
+        EndlichtComponent,
+        SemestereventsComponent,
+        PrintBalanceComponent,
         ActionButtonComponent
     ],
     providers: [
