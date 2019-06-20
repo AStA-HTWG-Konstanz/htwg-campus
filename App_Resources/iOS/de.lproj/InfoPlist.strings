@@ -1,0 +1,3 @@
+"NSLocationWhenInUseUsageDescription" = "This will be added to InfoPlist.strings";
+"CFBundleDisplayName" = "HTWG Campus";
+"CFBundleName" = "HTWG Campus";
