@@ -110,7 +110,7 @@ components that have the btn class name.
     margin-top:8;
     border-radius:5; 
     height:180;
-    width:180;
+    width:90%;
     padding:0;
 }
 .cardImage {
@@ -253,9 +253,12 @@ components that have the btn class name.
 .schedule-collapse-symbol {
     color: #009b91;
 }
-.event-header {
+.event-page {
     background-color: #fff;
-    color:#009b91;
+}
+.event-header {
+    background-color: #334152;
+    color:white;
     font-size: 20;
     text-align: center;
     padding: auto;

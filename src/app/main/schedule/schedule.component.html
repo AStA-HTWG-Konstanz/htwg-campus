@@ -2,39 +2,43 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
-        <Label col="1" text="Time table" class="action-bar-label"></Label>
+        <Label col="1" text="{{ 'LSF.screenTitle' | L}}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
-   
+
 <StackLayout class="page page-content" tkMainContent>
     <Label height="10"></Label>
-    <RadListView #scheduleView class="list-group" [items]="lectures" [itemTemplateSelector]="templateSelector" (itemTap)="onItemTap($event)" height="100%">
-            <ListViewStaggeredLayout tkListViewLayout itemTemplate scrollDirection="Vertical" spanCount="1"></ListViewStaggeredLayout>
+    <RadListView #scheduleView class="list-group" [items]="lectures" [itemTemplateSelector]="templateSelector"
+        (itemTap)="onItemTap($event)" height="100%">
+        <ListViewStaggeredLayout tkListViewLayout itemTemplate scrollDirection="Vertical" spanCount="1"></ListViewStaggeredLayout>
         <ng-template tkTemplateKey="default" let-item="item">
-            <GridLayout order="1" columns="*,*,*,30" rows="40" class="schedule-lecture-block" >
-                <Label col="0" colspan="4" width="100%" height="40" [text]="item.date" textAlignment="center" verticalAlignment="center" class="h2 schedule-day-header" width="100%"></Label>
+            <GridLayout order="1" columns="*,*,*,30" rows="40" class="schedule-lecture-block">
+                <Label col="0" colspan="4" width="100%" height="40" [text]="item.date" textAlignment="center"
+                    verticalAlignment="center" class="h2 schedule-day-header" width="100%"></Label>
                 <Label col="4" width="100%" text="+" class="schedule-collapse-symbol"></Label>
             </GridLayout>
         </ng-template>
         <ng-template tkTemplateKey="expanded" let-item="item">
             <StackLayout height="{{calcHeight(item)}}">
                 <GridLayout columns="*,*,*,30" rows="40" class="schedule-lecture-block">
-                        <Label col="0" colspan="4" width="100%" height="40" [text]="item.date" textAlignment="center" verticalAlignment="center" class="h2 schedule-day-header" width="100%"></Label>
-                        <Label col="4" width="100%" text="-" class="schedule-collapse-symbol schedule-collapse-symbol-minus" horizontalAlignment="center" verticalAlignment="center"></Label>
+                    <Label col="0" colspan="4" width="100%" height="40" [text]="item.date" textAlignment="center"
+                        verticalAlignment="center" class="h2 schedule-day-header" width="100%"></Label>
+                    <Label col="4" width="100%" text="-" class="schedule-collapse-symbol schedule-collapse-symbol-minus"
+                        horizontalAlignment="center" verticalAlignment="center"></Label>
                 </GridLayout>
                 <GridLayout columns="3*,*,*,*,2*" rows="25" width="97%" class="schedule-table-header">
-                        <Label col="0" text="Name" height="25" width="150"></Label>
-                        <Label col="1" text="Room" height="25" width="40"></Label>
-                        <Label col="2" text="Start" height="25" width="40"></Label>
-                        <Label col="3" text="End" height="25" width="40"></Label>
-                        <Label col="4" text="Category" height="25" width="80"></Label>
+                    <Label col="0" text="{{ 'LSF.name' | L}}" height="25" width="150"></Label>
+                    <Label col="1" text="{{ 'LSF.room' | L}}" height="25" width="40"></Label>
+                    <Label col="2" text="{{ 'LSF.start' | L}}" height="25" width="50"></Label>
+                    <Label col="3" text="{{ 'LSF.end' | L}}" height="25" width="40"></Label>
+                    <Label col="4" text="{{ 'LSF.category' | L}}" height="25" width="70"></Label>
                 </GridLayout>
                 <GridLayout columns="3*,*,*,*,2*" rows="25" width="97%" *ngFor="let lecture of item.lectures" class="schedule-table-content">
                     <Label col="0" [text]="lecture.name" height="25" width="150"></Label>
                     <Label col="1" [text]="lecture.room" height="25" width="40"></Label>
-                    <Label col="2" [text]="lecture.startTime" height="25" width="40"></Label>
+                    <Label col="2" [text]="lecture.startTime" height="25" width="50"></Label>
                     <Label col="3" [text]="lecture.endTime" height="25" width="40"></Label>
-                    <Label col="4" [text]="lecture.category" height="25" width="80"></Label>
+                    <Label col="4" [text]="lecture.category" height="25" width="70"></Label>
                 </GridLayout>
             </StackLayout>
         </ng-template>

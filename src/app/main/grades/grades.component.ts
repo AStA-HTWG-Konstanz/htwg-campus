@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { TabView, SelectedIndexChangedEventData } from "tns-core-modules/ui/tab-view";
-
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { SemesterGrades } from '~/app/model/grades/semester-grades';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { GradesService } from '~/app/service/grades/grades.service';
@@ -15,8 +13,8 @@ import { CacheService } from '~/app/service/cache/cache.service';
 export class GradesComponent implements OnInit {
 
   @ViewChild("actionButton", { static: false })
-    _buttonRef: ActionButtonComponent;
-    
+  _buttonRef: ActionButtonComponent;
+
   currentGrades: Array<SemesterGrades>;
 
   constructor(
@@ -36,11 +34,11 @@ export class GradesComponent implements OnInit {
   getGrades() {
     this.currentGrades = this.cacheService.getGradesFromCache().grades
   }
-  changeIdentifier (name: string) {
+  changeIdentifier(name: string) {
     if (name.startsWith("Wintersemester")) {
-      return name.replace("Wintersemester" ,"WS")
+      return name.replace("Wintersemester", "WS")
     } else {
-      return name.replace("Sommersemester" ,"SS")
+      return name.replace("Sommersemester", "SS")
     }
   }
 }

@@ -2,10 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Menu } from '~/app/model/canteen/menu/menu';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { CanteenService } from '~/app/service/canteen/canteen.service';
-import { ActivatedRoute } from '@angular/router';
-import { Canteen } from '~/app/model/canteen/canteen';
-import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
+import { localize } from "nativescript-localize";
 import { CacheService } from '~/app/service/cache/cache.service';
 
 @Component({
@@ -41,9 +39,11 @@ export class CanteenComponent implements OnInit {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
   }
 
-  // trimItemsByDate() {
-  //   let curDate = new Date();
-  //   let currentDate: string = JSON.stringify(curDate); //+ "-" + JSON.stringify(curDate.getUTCMonth) + "-" + JSON.stringify(curDate.getUTCFullYear);
-  //   console.log(JSON.stringify(currentDate))
-  // }
+  getEmployeeText(price: string) {
+    return localize("canteen.employee") + ": " + price + "€"
+  }
+
+  getStudentText(price: string) {
+    return localize("canteen.student") + ": " + price + "€"
+  }
 }

@@ -1,0 +1,97 @@
+{
+    "app": {
+        "name": "HTWG Campus"
+    },
+    "ios": {
+        "info.plist": {
+            "NSLocationWhenInUseUsageDescription": "This will be added to InfoPlist.strings"
+        }
+    },
+    "general": {
+        "noDataTxt": "No data yet",
+        "notConnectedText": "Oopsie Woopsie, there seems to be a problem with your internet connection",
+        "toggleOn": "On",
+        "toggleOff": "Off",
+        "wrongCredentials": "Oopsie Woopsie, there seems to be a wrong password / username"
+    },
+    "login": {
+        "signin": "Sign in",
+        "signout": "Logout",
+        "remember": "Remember me",
+        "username": "Username",
+        "password": "Password",
+        "error": "Benutzername oder Password falsch"
+    },
+    "canteen": {
+        "screenTitle": "WEEKLY MENU",
+        "student": "Students",
+        "employee": "Employees"
+    },
+    "endlicht": {
+        "screenTitle": "Endlicht",
+        "opening": "Opening Hours",
+        "beverages": "Beverages"
+    },
+    "events": {
+        "screenTitle": "Events"
+    },
+    "news": {
+        "screenTitle": "News"
+    },
+    "grades": {
+        "title": "Grades",
+        "course": "Course",
+        "mark": "Mark",
+        "noData": "No data yet"
+    },
+    "LSF": {
+        "screenTitle": "Timetable",
+        "emptyTxt": "No lectures found",
+        "selectLecture": "Please schedule your timetable (LSF)",
+        "name": "Name",
+        "room": "Room",
+        "start": "Start",
+        "end": "End",
+        "category": "Category"
+    },
+    "lsf": {},
+    "asta": {},
+    "settings": {
+        "screenTitle": "Settings",
+        "about": "About",
+        "news": "News",
+        "language": "Language",
+        "selectedWidgetsHeader": "Selected Widgets",
+        "availableWidgetsHeader": "Available Widgets",
+        "impressumDev": "Developed by",
+        "impressumDesign": "Designed by",
+        "impressumProf": "Supervised by",
+        "BALANCE": "Balance",
+        "CANTEEN": "Canteen",
+        "ENDLICHT": "Endlicht",
+        "EVENT": "Events",
+        "GRADES": "Grades",
+        "LECTURE": "Lectures",
+        "NEWS": "News"
+    },
+    "language": {
+        "en": "English",
+        "de": "Deutsch"
+    },
+    "nav": {
+        "home": "Home",
+        "language": "Language",
+        "about": "About",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
+    "dashboard": {
+        "lectures": "Lectures",
+        "grades": "Grades",
+        "canteen": "Canteen",
+        "strandbar": "Strandbar",
+        "endlicht": "Endlicht",
+        "events": "Events",
+        "balance": "Printer Balance"
+    }
+}
