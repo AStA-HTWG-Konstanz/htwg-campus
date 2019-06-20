@@ -2,7 +2,7 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
-        <Label col="1" text="{{ 'endlicht.screenTitle' | L}}" class="action-bar-label"></Label>
+        <Label col="1" text="{{ 'endlicht.screenTitle' | translate}}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
 
@@ -11,12 +11,12 @@
 </StackLayout>-->
 <ScrollView class="page page-content" heigth="100%" tkMainContent>
     <StackLayout class="event-page">
-        <Label text="{{ 'endlicht.opening' | L}}" class="event-header" textWrap="true" height="60"></Label>
+        <Label text="{{ 'endlicht.opening' | translate}}" class="event-header" textWrap="true" height="60"></Label>
         <StackLayout orientation="horizontal" *ngFor="let item of endlicht.openingHours">
             <Label text={{reformTabTitel(item.date)}} class="event-body" width="50%" style="text-align: left;"></Label>
             <Label text="{{item.startTime}} - {{item.endTime}}" class="event-body" textWrap="true"></Label>
         </StackLayout>
-        <Label text="{{ 'endlicht.beverages' | L}}" class="event-header" textWrap="true" height="60"></Label>
+        <Label text="{{ 'endlicht.beverages' | translate}}" class="event-header" textWrap="true" height="60"></Label>
         <StackLayout orientation="horizontal" *ngFor="let item of endlicht.beverages">
             <Label text={{item.name}} class="event-body" style="text-align: left;" width="50%" text-align="left"></Label>
             <Label text="{{item.price}} €" class="event-body" textWrap="true" ></Label>

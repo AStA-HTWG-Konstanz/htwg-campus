@@ -3,7 +3,6 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as app from 'tns-core-modules/application';
 import { LoginService } from '../service/login/login.service';
-import { localize } from "nativescript-localize";
 import { CacheService } from '../service/cache/cache.service';
 import { CanteenService } from '../service/canteen/canteen.service';
 import { Canteen } from '../model/canteen/canteen';
@@ -18,6 +17,7 @@ import { EndlichtService } from '../service/endlicht/endlicht.service';
 import { Endlicht } from '../model/endlicht/endlicht';
 
 import * as appSettings from "tns-core-modules/application-settings";
+import { ListViewEventData } from 'nativescript-ui-listview';
 @Component({
   selector: 'ns-main',
   templateUrl: './main.component.html',
@@ -37,14 +37,14 @@ export class MainComponent implements OnInit {
     ) {
   }
 
-  components: { name: string, desc: string, navigate: string, imageSrc: string }[] = [
-    { name: localize("dashboard.lectures"), desc: "TODO: Add short description here!", navigate: "schedule", imageSrc: "~/images/schedule.png" },
-    { name: localize("dashboard.grades"), desc: "TODO: Add short description here!", navigate: "grades", imageSrc: "~/images/student_hat.png" },
-    { name: localize("dashboard.canteen"), desc: "TODO: Add short description here!", navigate: "canteen", imageSrc: "~/images/coffee.png" },
-    { name: localize("dashboard.strandbar"), desc: "TODO: Add short description here!", navigate: "strandbar", imageSrc: "~/images/wine.png" },
-    { name: localize("dashboard.endlicht"), desc: "TODO: Add short description here!", navigate: "endlicht", imageSrc: "~/images/endlicht_white.png" },
-    { name: localize("dashboard.events"), desc: "TODO: Add short description here!", navigate: "events", imageSrc: "~/images/events.png" },
-    { name: localize("dashboard.balance"), desc: "TODO: Add short description here!", navigate: "balance", imageSrc: "~/images/balance.png" },
+  components: { name: string, desc: string, navigate: string, imageSrc: string, inactive: boolean }[] = [
+    { name: "dashboard.lectures", desc: "TODO: Add short description here!", navigate: "schedule", imageSrc: "~/images/schedule.png",inactive: false },
+    { name: "dashboard.grades", desc: "TODO: Add short description here!", navigate: "grades", imageSrc: "~/images/student_hat.png",inactive: false },
+    { name: "dashboard.canteen", desc: "TODO: Add short description here!", navigate: "canteen", imageSrc: "~/images/coffee.png",inactive: false },
+    { name: "dashboard.strandbar", desc: "TODO: Add short description here!", navigate: "strandbar", imageSrc: "~/images/wine.png", inactive: true },
+    { name: "dashboard.endlicht", desc: "TODO: Add short description here!", navigate: "endlicht", imageSrc: "~/images/endlicht_white.png",inactive: false },
+    { name: "dashboard.events", desc: "TODO: Add short description here!", navigate: "events", imageSrc: "~/images/events.png",inactive: false },
+    { name: "dashboard.balance", desc: "TODO: Add short description here!", navigate: "balance", imageSrc: "~/images/balance.png" , inactive: true},
   ]
 
   // TODO workaround with login session
@@ -109,8 +109,11 @@ export class MainComponent implements OnInit {
   onItemLoading(args) {
   }
 
-  public onNavigationItemTap(args: any) {
-    this.routerExtensions.navigateByUrl(this.components[args.index].navigate, { transition: { name: 'slideLeft' } })
+  public onNavigationItemTap(args: ListViewEventData) {
+    if (!this.components[args.index].inactive) {
+      this.routerExtensions.navigateByUrl(this.components[args.index].navigate, { transition: { name: 'slideLeft' } })
+    }
   }
+
 
 }

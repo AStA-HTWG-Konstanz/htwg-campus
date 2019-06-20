@@ -2,7 +2,6 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
-import { NativeScriptLocalizeModule } from "nativescript-localize/angular";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from './login/login.component';
@@ -22,6 +21,14 @@ import { SemestereventsComponent } from "./main/semesterevents/semesterevents.co
 import { PrintBalanceComponent } from "./main/print-balance/print-balance.component";
 import { CacheService } from './service/cache/cache.service';
 import { EndlichtService } from "./service/endlicht/endlicht.service";
+import { Http } from "@angular/http";
+import { NativeScriptHttpModule } from "nativescript-angular/http";
+import { TranslateModule, TranslateLoader} from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader"
+
+export function HttpLoaderFactory(http: Http) {
+    return new TranslateHttpLoader(http, "/i18n/", ".json")
+}
 
 @NgModule({
     bootstrap: [
@@ -32,7 +39,14 @@ import { EndlichtService } from "./service/endlicht/endlicht.service";
         AppRoutingModule,
         NativeScriptUISideDrawerModule,
         NativeScriptUIListViewModule,
-        NativeScriptLocalizeModule
+        NativeScriptHttpModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [Http]
+            }
+        })
     ],
     declarations: [
         AppComponent,

@@ -2,7 +2,7 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
-        <Label col="1" text="{{ 'canteen.screenTitle' | L}}" class="action-bar-label"></Label>
+        <Label col="1" text="{{ 'canteen.screenTitle' | translate}}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
 <StackLayout class="page page-content" tkMainContent>
@@ -14,8 +14,8 @@
                     <Label text="{{meal.ctgry}}" class="meal-category"></Label>
                     <Label text="{{meal.title}}" textWrap="true" style="font-size: 16pt"></Label>
                     <Label text=""></Label>
-                    <Label text="{{getStudentText(meal.priceStud)}}" style="text-align: right"></Label>
-                    <Label text="{{ getEmployeeText(meal.priceEmpl)}}" style="text-align: right"></Label>
+                    <Label text="{{ 'canteen.student' | translate}}: {{meal.priceStud}} €" style="text-align: right"></Label>
+                    <Label text="{{ 'canteen.employee' | translate}}: {{meal.priceEmpl}} €" style="text-align: right"></Label>
                 </StackLayout>
             </StackLayout>
         </ng-container>

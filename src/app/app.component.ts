@@ -2,11 +2,8 @@ import { Component } from "@angular/core";
 import { DrawerTransitionBase, SlideInOnTopTransition, RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { RouterExtensions } from "nativescript-angular/router";
 import * as app from "tns-core-modules/application";
-import * as dialogsModule from "tns-core-modules/ui/dialogs";
 import { CacheService } from "./service/cache/cache.service";
-import { User } from "./model/user/user.model"
-import { CanteenService } from "./service/canteen/canteen.service";
-import { Canteen } from "./model/canteen/canteen";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     moduleId: module.id,
@@ -19,7 +16,8 @@ export class AppComponent {
     
     constructor(
         private routerExtensions: RouterExtensions,
-        private cacheService: CacheService
+        private cacheService: CacheService,
+        private translate: TranslateService
     ) {
         // Use the component constructor to inject services.
     }
@@ -28,6 +26,8 @@ export class AppComponent {
         this._sideDrawerTransition = new SlideInOnTopTransition();
         if(this.cacheService.isUserInCache())
             this.userNameInSideBar = this.cacheService.getUserFromCache().username
+        this.translate.setDefaultLang("en")
+        this.translate.use("de")
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
