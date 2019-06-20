@@ -1,7 +1,6 @@
 import { Injectable, Optional } from '@angular/core';
 import { request, HttpResponse } from "tns-core-modules/http";
 import { scheduleUser } from '~/app/model/scheduleuser/scheduleuser.model';
-import * as app from "tns-core-modules/application";
 import { User } from '~/app/model/user/user.model';
 import { LoginService } from '../login/login.service';
 import { CacheService } from '../cache/cache.service';

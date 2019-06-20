@@ -4,6 +4,9 @@ import * as appSettings from "tns-core-modules/application-settings";
 import { Canteen } from '~/app/model/canteen/canteen';
 import { Schedule } from '~/app/model/schedule/Schedule';
 import { SemesterEvents } from '~/app/model/events/semesterevents';
+import { SemesterGrades } from '~/app/model/grades/semester-grades';
+import { Grades } from '~/app/model/grades/grades';
+import { Endlicht } from '~/app/model/endlicht/endlicht';
 
 @Injectable()
 export class CacheService {
@@ -99,14 +102,62 @@ export class CacheService {
         return true
     }
 
+    isGradesInCache(): boolean {
+        if(appSettings.hasKey("grades"))
+            return true
+        return false
+    }
+
+    loadGradesInCache(grades: Grades): void {
+        appSettings.setString("grades", JSON.stringify(grades));
+        var today = new Date();
+        today.setHours(0,0,0,0);
+        appSettings.setString("gradesTimestamp",today.toString());
+    }
+
+    getGradesFromCache(): Grades {
+        return JSON.parse(appSettings.getString("grades"))
+    }
+
+    gradesFromToday(): boolean {
+        var today = new Date();
+        today.setHours(0,0,0,0);
+        if(today > new Date(appSettings.getString("gradesTimestamp")))
+            return false
+        return true
+    }
+
+    isEndlichtInCache(): boolean {
+        if(appSettings.hasKey("endlicht"))
+            return true
+        return false
+    }
+
+    loadEndlichtInCache(endlicht: Endlicht): void {
+        appSettings.setString("endlicht", JSON.stringify(endlicht));
+        var today = new Date();
+        today.setHours(0,0,0,0);
+        appSettings.setString("endlichtTimestamp",today.toString());
+    }
+
+    getEndlichtFromCache(): Endlicht {
+        return JSON.parse(appSettings.getString("endlicht"))
+    }
+
+    endlichtFromToday(): boolean {
+        var today = new Date();
+        today.setHours(0,0,0,0);
+        if(today > new Date(appSettings.getString("endlichtTimestamp")))
+            return false
+        return true
+    }
+
     clearCache(): void {
         appSettings.remove("account");
-        appSettings.remove("canteen");
-        appSettings.remove("canteenTimestamp");
         appSettings.remove("lectures");
         appSettings.remove("lecturesTimestamp");
-        appSettings.remove("events");
-        appSettings.remove("eventsTimestamp");
+        appSettings.remove("grades");
+        appSettings.remove("gradesTimestamp");
     }
 
 }

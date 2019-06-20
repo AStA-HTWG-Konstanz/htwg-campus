@@ -34,20 +34,7 @@ export class GradesComponent implements OnInit {
   }
 
   getGrades() {
-    if (this.cacheService.isUserInCache()) {
-      this.gradeService.getGrades().then(
-        (resolved: any) => {
-          this.currentGrades = [];
-          this.currentGrades = (resolved) ? resolved : null;
-          //console.log(JSON.stringify(resolved));
-        },
-        (rejected: any) => {
-          alert(JSON.stringify(rejected));
-        }
-      );
-    } else {
-      alert(JSON.stringify("user isnt login"));
-    }
+    this.currentGrades = this.cacheService.getGradesFromCache().grades
   }
   changeIdentifier (name: string) {
     if (name.startsWith("Wintersemester")) {
