@@ -37,14 +37,14 @@ export class MainComponent implements OnInit {
     ) {
   }
 
-  components: { name: string, desc: string, navigate: string, imageSrc: string }[] = [
-    { name: localize("dashboard.lectures"), desc: "TODO: Add short description here!", navigate: "schedule", imageSrc: "~/images/schedule.png" },
-    { name: localize("dashboard.grades"), desc: "TODO: Add short description here!", navigate: "grades", imageSrc: "~/images/student_hat.png" },
-    { name: localize("dashboard.canteen"), desc: "TODO: Add short description here!", navigate: "canteen", imageSrc: "~/images/coffee.png" },
-    { name: localize("dashboard.strandbar"), desc: "TODO: Add short description here!", navigate: "strandbar", imageSrc: "~/images/wine.png" },
-    { name: localize("dashboard.endlicht"), desc: "TODO: Add short description here!", navigate: "endlicht", imageSrc: "~/images/endlicht_white.png" },
-    { name: localize("dashboard.events"), desc: "TODO: Add short description here!", navigate: "events", imageSrc: "~/images/events.png" },
-    { name: localize("dashboard.balance"), desc: "TODO: Add short description here!", navigate: "balance", imageSrc: "~/images/balance.png" },
+  components: { name: string, desc: string, navigate: string, imageSrc: string, inactive: boolean }[] = [
+    { name: localize("dashboard.lectures"), desc: "TODO: Add short description here!", navigate: "schedule", imageSrc: "~/images/schedule.png",inactive: false },
+    { name: localize("dashboard.grades"), desc: "TODO: Add short description here!", navigate: "grades", imageSrc: "~/images/student_hat.png",inactive: false },
+    { name: localize("dashboard.canteen"), desc: "TODO: Add short description here!", navigate: "canteen", imageSrc: "~/images/coffee.png",inactive: false },
+    { name: localize("dashboard.strandbar"), desc: "TODO: Add short description here!", navigate: "strandbar", imageSrc: "~/images/wine.png", inactive: true },
+    { name: localize("dashboard.endlicht"), desc: "TODO: Add short description here!", navigate: "endlicht", imageSrc: "~/images/endlicht_white.png",inactive: false },
+    { name: localize("dashboard.events"), desc: "TODO: Add short description here!", navigate: "events", imageSrc: "~/images/events.png",inactive: false },
+    { name: localize("dashboard.balance"), desc: "TODO: Add short description here!", navigate: "balance", imageSrc: "~/images/balance.png" , inactive: true},
   ]
 
   // TODO workaround with login session
@@ -111,6 +111,10 @@ export class MainComponent implements OnInit {
 
   public onNavigationItemTap(args: any) {
     this.routerExtensions.navigateByUrl(this.components[args.index].navigate, { transition: { name: 'slideLeft' } })
+  }
+
+  setBackgroundColor(isInactive: boolean) {
+    return isInactive? "#ffffff" : "#334152";
   }
 
 }
