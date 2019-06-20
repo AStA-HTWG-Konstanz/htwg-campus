@@ -28,10 +28,9 @@
         "employee": "Employees"
     },
     "endlicht": {
-        "closed": "Closed",
-        "specialTitle": "Special",
-        "menuTitle": "Menu",
-        "locationTitle": "Location"
+        "screenTitle": "Endlicht",
+        "opening": "Opening Hours",
+        "beverages": "Beverages"
     },
     "events": {
         "screenTitle": "Events"

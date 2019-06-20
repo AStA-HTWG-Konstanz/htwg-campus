@@ -28,10 +28,9 @@
         "employee": "Mitarbeiter"
     },
     "endlicht": {
-        "closed": "Geschlossen",
-        "specialTitle": "Spezial",
-        "menuTitle": "Angebot",
-        "locationTitle": "Lageplan"
+        "screenTitle": "Endlicht",
+        "opening": "Öffnungszeiten",
+        "beverages": "Getränke Liste"
     },
     "events": {
         "screenTitle": "Termine"

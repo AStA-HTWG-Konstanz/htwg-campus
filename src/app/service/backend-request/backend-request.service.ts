@@ -1,10 +1,9 @@
 import { Injectable, Optional } from '@angular/core';
 import { request, HttpResponse } from "tns-core-modules/http";
 import { scheduleUser } from '~/app/model/scheduleuser/scheduleuser.model';
-import * as appSettings from "tns-core-modules/application-settings";
-import * as app from "tns-core-modules/application";
 import { User } from '~/app/model/user/user.model';
 import { LoginService } from '../login/login.service';
+import { CacheService } from '../cache/cache.service';
 
 /**
  * Sends request to backend
@@ -13,14 +12,17 @@ import { LoginService } from '../login/login.service';
   providedIn: 'root'
 })
 export class BackendRequestService {
-  constructor(private login: LoginService) { }
+  constructor(
+    private login: LoginService,
+    private cacheService: CacheService
+  ) { }
 
   /**
    * Get the user model from enviroment
    */
   private getUser(): User {
-    if (appSettings.hasKey("account")) {
-      let storedUser: User = JSON.parse(appSettings.getString("account"));
+    if (this.cacheService.isUserInCache) {
+      let storedUser: User = this.cacheService.getUserFromCache();
       return new scheduleUser(storedUser.username, storedUser.password, true);
     } else {
       return null;

@@ -7,6 +7,7 @@ import { ListViewEventData } from 'nativescript-ui-listview';
 import { isIOS, isAndroid } from 'tns-core-modules/ui/page/page';
 declare var UIView, NSMutableArray, NSIndexPath;
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
+import { CacheService } from '~/app/service/cache/cache.service';
 
 @Component({
     selector: 'ns-schedule',
@@ -23,30 +24,20 @@ export class ScheduleComponent implements OnInit {
     selectedIndex: number = 0;
     constructor(
         private scheduleService: HtwgscheduleService,
-        private routerExtensions: RouterExtensions
+        private routerExtensions: RouterExtensions,
+        private cacheService: CacheService
     ) {
     }
 
     ngOnInit() {
-        this.getSchedule();
+        this.lectures = this.cacheService.getLecturesFromCache().lectures;
     }
 
     navigateBack() {
         this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true });
     }
 
-    getSchedule() {
-        this.scheduleService.getTimeTable().then(
-            (resolved: any) => {
-                let currentSchedule: Schedule = (resolved) ? resolved : null;
-                this.lectures = currentSchedule.lectures;
-            },
-            (rejected: any) => {
-                alert(JSON.stringify(rejected));
-            }
-        );
-    }
-
+    
     templateSelector(item: any, index: number, items: any): string {
         return item.selected ? "expanded" : "default";
     }

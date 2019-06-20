@@ -3,6 +3,7 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 import { SemestereventService } from '~/app/service/semesterevents/semesterevent.service';
 import { SemesterEvents } from '~/app/model/events/semesterevents';
+import { CacheService } from '~/app/service/cache/cache.service';
 @Component({
   selector: 'ns-semesterevents',
   templateUrl: './semesterevents.component.html',
@@ -14,17 +15,13 @@ export class SemestereventsComponent implements OnInit {
   semesterEvents: SemesterEvents;
 
 
-  constructor(private routerExtensions: RouterExtensions, private semsterEventService: SemestereventService) { }
+  constructor(
+    private routerExtensions: RouterExtensions,
+    private cacheService: CacheService
+  ) { }
 
   ngOnInit() {
-    this.semsterEventService.getIsOpen().then(
-      (resolved: SemesterEvents) => {
-        this.semesterEvents = resolved;
-      },
-      (rejected: any) => {
-        console.log(JSON.stringify(rejected))
-      }
-    )
+    this.semesterEvents = this.cacheService.getEventsFromCache(); 
   }
   navigateBack() {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true });

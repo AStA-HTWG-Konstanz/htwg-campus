@@ -10,7 +10,7 @@
         <ng-container *ngFor="let item of currentGrades">
             <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px;" *tabItem="{title: changeIdentifier(item.semesterIdentifier)}">
                 <Label width="100%" height="10" textAlignment="center" verticalAlignment="center" text="" class="h2 pt-2 pb-1"></Label>
-                <GridLayout columns="*5,*,*" rows="30" width="100%" stlye="padding-top: 20;">
+                <GridLayout columns="*5,*,*" rows="30" width="100%" stlye="padding-top: 20; border-radius: 5;">
                     <Label class="grades-table-header" col="0" width="100%" text="{{ 'grades.course' | L}}"></Label>
                     <Label class="grades-table-header" col="1" width="100%" text="{{ 'grades.mark' | L}}"></Label>
                     <Label class="grades-table-header" col="2" width="100%" text="ECTS"></Label>
