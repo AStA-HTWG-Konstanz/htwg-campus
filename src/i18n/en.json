@@ -42,7 +42,7 @@
     "grades": {
         "title": "Grades",
         "course": "Course",
-        "mark": "Note",
+        "mark": "Mark",
         "noData": "No data yet"
     },
     "LSF": {
