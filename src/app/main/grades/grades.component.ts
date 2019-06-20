@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TabView, SelectedIndexChangedEventData } from "tns-core-modules/ui/tab-view";
 
-import * as appSettings from "tns-core-modules/application-settings";
 import { SemesterGrades } from '~/app/model/grades/semester-grades';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { GradesService } from '~/app/service/grades/grades.service';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
+import { CacheService } from '~/app/service/cache/cache.service';
 @Component({
   selector: 'ns-grades',
   templateUrl: './grades.component.html',
@@ -19,7 +19,10 @@ export class GradesComponent implements OnInit {
     
   currentGrades: Array<SemesterGrades>;
 
-  constructor(private routerExtensions: RouterExtensions, private gradeService: GradesService) {
+  constructor(
+    private routerExtensions: RouterExtensions,
+    private gradeService: GradesService,
+    private cacheService: CacheService) {
     this.getGrades();
   }
 
@@ -31,20 +34,7 @@ export class GradesComponent implements OnInit {
   }
 
   getGrades() {
-    if (appSettings.getBoolean("isLoggedIn") && appSettings.hasKey("account")) {
-      this.gradeService.getGrades().then(
-        (resolved: any) => {
-          this.currentGrades = [];
-          this.currentGrades = (resolved) ? resolved : null;
-          //console.log(JSON.stringify(resolved));
-        },
-        (rejected: any) => {
-          alert(JSON.stringify(rejected));
-        }
-      );
-    } else {
-      alert(JSON.stringify("user isnt login"));
-    }
+    this.currentGrades = this.cacheService.getGradesFromCache().grades
   }
   changeIdentifier (name: string) {
     if (name.startsWith("Wintersemester")) {

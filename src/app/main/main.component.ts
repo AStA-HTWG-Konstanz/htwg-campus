@@ -5,8 +5,22 @@ import * as app from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 import { Color } from 'tns-core-modules/color/color';
 import { User } from '~/app/model/user/user.model';
-import * as appSettings from 'tns-core-modules/application-settings';
 import { LoginService } from '../service/login/login.service';
+import { CacheService } from '../service/cache/cache.service';
+import { CanteenService } from '../service/canteen/canteen.service';
+import { Canteen } from '../model/canteen/canteen';
+import { HtwgscheduleService } from '../service/schedule/htwgschedule.service';
+import { Schedule } from '../model/schedule/Schedule';
+import { SemestereventService } from '../service/semesterevents/semesterevent.service';
+import { SemesterEvents } from '../model/events/semesterevents';
+import { GradesService } from '../service/grades/grades.service';
+import { SemesterGrades } from '../model/grades/semester-grades';
+import { Grades } from '../model/grades/grades';
+import { EndlichtService } from '../service/endlicht/endlicht.service';
+import { Endlicht } from '../model/endlicht/endlicht';
+
+import * as appSettings from "tns-core-modules/application-settings";
+
 @Component({
   selector: 'ns-main',
   templateUrl: './main.component.html',
@@ -14,7 +28,16 @@ import { LoginService } from '../service/login/login.service';
   moduleId: module.id,
 })
 export class MainComponent implements OnInit {
-  constructor(private routerExtensions: RouterExtensions, private login: LoginService) {
+  constructor(
+    private routerExtensions: RouterExtensions,
+    private loginService: LoginService,
+    private cacheService: CacheService,
+    private canteenService: CanteenService,
+    private scheduleService: HtwgscheduleService,
+    private semesterEventService: SemestereventService,
+    private gradeService: GradesService,
+    private endlichtService: EndlichtService
+    ) {
   }
 
   components: { name: string, desc: string, navigate: string, imageSrc: string }[] = [
@@ -29,13 +52,52 @@ export class MainComponent implements OnInit {
 
   // TODO workaround with login session
   ngOnInit() {
-    if (appSettings.hasKey("account")) {
-      this.login.login(JSON.parse(appSettings.getString("account"))).then((resolved: any) => {
-        appSettings.setBoolean("isLoggedIn", true);
-      }, (rejected: any) => { console.log(JSON.stringify(rejected)) });
-    } else {
+    appSettings.remove("endlicht")
+    if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
-      //this.login.login(new User("testUser","testPass1")).then((response) => {},error => {});
+    }
+    if(!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
+      this.canteenService.getMenu().then((resolved: Canteen) => {
+          this.cacheService.loadCanteenInCache(resolved)
+          console.log("loaded Canteen")
+          }, (rejected: any) => alert(JSON.stringify(rejected))
+        )
+    }
+
+    if(!this.cacheService.isLecturesInCache() || !this.cacheService.lecturesFromToday()) {
+      this.scheduleService.getTimeTable().then(
+        (resolved: Schedule) => {
+            this.cacheService.loadLecturesInCache(resolved)
+            console.log("loaded Lectures")
+        }, (rejected: any) => alert(JSON.stringify(rejected))
+      );
+    }
+
+    if(!this.cacheService.isEventsInCache() || !this.cacheService.eventsFromToday()) {
+      this.semesterEventService.getIsOpen().then(
+        (resolved: SemesterEvents) => {
+          this.cacheService.loadEventsInCache(resolved);
+          console.log("loaded Events")
+        }, (rejected: any) => console.log(JSON.stringify(rejected))
+      )
+    }
+
+    if(!this.cacheService.isEndlichtInCache() || !this.cacheService.endlichtFromToday()) {
+      this.endlichtService.getEndlicht().then(
+        (resolved: Endlicht) => {
+          this.cacheService.loadEndlichtInCache(resolved);
+          console.log("loaded Endlicht")
+        }, (rejected: any) => console.log(JSON.stringify(rejected))
+      )
+    }
+
+    if (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday()) {
+      this.gradeService.getGrades().then(
+        (resolved: Grades) => {
+          this.cacheService.loadGradesInCache(resolved)
+          console.log("loaded Grades")
+        }, (rejected: any) => alert(JSON.stringify(rejected))
+      );
     }
   }
 

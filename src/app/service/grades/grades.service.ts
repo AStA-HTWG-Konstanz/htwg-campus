@@ -2,51 +2,44 @@ import { SemesterGrades } from '../../model/grades/semester-grades';
 import { Injectable } from "@angular/core";
 import { BackendRequestService } from '../backend-request/backend-request.service';
 import { HttpResponse } from 'tns-core-modules/http/http';
+import { Grades } from '~/app/model/grades/grades';
 
 @Injectable()
 export class GradesService {
     private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/grades";
 
     latestRequest: Date;
-    storedResponse: SemesterGrades[];
+    storedResponse: Grades
     constructor(private backendRequest: BackendRequestService) { }
 
-    getGrades(): Promise<SemesterGrades[]> {
+    getGrades(): Promise<Grades> {
         return new Promise((resolve, reject) => {
-            if (
-                this.storedResponse &&
-                this.latestRequest.getDay() == new Date().getDay()
-            ) {
-                console.log("already requested today");
-                resolve(this.storedResponse);
-            } else {
-                this.backendRequest.request(this.serverUrl).then(
-                    (response: HttpResponse) => {
-                        let content = response.content.toString();
-                        if (content.length > 0) {
-                            console.log("grades response: ");
-                            this.latestRequest = new Date();
-                            this.storedResponse = this.dummyResponse//response.content.toJson() as SemesterGrades[];
-                            resolve(this.storedResponse);
-                        } else {
-                            this.storedResponse = this.dummyResponse;
-                            this.latestRequest = new Date();
-                            console.log("resolve dummy")
-                            resolve(this.storedResponse);
-                            //reject("empty response from grades request");
-                        }
-                    },
-                    error => {
-                        console.log("error");
-                        reject(error)
+            this.backendRequest.request(this.serverUrl).then(
+                (response: HttpResponse) => {
+                    let content = response.content.toString();
+                    if (content.length > 0) {
+                        console.log("grades response: ");
+                        this.latestRequest = new Date();
+                        this.storedResponse = this.dummyResponse//response.content.toJson() as SemesterGrades[];
+                        resolve(this.storedResponse);
+                    } else {
+                        this.storedResponse = this.dummyResponse;
+                        this.latestRequest = new Date();
+                        console.log("resolve dummy")
+                        resolve(this.storedResponse);
+                        //reject("empty response from grades request");
                     }
-                );
-            }
+                },
+                error => {
+                    console.log("error");
+                    reject(error)
+                }
+            );
         });
     }
     // TODO: remove dummy
-    dummyResponse: SemesterGrades[] =
-        [
+    dummyResponse: Grades = {
+        grades: [
             {
                 semesterIdentifier: "Wintersemester 16/17",
                 semesterPerformance: [
@@ -328,5 +321,5 @@ export class GradesService {
                         master: false
                     }]
             }
-        ]
+        ]}
 }

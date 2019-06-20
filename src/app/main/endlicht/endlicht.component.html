@@ -6,6 +6,24 @@
     </GridLayout>
 </ActionBar>
 
-<StackLayout class="page page-content" tkMainContent>
+<!--<StackLayout class="page page-content" tkMainContent>
     <Label text="todo"></Label>
-</StackLayout>
+</StackLayout>-->
+<ScrollView class="page page-content" heigth="100%" tkMainContent>
+    <StackLayout>
+        <Label text="Opening Hours" class="event-header" textWrap="true" height="60"></Label>
+        <StackLayout orientation="horizontal" *ngFor="let item of endlicht.openingHours">
+            <Label text={{reformTabTitel(item.date)}} class="event-body" width="50%" style="text-align: left;"></Label>
+            <Label text="{{item.startTime}} - {{item.endTime}}" class="event-body" textWrap="true"></Label>
+        </StackLayout>
+        <Label text="Beverages" class="event-header" textWrap="true" height="60"></Label>
+        <StackLayout orientation="horizontal" *ngFor="let item of endlicht.beverages">
+            <Label text={{item.name}} class="event-body" style="text-align: left;" width="50%" text-align="left"></Label>
+            <Label text="{{item.price}} €" class="event-body" textWrap="true" ></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" *ngFor="let item of endlicht.specials">
+            <Label text="{{item.name}} (special)" class="event-body" style="text-align: left;" width="50%" text-align="left"></Label>
+            <Label text="{{item.price}} €" class="event-body" textWrap="true" ></Label>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>

@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
 import { CanActivate } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular/router";
-import * as appSettings from "tns-core-modules/application-settings";
+import { CacheService } from "../cache/cache.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private routerExtensions: RouterExtensions) { }
+    constructor(
+        private routerExtensions: RouterExtensions,
+        private cacheService: CacheService) { }
 
     canActivate() {
         if (this.isUserLoggedIn()) {
@@ -18,6 +20,6 @@ export class AuthGuard implements CanActivate {
     }
 
     isUserLoggedIn() {
-        return appSettings.getBoolean("isLoggedIn");
+        return this.cacheService.isUserInCache()
     }
 }

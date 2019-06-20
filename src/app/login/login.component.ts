@@ -6,8 +6,8 @@ import { Page } from 'tns-core-modules/ui/page/page';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 
 import { TextField } from "tns-core-modules/ui/text-field";
-import * as appSettings from "tns-core-modules/application-settings";
 import * as app from "tns-core-modules/application";
+import { CacheService } from '../service/cache/cache.service';
 
 @Component({
   selector: 'ns-login',
@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginservice: LoginService,
     private routerExtensions: RouterExtensions,
-    private page: Page
+    private page: Page,
+    private cacheService: CacheService
   ) { }
 
   ngOnInit() {
@@ -41,9 +42,7 @@ export class LoginComponent implements OnInit {
     this.error = false;
     this.loginservice.login(this.user).then(
       (resolved: any) => {
-        appSettings.setBoolean("isLoggedIn", true);
-        appSettings.setString("account", JSON.stringify(this.user))
-        appSettings.setString("username", this.user.username)
+        this.cacheService.loadUserInCache(this.user)
         this.processing = false;
         this.routerExtensions.navigateByUrl("main", { clearHistory: true });
       },
