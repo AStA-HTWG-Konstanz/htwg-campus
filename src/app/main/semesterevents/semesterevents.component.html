@@ -2,12 +2,12 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
-        <Label col="1" text="Events" class="action-bar-label"></Label>
+        <Label col="1" text="{{ 'events.screenTitle' | L}}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
 
 <ScrollView class="page page-content" heigth="100%" tkMainContent>
-    <StackLayout>
+    <StackLayout class="event-page">
         <StackLayout *ngFor="let item of getEvents()">
             <Label text="{{item.title}}" class="event-header" textWrap="true" height="60"></Label>
             <Label text="{{item.eventDate}}" class="event-body" textWrap="true"></Label>

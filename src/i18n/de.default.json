@@ -1,0 +1,98 @@
+{
+    "app": {
+        "name": "HTWG Campus"
+    },
+    "ios": {
+        "info.plist": {
+            "NSLocationWhenInUseUsageDescription": "This will be added to InfoPlist.strings"
+        }
+    },
+    "general": {
+        "noDataTxt": "Wird geladen",
+        "notConnectedText": "Oopsie Woopsie, bitte verdinde Dich mit dem Internet.",
+        "toggleOn": "An",
+        "toggleOff": "Aus",
+        "wrongCredentials": "Oopsie Woopsie, falsches Passwort oder falscher Benutzername"
+    },
+    "login": {
+        "signin": "Anmelden",
+        "signout": "Ausloggen",
+        "remember": "angemeldet bleiben",
+        "username": "RZ-Benutzername",
+        "password": "Passwort",
+        "error": "Benutzername oder Password falsch"
+    },
+    "canteen": {
+        "screenTitle": "SPEISEPLAN",
+        "student": "Studierende",
+        "employee": "Mitarbeiter"
+    },
+    "endlicht": {
+        "closed": "Geschlossen",
+        "specialTitle": "Spezial",
+        "menuTitle": "Angebot",
+        "locationTitle": "Lageplan"
+    },
+    "events": {
+        "screenTitle": "Termine"
+    },
+    "grades": {
+        "title": "Noten",
+        "course": "Kurs",
+        "mark": "Note",
+        "noData": "Momentan keine Daten verfügbar"
+    },
+    "news": {
+        "screenTitle": "News"
+    },
+    "LSF": {
+        "screenTitle": "Stundenplan",
+        "emptyTxt": "Keine Vorlesungen verfügbar",
+        "selectLecture": "Bitte pflege deinen Stundenplan im LSF",
+        "name": "Bezeichnung",
+        "room": "Raum",
+        "start": "Beginn",
+        "end": "Ende",
+        "category": "Kategorie"
+    },
+    "timetable": {},
+    "asta": {},
+    "settings": {
+        "screenTitle": "Menü",
+        "about": "Über",
+        "news": "News",
+        "language": "Sprache",
+        "selectedWidgetsHeader": "Ausgewählte Widgets",
+        "availableWidgetsHeader": "Verfügbare Widgets",
+        "impressumDev": "Entwickelt von",
+        "impressumDesign": "Designed von",
+        "impressumProf": "Betreut von",
+        "BALANCE": "Guthaben",
+        "CANTEEN": "Mensa",
+        "ENDLICHT": "Endlicht",
+        "EVENT": "Termine",
+        "GRADES": "Noten",
+        "LECTURE": "Stundenplan",
+        "NEWS": "Aktuelles"
+    },
+    "language": {
+        "en": "English",
+        "de": "Deutsch"
+    },
+    "nav": {
+        "home": "Hauptseit",
+        "language": "Sprache",
+        "about": "Über",
+        "settings": "Einstellungen",
+        "logout": "Ausloggen"
+    },
+    "dashboard": {
+        "lectures": "Stundenplan",
+        "grades": "Noten",
+        "canteen": "Mensa",
+        "strandbar": "Strandbar",
+        "endlicht": "Endlicht",
+        "events": "Termine",
+        "balance": "Drucker Guthaben"
+    }
+}

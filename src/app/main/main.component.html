@@ -1,8 +1,8 @@
 <ActionBar class="action-bar">
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
-        <ActionButton (tap)="onDrawerButtonTap()" #actionButton ></ActionButton>
-        <Label col="1" text="HTWG App" class="action-bar-label"></Label>
+        <ActionButton (tap)="onDrawerButtonTap()" #actionButton></ActionButton>
+        <Label col="1" text="{{ 'app.name'| L }}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
 
@@ -10,14 +10,14 @@
     <!-- <Image class="bottom" backgroundImage="~/images/htwg.jpg" loadMode="async"></Image>
     <Image class="top" backgroundImage="~/images/htwg2.jpg" loadMode="async"></Image> -->
 
-    <RadListView [items]="components" marginRight="-2" itemReorder="true"
-        (itemLoading)="onItemLoading($event)" (itemTap)="onNavigationItemTap($event)">
-        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="180"
-            spanCount="2"></ListViewGridLayout>
+    <RadListView [items]="components" marginRight="-2" itemReorder="true" (itemLoading)="onItemLoading($event)"
+        (itemTap)="onNavigationItemTap($event)">
+        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="180" spanCount="2"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item">
             <StackLayout class="card-tile">
                 <StackLayout class="card-item">
-                    <Label fontSize="20" text="{{ item.name }}" verticalAlignment="center" horizontalAlignment="center" class="item-name" textWrap="true" color="white"></Label>
+                    <Label fontSize="20" text="{{ item.name }}" verticalAlignment="center" horizontalAlignment="center"
+                        class="item-name" textWrap="true" color="white"></Label>
                     <!-- <Label fontSize="16" text="{{ item.desc }}" verticalAlignment="center" horizontalAlignment="center" class="item-desc" textWrap="true" color="white"></Label> -->
                     <Image src="{{ item.imageSrc }}" class="cardImage"></Image>
                 </StackLayout>

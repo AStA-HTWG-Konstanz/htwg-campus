@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { TabView, SelectedIndexChangedEventData } from "tns-core-modules/ui/tab-view";
-
 import * as appSettings from "tns-core-modules/application-settings";
 import { SemesterGrades } from '~/app/model/grades/semester-grades';
 import { RouterExtensions } from 'nativescript-angular/router';
@@ -15,11 +14,13 @@ import { ActionButtonComponent } from '~/app/action-button/action-button.compone
 export class GradesComponent implements OnInit {
 
   @ViewChild("actionButton", { static: false })
-    _buttonRef: ActionButtonComponent;
-    
+  _buttonRef: ActionButtonComponent;
+
   currentGrades: Array<SemesterGrades>;
 
-  constructor(private routerExtensions: RouterExtensions, private gradeService: GradesService) {
+  constructor(
+    private routerExtensions: RouterExtensions,
+    private gradeService: GradesService) {
     this.getGrades();
   }
 
@@ -46,11 +47,11 @@ export class GradesComponent implements OnInit {
       alert(JSON.stringify("user isnt login"));
     }
   }
-  changeIdentifier (name: string) {
+  changeIdentifier(name: string) {
     if (name.startsWith("Wintersemester")) {
-      return name.replace("Wintersemester" ,"WS")
+      return name.replace("Wintersemester", "WS")
     } else {
-      return name.replace("Sommersemester" ,"SS")
+      return name.replace("Sommersemester", "SS")
     }
   }
 }

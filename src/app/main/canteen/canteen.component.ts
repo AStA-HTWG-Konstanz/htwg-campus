@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Canteen } from '~/app/model/canteen/canteen';
 import { SwipeGestureEventData } from 'tns-core-modules/ui/gestures/gestures';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
+import { localize } from "nativescript-localize";
 
 @Component({
   selector: 'ns-canteen',
@@ -42,6 +43,14 @@ export class CanteenComponent implements OnInit {
 
   navigateBack() {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
+  }
+
+  getEmployeeText(price: string) {
+    return localize("canteen.employee") + ": " + price + "€"
+  }
+
+  getStudentText(price: string) {
+    return localize("canteen.student") + ": " + price + "€"
   }
 
   // trimItemsByDate() {
