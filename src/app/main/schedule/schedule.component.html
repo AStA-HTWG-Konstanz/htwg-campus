@@ -2,7 +2,7 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
-        <Label col="1" text="{{ 'LSF.screenTitle' | L}}" class="action-bar-label"></Label>
+        <Label col="1" text="{{ 'LSF.screenTitle' | translate}}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
 
@@ -27,11 +27,11 @@
                         horizontalAlignment="center" verticalAlignment="center"></Label>
                 </GridLayout>
                 <GridLayout columns="3*,*,*,*,2*" rows="25" width="97%" class="schedule-table-header">
-                    <Label col="0" text="{{ 'LSF.name' | L}}" height="25" width="150"></Label>
-                    <Label col="1" text="{{ 'LSF.room' | L}}" height="25" width="40"></Label>
-                    <Label col="2" text="{{ 'LSF.start' | L}}" height="25" width="50"></Label>
-                    <Label col="3" text="{{ 'LSF.end' | L}}" height="25" width="40"></Label>
-                    <Label col="4" text="{{ 'LSF.category' | L}}" height="25" width="70"></Label>
+                    <Label col="0" text="{{ 'LSF.name' | translate}}" height="25" width="150"></Label>
+                    <Label col="1" text="{{ 'LSF.room' | translate}}" height="25" width="40"></Label>
+                    <Label col="2" text="{{ 'LSF.start' | translate}}" height="25" width="50"></Label>
+                    <Label col="3" text="{{ 'LSF.end' | translate}}" height="25" width="40"></Label>
+                    <Label col="4" text="{{ 'LSF.category' | translate}}" height="25" width="70"></Label>
                 </GridLayout>
                 <GridLayout columns="3*,*,*,*,2*" rows="25" width="97%" *ngFor="let lecture of item.lectures" class="schedule-table-content">
                     <Label col="0" [text]="lecture.name" height="25" width="150"></Label>
