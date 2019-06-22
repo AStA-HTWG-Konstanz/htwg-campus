@@ -48,10 +48,14 @@ export class AppComponent {
             cancelButtonText: "Schließen",
             actions: ["Deutsch", "English"]
         }).then(result => {
-            if(result === "Deutsch")
+            if(result === "Deutsch") {
+                this.cacheService.loadLanguageInCache("de");
                 this.translate.use("de")
-            if(result === "English")
+            }
+            if(result === "English") {
+                this.cacheService.loadLanguageInCache("en");
                 this.translate.use("en")
+            }
             this.closeDrawer()
         })
     }
