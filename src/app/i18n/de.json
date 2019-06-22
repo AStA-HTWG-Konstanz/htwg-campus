@@ -23,7 +23,7 @@
         "error": "Benutzername oder Password falsch"
     },
     "canteen": {
-        "screenTitle": "SPEISEPLAN",
+        "screenTitle": "Speiseplan",
         "student": "Studierende",
         "employee": "Mitarbeiter"
     },
