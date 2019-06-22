@@ -7,13 +7,6 @@
             "NSLocationWhenInUseUsageDescription": "This will be added to InfoPlist.strings"
         }
     },
-    "general": {
-        "noDataTxt": "Wird geladen",
-        "notConnectedText": "Oopsie Woopsie, bitte verdinde Dich mit dem Internet.",
-        "toggleOn": "An",
-        "toggleOff": "Aus",
-        "wrongCredentials": "Oopsie Woopsie, falsches Passwort oder falscher Benutzername"
-    },
     "login": {
         "signin": "Anmelden",
         "signout": "Ausloggen",
@@ -38,11 +31,7 @@
     "grades": {
         "title": "Noten",
         "course": "Kurs",
-        "mark": "Note",
-        "noData": "Momentan keine Daten verfügbar"
-    },
-    "news": {
-        "screenTitle": "News"
+        "mark": "Note"
     },
     "LSF": {
         "screenTitle": "Stundenplan",
@@ -54,25 +43,10 @@
         "end": "Ende",
         "category": "Kategorie"
     },
-    "timetable": {},
-    "asta": {},
     "settings": {
-        "screenTitle": "Menü",
-        "about": "Über",
-        "news": "News",
+        "screenTitle": "Einstellungen",
         "language": "Sprache",
-        "selectedWidgetsHeader": "Ausgewählte Widgets",
-        "availableWidgetsHeader": "Verfügbare Widgets",
-        "impressumDev": "Entwickelt von",
-        "impressumDesign": "Designed von",
-        "impressumProf": "Betreut von",
-        "BALANCE": "Guthaben",
-        "CANTEEN": "Mensa",
-        "ENDLICHT": "Endlicht",
-        "EVENT": "Termine",
-        "GRADES": "Noten",
-        "LECTURE": "Stundenplan",
-        "NEWS": "Aktuelles"
+        "safe": "Speichern"
     },
     "language": {
         "en": "English",

@@ -11,13 +11,17 @@ import { Schedule } from '../model/schedule/Schedule';
 import { SemestereventService } from '../service/semesterevents/semesterevent.service';
 import { SemesterEvents } from '../model/events/semesterevents';
 import { GradesService } from '../service/grades/grades.service';
-import { SemesterGrades } from '../model/grades/semester-grades';
 import { Grades } from '../model/grades/grades';
 import { EndlichtService } from '../service/endlicht/endlicht.service';
 import { Endlicht } from '../model/endlicht/endlicht';
-
-import * as appSettings from "tns-core-modules/application-settings";
 import { ListViewEventData } from 'nativescript-ui-listview';
+import { PrintBalanceService } from '../service/balance/print-balance.service';
+import { Balance } from '../model/balance/balance';
+import { MainTile } from '../model/dashboard/mainTile/mainTile';
+import { Dashboard } from '../model/dashboard/Dashboard';
+import { StrandbarService } from '../service/strandbar/strandbar.service';
+import { Strandbar } from '../model/strandbar/strandbar';
+
 @Component({
   selector: 'ns-main',
   templateUrl: './main.component.html',
@@ -27,50 +31,56 @@ import { ListViewEventData } from 'nativescript-ui-listview';
 export class MainComponent implements OnInit {
   constructor(
     private routerExtensions: RouterExtensions,
-    private loginService: LoginService,
     private cacheService: CacheService,
     private canteenService: CanteenService,
     private scheduleService: HtwgscheduleService,
     private semesterEventService: SemestereventService,
     private gradeService: GradesService,
-    private endlichtService: EndlichtService
-    ) {
+    private endlichtService: EndlichtService,
+    private balanceService: PrintBalanceService,
+    private strandbarService: StrandbarService
+  ) {
   }
 
-  components: { name: string, desc: string, navigate: string, imageSrc: string, inactive: boolean }[] = [
-    { name: "dashboard.lectures", desc: "TODO: Add short description here!", navigate: "schedule", imageSrc: "~/images/schedule.png",inactive: false },
-    { name: "dashboard.grades", desc: "TODO: Add short description here!", navigate: "grades", imageSrc: "~/images/student_hat.png",inactive: false },
-    { name: "dashboard.canteen", desc: "TODO: Add short description here!", navigate: "canteen", imageSrc: "~/images/coffee.png",inactive: false },
-    { name: "dashboard.strandbar", desc: "TODO: Add short description here!", navigate: "strandbar", imageSrc: "~/images/wine.png", inactive: true },
-    { name: "dashboard.endlicht", desc: "TODO: Add short description here!", navigate: "endlicht", imageSrc: "~/images/endlicht_white.png",inactive: false },
-    { name: "dashboard.events", desc: "TODO: Add short description here!", navigate: "events", imageSrc: "~/images/events.png",inactive: false },
-    { name: "dashboard.balance", desc: "TODO: Add short description here!", navigate: "balance", imageSrc: "~/images/balance.png" , inactive: true},
-  ]
-
+  components: Dashboard = null;
   // TODO workaround with login session
   ngOnInit() {
-    appSettings.remove("endlicht")
     if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
-    if(!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
-      this.canteenService.getMenu().then((resolved: Canteen) => {
-          this.cacheService.loadCanteenInCache(resolved)
-          console.log("loaded Canteen")
-          }, (rejected: any) => alert(JSON.stringify(rejected))
-        )
+    if (this.cacheService.isDashBoardInCache()) {
+      this.components = this.cacheService.getDashBoardFromCache();
+    } else {
+      this.components = new Dashboard([
+        new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+        new MainTile("dashboard.grades", "", "grades", "~/images/student_hat.png", false),
+        new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+        new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
+        new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+        new MainTile("dashboard.events", "", "events", "~/images/events.png", false),
+        new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+      ]);
+      this.cacheService.loadDashBoardInCache(this.components);
     }
 
-    if(!this.cacheService.isLecturesInCache() || !this.cacheService.lecturesFromToday()) {
+    if (!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
+      this.canteenService.getMenu().then((resolved: Canteen) => {
+        this.cacheService.loadCanteenInCache(resolved)
+        console.log("loaded Canteen")
+      }, (rejected: any) => alert(JSON.stringify(rejected))
+      )
+    }
+
+    if (!this.cacheService.isLecturesInCache() || !this.cacheService.lecturesFromToday()) {
       this.scheduleService.getTimeTable().then(
         (resolved: Schedule) => {
-            this.cacheService.loadLecturesInCache(resolved)
-            console.log("loaded Lectures")
+          this.cacheService.loadLecturesInCache(resolved)
+          console.log("loaded Lectures")
         }, (rejected: any) => alert(JSON.stringify(rejected))
       );
     }
 
-    if(!this.cacheService.isEventsInCache() || !this.cacheService.eventsFromToday()) {
+    if (!this.cacheService.isEventsInCache() || !this.cacheService.eventsFromToday()) {
       this.semesterEventService.getIsOpen().then(
         (resolved: SemesterEvents) => {
           this.cacheService.loadEventsInCache(resolved);
@@ -79,7 +89,7 @@ export class MainComponent implements OnInit {
       )
     }
 
-    if(!this.cacheService.isEndlichtInCache() || !this.cacheService.endlichtFromToday()) {
+    if (!this.cacheService.isEndlichtInCache() || !this.cacheService.endlichtFromToday()) {
       this.endlichtService.getEndlicht().then(
         (resolved: Endlicht) => {
           this.cacheService.loadEndlichtInCache(resolved);
@@ -96,6 +106,27 @@ export class MainComponent implements OnInit {
         }, (rejected: any) => alert(JSON.stringify(rejected))
       );
     }
+    if (!this.cacheService.isPrintBalanceInCache() || !this.cacheService.printBalanceFromToday()) {
+      this.balanceService.getBalance().then(
+        (resolved: Balance) => {
+          this.cacheService.loadPrintBalanceInCache(resolved)
+          this.updatePrintTile()
+          this.cacheService.loadDashBoardInCache(this.components)
+          console.log("loaded print balance")
+        }, (rejected: any) => alert(JSON.stringify(rejected))
+      );
+    }
+    if (!this.cacheService.isStrandbarInCache() || !this.cacheService.strandbarFromCurrentHour()) {
+      this.strandbarService.getIsOpen().then(
+        (resolve: Strandbar) => {
+          this.cacheService.loadStrandbarInCache(resolve)
+          this.updateStrandBar()
+          this.cacheService.loadDashBoardInCache(this.components)
+          console.log("loaded strandbar")
+        },
+        (reject: any) => (rejected: any) => alert(JSON.stringify(rejected))
+      )
+    }
   }
 
   onDrawerButtonTap(): void {
@@ -108,10 +139,33 @@ export class MainComponent implements OnInit {
 
   onItemLoading(args) {
   }
+  public onItemReordered(args: ListViewEventData) {
+    this.cacheService.loadDashBoardInCache(this.components)
+    //console.log("Item reordered. Old index: " + args.index + " " + "new index: " + args.data.targetIndex);
+  }
+
+  private updatePrintTile() {
+    if (this.cacheService.isPrintBalanceInCache()) {
+      let balance: Balance = this.cacheService.getPrintBalanceFromCache()
+      let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
+      let tmp = this.components.tiles[balanceIndex]
+      tmp.setDesc(balance.print + "€")
+      this.components.tiles[balanceIndex] = tmp
+    }
+  }
+  private updateStrandBar() {
+    if (this.cacheService.isStrandbarInCache()) {
+      let strandbar: Strandbar = this.cacheService.getStrandbarFromCache()
+      let strandBarIndex = this.components.tiles.findIndex(x => x.navigate == "strandbar")
+      let tmp = this.components.tiles[strandBarIndex]
+      tmp.setDesc(strandbar.isOpen ? "is open" : "is closed")
+      this.components.tiles[strandBarIndex] = tmp
+    }
+  }
 
   public onNavigationItemTap(args: ListViewEventData) {
-    if (!this.components[args.index].inactive) {
-      this.routerExtensions.navigateByUrl(this.components[args.index].navigate, { transition: { name: 'slideLeft' } })
+    if (!this.components.tiles[args.index].inactive) {
+      this.routerExtensions.navigateByUrl(this.components.tiles[args.index].navigate, { transition: { name: 'slideLeft' } })
     }
   }
 
