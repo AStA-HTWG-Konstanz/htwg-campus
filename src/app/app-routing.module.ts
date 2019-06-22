@@ -7,11 +7,11 @@ import { ScheduleComponent } from "./main/schedule/schedule.component";
 import { CanteenComponent } from "./main/canteen/canteen.component";
 import { AuthGuard } from "./service/auth/authGuard.service";
 import { GradesComponent } from "./main/grades/grades.component";
-import { StrandbarComponent } from "./main/strandbar/strandbar.component";
 import { EndlichtComponent } from "./main/endlicht/endlicht.component";
 import { SemesterEvents } from "./model/events/semesterevents";
 import { SemestereventsComponent } from "./main/semesterevents/semesterevents.component";
 import { PrintBalanceComponent } from "./main/print-balance/print-balance.component";
+import { SettingsComponent } from "./settings/settings.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -20,10 +20,9 @@ const routes: Routes = [
     { path: "grades", component: GradesComponent, canActivate: [AuthGuard] },
     { path: "schedule", component: ScheduleComponent, canActivate: [AuthGuard] },
     { path: "canteen", component: CanteenComponent },
-    { path: "strandbar", component: StrandbarComponent },
     { path: "endlicht", component: EndlichtComponent },
     { path: "events", component: SemestereventsComponent },
-    { path: "balance", component: PrintBalanceComponent, canActivate: [AuthGuard] }
+    { path: "settings", component: SettingsComponent },
 ];
 
 @NgModule({

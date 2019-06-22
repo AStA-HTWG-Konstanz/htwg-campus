@@ -10,10 +10,10 @@ import * as dialogs from "tns-core-modules/ui/dialogs"
     selector: "ns-app",
     templateUrl: "app.component.html"
 })
-export class AppComponent { 
+export class AppComponent {
     private _sideDrawerTransition: DrawerTransitionBase;
     userNameInSideBar: String = "user"
-    
+
     constructor(
         private routerExtensions: RouterExtensions,
         private cacheService: CacheService,
@@ -24,10 +24,15 @@ export class AppComponent {
 
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
-        if(this.cacheService.isUserInCache())
+        if (this.cacheService.isUserInCache()) {
             this.userNameInSideBar = this.cacheService.getUserFromCache().username
-        this.translate.setDefaultLang("en")
-        this.translate.use("de")
+        }
+        if (this.cacheService.isLanguageInCache()) {
+            this.translate.use(this.cacheService.getLanguageFromCache())
+        } else {
+            this.cacheService.loadLanguageInCache("de");
+            this.translate.use("de")
+        }
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
