@@ -17,7 +17,6 @@ import { GradesComponent } from './main/grades/grades.component';
 import { ActionButtonComponent } from './action-button/action-button.component';
 import { EndlichtComponent } from "./main/endlicht/endlicht.component";
 import { SemestereventsComponent } from "./main/semesterevents/semesterevents.component";
-import { PrintBalanceComponent } from "./main/print-balance/print-balance.component";
 import { CacheService } from './service/cache/cache.service';
 import { EndlichtService } from "./service/endlicht/endlicht.service";
 import { Http } from "@angular/http";
@@ -57,7 +56,6 @@ export function HttpLoaderFactory(http: Http) {
         GradesComponent,
         EndlichtComponent,
         SemestereventsComponent,
-        PrintBalanceComponent,
         ActionButtonComponent,
         SettingsComponent
     ],

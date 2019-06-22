@@ -44,22 +44,26 @@ export class AppComponent {
 
     selectLanguage() {
         var message = "Sprache auswählen"
-        if(this.translate.currentLang === "en")
+        if (this.translate.currentLang === "en")
             message = "Choose a language"
         dialogs.action({
             message: message,
             cancelButtonText: "Schließen",
             actions: ["Deutsch", "English"]
         }).then(result => {
-            if(result === "Deutsch" && this.cacheService.getLanguageFromCache() !== "de") {
-                this.cacheService.loadLanguageInCache("de");
-                this.translate.use("de")
-                this.canteenService.getMenu().then((resolved) =>  this.cacheService.loadCanteenInCache(resolved))
+            if (result === "Deutsch") {
+                if (!(this.cacheService.isLanguageInCache() && this.cacheService.getLanguageFromCache() == "de")) {
+                    this.cacheService.loadLanguageInCache("de");
+                    this.translate.use("de")
+                    this.canteenService.getMenu().then((resolved) => this.cacheService.loadCanteenInCache(resolved))
+                }
             }
-            if(result === "English" && this.cacheService.getLanguageFromCache() !== "en") {
-                this.cacheService.loadLanguageInCache("en");
-                this.translate.use("en")
-                this.canteenService.getMenu().then((resolved) => this.cacheService.loadCanteenInCache(resolved))
+            if (result === "English") {
+                if (!(this.cacheService.isLanguageInCache() && this.cacheService.getLanguageFromCache() == "en")) {
+                    this.cacheService.loadLanguageInCache("en");
+                    this.translate.use("en")
+                    this.canteenService.getMenu().then((resolved) => this.cacheService.loadCanteenInCache(resolved))
+                }
             }
             this.closeDrawer()
         })

@@ -10,7 +10,6 @@ import { GradesComponent } from "./main/grades/grades.component";
 import { EndlichtComponent } from "./main/endlicht/endlicht.component";
 import { SemesterEvents } from "./model/events/semesterevents";
 import { SemestereventsComponent } from "./main/semesterevents/semesterevents.component";
-import { PrintBalanceComponent } from "./main/print-balance/print-balance.component";
 import { SettingsComponent } from "./settings/settings.component";
 
 const routes: Routes = [
