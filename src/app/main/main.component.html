@@ -14,11 +14,11 @@
         (itemLoading)="onItemLoading($event)" (itemTap)="onNavigationItemTap($event)">
         <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="180" spanCount="2"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item">
-            <StackLayout class="card-tile" backgroundcolor="{{item.inactive ? 'rgb(211, 211, 211)' : '#334152'}}">
+            <StackLayout class="card-tile" backgroundcolor="{{item.inactive ? '#334152' : '#334152'}}">
                 <StackLayout class="card-item">
                     <Label fontSize="20" text="{{ item.name | translate}}" verticalAlignment="center"
                         horizontalAlignment="center" class="item-name" textWrap="true" color="white"></Label>
-                    <Label *ngIf="item.inactive" text="{{ item.desc }}" class="item-desc"></Label>
+                    <Label *ngIf="item.inactive" color="whitesmoke" text="{{ item.desc }}" class="item-desc"></Label>
                     <Image *ngIf="!item.inactive" src="{{ item.imageSrc }}" class="cardImage"></Image>
                 </StackLayout>
             </StackLayout>

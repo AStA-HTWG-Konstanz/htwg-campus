@@ -5,6 +5,8 @@ import * as app from "tns-core-modules/application";
 import { CacheService } from "./service/cache/cache.service";
 import { TranslateService } from "@ngx-translate/core";
 import * as dialogs from "tns-core-modules/ui/dialogs"
+import { CanteenService } from "./service/canteen/canteen.service";
+import { Canteen } from "./model/canteen/canteen";
 @Component({
     moduleId: module.id,
     selector: "ns-app",
@@ -17,7 +19,8 @@ export class AppComponent {
     constructor(
         private routerExtensions: RouterExtensions,
         private cacheService: CacheService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private canteenService: CanteenService
     ) {
         // Use the component constructor to inject services.
     }
@@ -48,13 +51,15 @@ export class AppComponent {
             cancelButtonText: "Schließen",
             actions: ["Deutsch", "English"]
         }).then(result => {
-            if(result === "Deutsch") {
+            if(result === "Deutsch" && this.cacheService.getLanguageFromCache() !== "de") {
                 this.cacheService.loadLanguageInCache("de");
                 this.translate.use("de")
+                this.canteenService.getMenu().then((resolved) =>  this.cacheService.loadCanteenInCache(resolved))
             }
-            if(result === "English") {
+            if(result === "English" && this.cacheService.getLanguageFromCache() !== "en") {
                 this.cacheService.loadLanguageInCache("en");
                 this.translate.use("en")
+                this.canteenService.getMenu().then((resolved) => this.cacheService.loadCanteenInCache(resolved))
             }
             this.closeDrawer()
         })
