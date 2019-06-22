@@ -4,7 +4,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 import * as app from "tns-core-modules/application";
 import { CacheService } from "./service/cache/cache.service";
 import { TranslateService } from "@ngx-translate/core";
-
+import * as dialogs from "tns-core-modules/ui/dialogs"
 @Component({
     moduleId: module.id,
     selector: "ns-app",
@@ -32,6 +32,23 @@ export class AppComponent {
 
     get sideDrawerTransition(): DrawerTransitionBase {
         return this._sideDrawerTransition;
+    }
+
+    selectLanguage() {
+        var message = "Sprache auswählen"
+        if(this.translate.currentLang === "en")
+            message = "Choose a language"
+        dialogs.action({
+            message: message,
+            cancelButtonText: "Schließen",
+            actions: ["Deutsch", "English"]
+        }).then(result => {
+            if(result === "Deutsch")
+                this.translate.use("de")
+            if(result === "English")
+                this.translate.use("en")
+            this.closeDrawer()
+        })
     }
 
     closeDrawer() {

@@ -15,7 +15,7 @@
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item">
                     <Label col="0" text="&#xf1ea;" class="fa"></Label>
-                    <Label col="1" text="{{ 'nav.language' | translate }}" class="p-r-10"></Label>
+                    <Label col="1" text="{{ 'nav.language' | translate }}" class="p-r-10" (tap)=selectLanguage()></Label>
                 </GridLayout>
 
                 <!-- <StackLayout class="hr"></StackLayout> -->
