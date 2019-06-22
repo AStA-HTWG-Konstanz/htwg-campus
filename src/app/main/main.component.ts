@@ -29,6 +29,9 @@ import { Strandbar } from '../model/strandbar/strandbar';
   moduleId: module.id,
 })
 export class MainComponent implements OnInit {
+
+  components: Dashboard = null;
+
   constructor(
     private routerExtensions: RouterExtensions,
     private cacheService: CacheService,
@@ -42,8 +45,6 @@ export class MainComponent implements OnInit {
   ) {
   }
 
-  components: Dashboard = null;
-  // TODO workaround with login session
   ngOnInit() {
     if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
