@@ -5,19 +5,24 @@ import { Observable, from } from 'rxjs';
 import { Canteen } from "~/app/model/canteen/canteen";
 import { LoginService } from "../login/login.service";
 import { BackendRequestService } from "../backend-request/backend-request.service";
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Injectable()
 export class CanteenService {
-    private serverUrl = "https://app.asta.htwg-konstanz.de/api/canteen/en/menu"
+    private serverUrl = "https://app.asta.htwg-konstanz.de"
 
     canteen: Canteen;
     currentDate: Date;
 
-    constructor(private loginSession: LoginService, private backendRequest: BackendRequestService) { }
+    constructor(
+        private loginSession: LoginService,
+        private backendRequest: BackendRequestService,
+        private translate: TranslateService
+    ) { }
 
     private getCanteen(): Promise<Object> {
-        return this.backendRequest.safe_get_request(this.serverUrl, 1);
+        return this.backendRequest.safe_get_request(this.serverUrl + "/api/canteen/" + this.translate.currentLang + "/menu", 1);
     }
 
     getMenu(): Promise<Canteen> {
