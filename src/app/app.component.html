@@ -27,7 +27,7 @@
 
                 <!-- <StackLayout class="hr"></StackLayout> -->
 
-                <GridLayout columns="auto, *" class="sidedrawer-list-item" (tap)="closeDrawer()">
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/settings']" (tap)="closeDrawer()">
                     <Label col="0" text="&#xf013;" class="fa"></Label>
                     <Label col="1" text="{{ 'nav.settings' | translate}}" class="p-r-10"></Label>
                 </GridLayout>

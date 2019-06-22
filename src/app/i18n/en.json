@@ -7,13 +7,6 @@
             "NSLocationWhenInUseUsageDescription": "This will be added to InfoPlist.strings"
         }
     },
-    "general": {
-        "noDataTxt": "No data yet",
-        "notConnectedText": "Oopsie Woopsie, there seems to be a problem with your internet connection",
-        "toggleOn": "On",
-        "toggleOff": "Off",
-        "wrongCredentials": "Oopsie Woopsie, there seems to be a wrong password / username"
-    },
     "login": {
         "signin": "Sign in",
         "signout": "Logout",
@@ -23,7 +16,7 @@
         "error": "Benutzername oder Password falsch"
     },
     "canteen": {
-        "screenTitle": "WEEKLY MENU",
+        "screenTitle": "Weekly Menu",
         "student": "Students",
         "employee": "Employees"
     },
@@ -35,14 +28,10 @@
     "events": {
         "screenTitle": "Events"
     },
-    "news": {
-        "screenTitle": "News"
-    },
     "grades": {
         "title": "Grades",
         "course": "Course",
-        "mark": "Mark",
-        "noData": "No data yet"
+        "mark": "Mark"
     },
     "LSF": {
         "screenTitle": "Timetable",
@@ -54,25 +43,10 @@
         "end": "End",
         "category": "Category"
     },
-    "lsf": {},
-    "asta": {},
     "settings": {
         "screenTitle": "Settings",
-        "about": "About",
-        "news": "News",
         "language": "Language",
-        "selectedWidgetsHeader": "Selected Widgets",
-        "availableWidgetsHeader": "Available Widgets",
-        "impressumDev": "Developed by",
-        "impressumDesign": "Designed by",
-        "impressumProf": "Supervised by",
-        "BALANCE": "Balance",
-        "CANTEEN": "Canteen",
-        "ENDLICHT": "Endlicht",
-        "EVENT": "Events",
-        "GRADES": "Grades",
-        "LECTURE": "Lectures",
-        "NEWS": "News"
+        "safe": "Safe"
     },
     "language": {
         "en": "English",

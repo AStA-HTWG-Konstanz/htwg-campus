@@ -2,10 +2,8 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
-        <Label col="1" text="Strandbar" class="action-bar-label"></Label>
+        <Label col="1" text="{{ 'settings.screenTitle' | translate}}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
-
 <StackLayout class="page page-content" tkMainContent>
-    <Label text="{{isOpen}}"></Label>
 </StackLayout>

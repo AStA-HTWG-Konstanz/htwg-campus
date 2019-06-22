@@ -120,6 +120,14 @@ components that have the btn class name.
     height: 100%;
     font-weight: 400;
 }
+.item-desc {
+    padding-top: 35;
+    padding-left: auto;
+    padding-right: auto;
+    vertical-align: center;
+    text-align: center;
+    font-size: 25;
+}
 .meal-category {
     text-align: center;
     font-size: 20;
