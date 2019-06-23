@@ -1,0 +1,48 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+platform :android do
+  desc "Build release for android"
+  lane :build do
+        sh("tns", "build", "android", "--release")
+  end
+
+  desc "Upload alpha to Google Play"
+  lane :alpha do
+
+  end
+
+  desc "Upload beta to Google Play"
+  lane :beta do
+
+  end
+end
+
+platform :ios do
+   desc "Build release for ios"
+   lane :build do
+        sh("tns", "build", "ios", "--release")
+   end
+
+   desc "Upload alpha to Testflight"
+   lane :alpha do
+
+   end
+
+   desc "Upload beta to Testflight"
+   lane :beta do
+
+   end
+end

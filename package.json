@@ -1,6 +1,6 @@
 {
   "nativescript": {
-    "id": "org.nativescript.htwgapp",
+    "id": "org.htwg-konstanz.htwgCampus",
     "tns-android": {
       "version": "5.4.0"
     },
@@ -8,9 +8,9 @@
       "version": "5.4.1"
     }
   },
-  "description": "NativeScript Application",
-  "license": "SEE LICENSE IN <your-license-filename>",
-  "repository": "<fill-your-repository-here>",
+  "description": "htwgCampus",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": "https://github.com/AStA-HTWG-Konstanz/htwg-campus.git",
   "dependencies": {
     "@angular/animations": "~8.0.1",
     "@angular/common": "~8.0.1",

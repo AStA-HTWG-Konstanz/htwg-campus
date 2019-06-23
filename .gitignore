@@ -21,6 +21,7 @@ tags
 npm-debug.log
 nativescript-angular*.tgz
 package-lock.json
+Gemfile.lock
 
 # Apps' JS files
 tests/app/**/*.js
@@ -54,3 +55,7 @@ yarn.lock
 
 # should be generated
 schema/
+
+# fastlane files
+fastlane/README.md
+fastlane/report.xml
