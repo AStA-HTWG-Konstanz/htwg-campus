@@ -42,37 +42,30 @@ components that have the btn class name.
 }
 
 .sidedrawer {
-    margin-bottom: -100;
-}
-.sidedrawer-list-item-icon,.sidedrawer-list-item{}
-.sidedrawer.sidedrawer-left {}
-.sidedrawer.sidedrawer-left .footnote {}
-.sidedrawer .sidedrawer-header {
-    height: 50;
-}
-.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
-    font-size: 23;
-    text-align: left;
-    vertical-align: center;
-    padding-top: 0;
-    padding-left: 0;
-}
-.sidedrawer .sidedrawer-content{}
-.sidedrawer .sidedrawer-content .sidedrawer-list-item{
+    margin: 0;
     padding-left: 15;
-    margin-top: 15;
+    padding-right: 15;
+}
+.sidedrawer-content{
+    padding-left: 10;
+    padding-right: 10;
+    
+}
+ .sidedrawer-list-item{
+    padding-left: 15;
+    margin-top: 5;
     margin-bottom: 5;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
+.nav-name {
+    padding-right: 10;
     vertical-align: center;
+    font-weight: bold;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item .fa {
+.fa {
+    vertical-align: center;
     width: 20;
     margin-right: 10;
-}
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
-}
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
+    font-weight: normal;
 }
 .activityBar {
     width: 50;
@@ -194,32 +187,33 @@ components that have the btn class name.
     background-color: #d9e5ec;
     color: black;
 }
-
+.sidedrawer { 
+    background-color: #334152;
+}
 .sidedrawer-list-item-icon,.sidedrawer-list-item{
     color: #334152;
 }
 .sidedrawer.sidedrawer-left {
-    background-color: #009b91;
+    background-color: #334152;
 }
 .sidedrawer.sidedrawer-left .footnote {
     color: #334152;
 }
-.sidedrawer .sidedrawer-header {
-    background-color: #009b91;
+ .sidedrawer-header-brand {
+     color: black;
+     font-weight: bold;
+    /* background-color: #009b91; */
 }
-.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
-    color: #fff;
+.sidedrawer-content{ 
+    background-color: #fff;
 }
-.sidedrawer .sidedrawer-content{ 
-    background-image: url("~/images/background_light_1.png");
-}
-.sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
+.sidedrawer-list-item Label {
     color: black;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
+.sidedrawer-list-item.selected {
     background-color: #d9e5ec;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
+.sidedrawer-list-item.selected Label {
     color:#3A53FF;
 }
 
