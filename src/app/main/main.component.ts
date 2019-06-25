@@ -166,6 +166,7 @@ export class MainComponent implements OnInit {
         await new Promise(resolve => setTimeout(resolve, 200));
         this.updatePrintTile(rounds -1)
       } else {
+        if (balanceIndex == -1) return
         let tmp = this.components.tiles[balanceIndex]
         tmp.setDesc(balance.print + "€")
         this.components.tiles[balanceIndex] = tmp
@@ -181,6 +182,7 @@ export class MainComponent implements OnInit {
         await new Promise(resolve => setTimeout(resolve, 200));
         this.updateStrandBar(rounds - 1)
       } else {
+        if(strandBarIndex == -1) return
         let tmp = this.components.tiles[strandBarIndex]
         tmp.setDesc(strandbar.isOpen ? "is open" : "is closed")
         this.components.tiles[strandBarIndex] = tmp
