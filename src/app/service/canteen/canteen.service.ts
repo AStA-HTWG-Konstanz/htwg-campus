@@ -6,6 +6,7 @@ import { Canteen } from "~/app/model/canteen/canteen";
 import { LoginService } from "../login/login.service";
 import { BackendRequestService } from "../backend-request/backend-request.service";
 import { TranslateService } from "@ngx-translate/core";
+import { CacheService } from "../cache/cache.service";
 
 
 @Injectable()
@@ -18,19 +19,16 @@ export class CanteenService {
     constructor(
         private loginSession: LoginService,
         private backendRequest: BackendRequestService,
-        private translate: TranslateService
+        private cacheService: CacheService
     ) { }
 
     private getCanteen(): Promise<Object> {
-        return this.backendRequest.safe_get_request(this.serverUrl + "/api/canteen/" + this.translate.currentLang + "/menu", 1);
+        console.log(this.cacheService.getLanguageFromCache())
+        return this.backendRequest.safe_get_request(this.serverUrl + "/api/canteen/" + this.cacheService.getLanguageFromCache() + "/menu", 1);
     }
 
     getMenu(): Promise<Canteen> {
         return new Promise((resolve, reject) => {
-            if (this.canteen && this.currentDate > new Date()) {
-                console.log("already responsed")
-                resolve(this.canteen);
-            } else {
                 //this.loginSession.login(this.loginSession.getUser());
                 this.getCanteen().then(
                     (response: HttpResponse) => {
@@ -50,6 +48,6 @@ export class CanteenService {
                     (err) => reject(err)
                 );
             }
-        })
+        )
     }
 }

@@ -19,6 +19,7 @@
                     <Label class="item-name" fontSize="20" text="{{ item.name | translate}}" verticalAlignment="center"
                         horizontalAlignment="center" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}"></Label>
                     <Label *ngIf="item.inactive" text="{{ item.desc }}" class="item-desc"></Label>
+
                     <Image *ngIf="!item.inactive" src="{{ item.imageSrc }}" class="cardImage"></Image>
                 </StackLayout>
             </StackLayout>
