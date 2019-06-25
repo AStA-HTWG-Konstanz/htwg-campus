@@ -21,7 +21,7 @@ import { MainTile } from '../model/dashboard/mainTile/mainTile';
 import { Dashboard } from '../model/dashboard/Dashboard';
 import { StrandbarService } from '../service/strandbar/strandbar.service';
 import { Strandbar } from '../model/strandbar/strandbar';
-import { isIOS, isAndroid, Color } from 'tns-core-modules/ui/page/page';
+import { isIOS, isAndroid, Color, Page } from 'tns-core-modules/ui/page/page';
 declare var CGSizeMake
 @Component({
   selector: 'ns-main',
@@ -32,6 +32,8 @@ declare var CGSizeMake
 export class MainComponent implements OnInit {
 
   components: Dashboard = null;
+  menu: string;
+  price: string;
 
   constructor(
     private routerExtensions: RouterExtensions,
@@ -42,11 +44,16 @@ export class MainComponent implements OnInit {
     private gradeService: GradesService,
     private endlichtService: EndlichtService,
     private balanceService: PrintBalanceService,
-    private strandbarService: StrandbarService
+    private strandbarService: StrandbarService,
+    private page: Page
   ) {
   }
 
   ngOnInit() {
+    this.page.on('navigatingTo', (data) => {
+      if(data.isBackNavigation)
+      this.ngOnInit()
+    });
     if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
@@ -66,11 +73,17 @@ export class MainComponent implements OnInit {
     }
 
     if (!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
-      this.canteenService.getMenu().then((resolved: Canteen) => {
-        this.cacheService.loadCanteenInCache(resolved)
+      this.canteenService.getMenu().then((canteen: Canteen) => {
+        this.cacheService.loadCanteenInCache(canteen)
+        this.menu = canteen.menu[0].meals[0].title.split("|")[0]
+        this.price = canteen.menu[0].meals[0].priceStud + "€"
         console.log("loaded Canteen")
       }, (rejected: any) => alert(JSON.stringify(rejected))
       )
+    } else {
+      var canteen: Canteen = this.cacheService.getCanteenFromCache()
+      this.menu = canteen.menu[0].meals[0].title.split("|")[0]
+      this.price = canteen.menu[0].meals[0].priceStud + "€"
     }
 
     if (!this.cacheService.isLecturesInCache() || !this.cacheService.lecturesFromToday()) {
