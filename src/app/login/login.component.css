@@ -2,39 +2,28 @@
     justify-content: center;
     align-items: center;
     background-size: cover;
-    background-image: url("~/images/login.png");
-  }
-.form {
-    width: 300;
-    padding: 10 16;
-    background-color: #f0f0f0;
-    opacity: 0.8;
-  }
-  .loadIndicator {
-      width: 100;
-  }
-  Image {
-    margin-bottom: 20;
-    height: 70;
-  }
-  Button, TextField {
-    margin-bottom: 10;
-  }
-  .btn-primary {
-    background-color: #CB1D00;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  TextField {
-    placeholder-color: #C4AFB4;
-    color: black;
-  }
-  .dark {
-    background-color: #301217;
-  }
-  .dark TextField {
-    color:  #C4AFB4;
+    background-color: #334152;
   }
   .form {
-    border-radius: 50px;
+    height: 80%;
   }
+.login-logo {
+  margin-bottom: 50;
+  height: 250;
+}
+.input {
+  border-radius: 5;
+  width: 70%;
+  max-width: 200;
+  margin-bottom: 20;
+  placeholder-color: rgb(163, 163, 163);
+  background-color: white;
+  height: 55;
+}
+.login-button {
+  background-color: #009b91;
+  color: white;
+  font-size: 18;
+  border-radius: 5;
+  height: 55;
+}

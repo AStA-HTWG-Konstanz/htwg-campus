@@ -1,13 +1,13 @@
 <FlexboxLayout class="loginframe">
     <StackLayout class="form">
-        <Image src="~/images/logo.png"></Image>
+        <Image class="login-logo" src="~/images/login_logo_white.png"></Image>
         <TextField hint="{{ 'login.username' | translate }}" autocorrect="false" autocapitalizationType="none" (textChange)="onNameChange($event)"
-            class="input input-border" [isEnabled]="!processing">
+            class="input" [isEnabled]="!processing">
         </TextField>
-        <TextField hint="{{ 'login.password' | translate }}" secure="true" (textChange)="onPasswordChange($event)" class="input input-border"
+        <TextField hint="{{ 'login.password' | translate }}" secure="true" (textChange)="onPasswordChange($event)" class="input"
             [isEnabled]="!processing">
         </TextField>
         <Label *ngIf="error" text="{{ 'login.error' | translate }}" class="errormessage"></Label>
-        <Button text="{{ 'login.signin' | translate }}" class="btn btn-primary" (tap)="login()" [isEnabled]="!processing"></Button>
+        <Button text="{{ 'login.signin' | translate }}" class="login-button" (tap)="login()" [isEnabled]="!processing"></Button>
     </StackLayout>
 </FlexboxLayout>

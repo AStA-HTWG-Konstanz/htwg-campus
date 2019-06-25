@@ -2,7 +2,7 @@
     <NavigationButton visibility="collapsed"></NavigationButton>
     <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
         <ActionButton (tap)="onDrawerButtonTap()" #actionButton></ActionButton>
-        <Label col="1" text="{{ 'app.name'| translate }}" class="action-bar-label"></Label>
+        <Label col="1" text="{{ 'dashboard.screenTitle'| translate }}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
 
@@ -14,10 +14,10 @@
         (itemLoading)="onItemLoading($event)" (itemTap)="onNavigationItemTap($event)">
         <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="180" spanCount="2"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item">
-            <StackLayout class="card-tile" backgroundcolor="{{item.inactive ? 'rgb(211, 211, 211)' : '#334152'}}">
+            <StackLayout class="card-tile" backgroundcolor="{{item.inactive ? '#eee' : '#334152'}}">
                 <StackLayout class="card-item">
-                    <Label fontSize="20" text="{{ item.name | translate}}" verticalAlignment="center"
-                        horizontalAlignment="center" class="item-name" textWrap="true" color="white"></Label>
+                    <Label class="item-name" fontSize="20" text="{{ item.name | translate}}" verticalAlignment="center"
+                        horizontalAlignment="center" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}"></Label>
                     <Label *ngIf="item.inactive" text="{{ item.desc }}" class="item-desc"></Label>
                     <Image *ngIf="!item.inactive" src="{{ item.imageSrc }}" class="cardImage"></Image>
                 </StackLayout>

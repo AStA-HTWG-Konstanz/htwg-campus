@@ -14,14 +14,15 @@ import { GradesService } from '../service/grades/grades.service';
 import { Grades } from '../model/grades/grades';
 import { EndlichtService } from '../service/endlicht/endlicht.service';
 import { Endlicht } from '../model/endlicht/endlicht';
-import { ListViewEventData } from 'nativescript-ui-listview';
+import { ListViewEventData, RadListView } from 'nativescript-ui-listview';
 import { PrintBalanceService } from '../service/balance/print-balance.service';
 import { Balance } from '../model/balance/balance';
 import { MainTile } from '../model/dashboard/mainTile/mainTile';
 import { Dashboard } from '../model/dashboard/Dashboard';
 import { StrandbarService } from '../service/strandbar/strandbar.service';
 import { Strandbar } from '../model/strandbar/strandbar';
-
+import { isIOS, isAndroid, Color } from 'tns-core-modules/ui/page/page';
+declare var CGSizeMake
 @Component({
   selector: 'ns-main',
   templateUrl: './main.component.html',
@@ -138,29 +139,52 @@ export class MainComponent implements OnInit {
   reload(): void {
   }
 
-  onItemLoading(args) {
+  onItemLoading(args: ListViewEventData) {
+    const listView = args.object
+    if (isIOS) {
+      listView.ios.layer.shadowOpacity = 1.0;
+      listView.ios.layer.shadowRadius = 3.0;
+      listView.ios.layer.shadowColor = new Color('rgba(128, 128, 128,0.7)').ios.CGColor;
+      listView.ios.layer.shadowOffset = CGSizeMake(2.0, 5.0);
+    }
+    if (isAndroid) {
+      args.view.androidElevation = 10;
+      args.view.borderWidth = "0.7";
+    }
   }
   public onItemReordered(args: ListViewEventData) {
     this.cacheService.loadDashBoardInCache(this.components)
     //console.log("Item reordered. Old index: " + args.index + " " + "new index: " + args.data.targetIndex);
   }
 
-  private updatePrintTile() {
+  async updatePrintTile(rounds = 2) {
     if (this.cacheService.isPrintBalanceInCache()) {
       let balance: Balance = this.cacheService.getPrintBalanceFromCache()
       let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
-      let tmp = this.components.tiles[balanceIndex]
-      tmp.setDesc(balance.print + "€")
-      this.components.tiles[balanceIndex] = tmp
+      console.log("rounds printer")
+      if(balanceIndex == -1 && rounds > 0){
+        await new Promise(resolve => setTimeout(resolve, 200));
+        this.updatePrintTile(rounds -1)
+      } else {
+        let tmp = this.components.tiles[balanceIndex]
+        tmp.setDesc(balance.print + "€")
+        this.components.tiles[balanceIndex] = tmp
+      }
     }
   }
-  private updateStrandBar() {
+  async updateStrandBar(rounds = 2) {
     if (this.cacheService.isStrandbarInCache()) {
       let strandbar: Strandbar = this.cacheService.getStrandbarFromCache()
       let strandBarIndex = this.components.tiles.findIndex(x => x.navigate == "strandbar")
-      let tmp = this.components.tiles[strandBarIndex]
-      tmp.setDesc(strandbar.isOpen ? "is open" : "is closed")
-      this.components.tiles[strandBarIndex] = tmp
+      console.log("rounds strandbar")
+      if (strandBarIndex == -1 && rounds > 0) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+        this.updateStrandBar(rounds - 1)
+      } else {
+        let tmp = this.components.tiles[strandBarIndex]
+        tmp.setDesc(strandbar.isOpen ? "is open" : "is closed")
+        this.components.tiles[strandBarIndex] = tmp
+      }
     }
   }
 
