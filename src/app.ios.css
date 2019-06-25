@@ -76,7 +76,7 @@ components that have the btn class name.
 }
 .activityBar {
     width: 50;
-    height: 50;
+    height: 40;
 }
 :disabled {
     opacity: 0.5;
@@ -85,8 +85,8 @@ components that have the btn class name.
     color: red;
 }
 .action-bar-label {
-    font-size: 20;
-    margin-left: -25;
+    font-size: 26;
+    margin-left: -40;
     horizontal-align: center;
     vertical-align: center;
 }
@@ -109,8 +109,11 @@ components that have the btn class name.
 .card-tile {
     margin: 4;
     margin-top:8;
-    border-radius:5;
-    padding: 0;
+    padding-top: 10;
+    padding-bottom: 10;
+    padding-left: auto;
+    padding-right: auto;
+    border-width: 0.3;
 }
 .cardImage {
     margin: 15;
@@ -126,7 +129,8 @@ components that have the btn class name.
     padding-right: auto;
     vertical-align: center;
     text-align: center;
-    font-size: 25;
+    font-size: 32;
+    font-weight: bold;
 }
 .meal-category {
     text-align: center;
@@ -220,11 +224,12 @@ components that have the btn class name.
 }
 
 .action-bar-label {
-    color: white;
+    color: black;
+    font-weight: bold;
 }
 .action-bar {  
     color: #009b91;
-    background-color: #334152;
+    background-color: #d9e5ec;
 }
 .page-header-green {
     color: #009b91;
@@ -234,7 +239,7 @@ components that have the btn class name.
     color: #fff;
 }
 .card-tile {
-    /* background-color: #334152; */
+    border-color: rgb(211, 211, 211);
 }
 .meal-category {
     background-color:#334152; 

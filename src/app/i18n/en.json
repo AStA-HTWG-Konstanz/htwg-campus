@@ -60,6 +60,7 @@
         "logout": "Logout"
     },
     "dashboard": {
+        "screenTitle": "Dashboard",
         "lectures": "Lectures",
         "grades": "Grades",
         "canteen": "Canteen",
