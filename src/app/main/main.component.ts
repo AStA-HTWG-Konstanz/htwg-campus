@@ -32,8 +32,6 @@ declare var CGSizeMake
 export class MainComponent implements OnInit, OnChanges {
 
   components: Dashboard = null;
-  menu: string;
-  price: string;
 
   constructor(
     private routerExtensions: RouterExtensions,
@@ -45,8 +43,7 @@ export class MainComponent implements OnInit, OnChanges {
     private endlichtService: EndlichtService,
     private balanceService: PrintBalanceService,
     private strandbarService: StrandbarService,
-  ) {
-  }
+  ) { }
 
 
   ngOnInit() {
@@ -54,6 +51,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
     this.refreshDashBoard();
+    this.updateCanteena()
+    this.updatePrintTile()
+    this.updateStrandBar()
 
   }
   ngOnChanges() {
@@ -81,23 +81,11 @@ export class MainComponent implements OnInit, OnChanges {
       this.canteenService.getMenu().then((canteen: Canteen) => {
         this.cacheService.loadCanteenInCache(canteen)
         this.updateTileOpacity("dashboard.canteen", false)
-        this.menu = canteen.menu[0].meals[0].title.split("|")[0]
-        this.price = canteen.menu[0].meals[0].priceStud + "€"
         console.log("loaded Canteen")
       }, (rejected: any) => {
-        this.menu = "no menu found"
         console.log("canteen error: " + JSON.stringify(rejected))
         this.updateTileOpacity("dashboard.canteen", true)
-      }
-      )
-    } else {
-      var canteen: Canteen = this.cacheService.getCanteenFromCache()
-      if (!canteen || canteen.menu.length == 0) {
-        this.menu = "no menu found"
-        return
-      }
-      this.menu = canteen.menu[0].meals[0].title.split("|")[0]
-      this.price = canteen.menu[0].meals[0].priceStud + "€"
+      })
     }
 
     if (!this.cacheService.isLecturesInCache() || !this.cacheService.lecturesFromToday()) {
@@ -155,7 +143,6 @@ export class MainComponent implements OnInit, OnChanges {
       this.balanceService.getBalance().then(
         (resolved: Balance) => {
           this.cacheService.loadPrintBalanceInCache(resolved)
-          this.updatePrintTile()
           this.updateTileOpacity("dashboard.balance", false)
           this.cacheService.loadDashBoardInCache(this.components)
           console.log("loaded print balance")
@@ -169,7 +156,6 @@ export class MainComponent implements OnInit, OnChanges {
       this.strandbarService.getIsOpen().then(
         (resolve: Strandbar) => {
           this.cacheService.loadStrandbarInCache(resolve)
-          this.updateStrandBar()
           this.updateTileOpacity("dashboard.strandbar", false)
           this.cacheService.loadDashBoardInCache(this.components)
           console.log("loaded strandbar")
@@ -179,7 +165,9 @@ export class MainComponent implements OnInit, OnChanges {
         }
       )
     }
+    this.cacheService.loadDashBoardInCache(this.components);
   }
+
   onPullToRefreshInitiated(args: any) {
     this.refreshTile();
     setTimeout(function () {
@@ -193,10 +181,7 @@ export class MainComponent implements OnInit, OnChanges {
     sideDrawer.showDrawer();
   }
 
-  reload(): void {
-  }
-
-  onItemLoading(args: ListViewEventData) {
+  async onItemLoading(args: ListViewEventData) {
     const listView = args.object
     if (isIOS) {
       listView.ios.layer.shadowOpacity = 1.0;
@@ -214,38 +199,41 @@ export class MainComponent implements OnInit, OnChanges {
     //console.log("Item reordered. Old index: " + args.index + " " + "new index: " + args.data.targetIndex);
   }
 
-  async updatePrintTile(rounds = 2) {
+  async updatePrintTile() {
     if (this.cacheService.isPrintBalanceInCache()) {
       let balance: Balance = this.cacheService.getPrintBalanceFromCache()
       let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
       console.log("rounds printer")
-      if (balanceIndex == -1 && rounds > 0) {
-        await new Promise(resolve => setTimeout(resolve, 200));
-        this.updatePrintTile(rounds - 1)
-      } else {
+      if (balanceIndex !== -1) {
         let foundPrint = this.components.tiles[balanceIndex]
-        if (!foundPrint) return
         foundPrint.desc = balance.print + "€"
         this.components.tiles[balanceIndex] = foundPrint
       }
     }
   }
-  async updateStrandBar(rounds = 2) {
+  async updateStrandBar() {
     if (this.cacheService.isStrandbarInCache()) {
       let strandbar: Strandbar = this.cacheService.getStrandbarFromCache()
       let strandBarIndex = this.components.tiles.findIndex(x => x.navigate == "strandbar")
       console.log("rounds strandbar")
-      if (strandBarIndex == -1 && rounds > 0) {
-        await new Promise(resolve => setTimeout(resolve, 200));
-        this.updateStrandBar(rounds - 1)
-      } else {
+      if (strandBarIndex !== -1) {
         let foundStrandbar = this.components.tiles[strandBarIndex]
-        if (!foundStrandbar) return
         let showTileDesc = strandbar.isOpen ? "strandbar.open" : "strandbar.close"
         foundStrandbar.desc = showTileDesc
         this.components.tiles[strandBarIndex] = foundStrandbar
       }
     }
+  }
+  async updateCanteena() {
+    let canteenIndex = this.components.tiles.findIndex(x => x.navigate == "canteen")
+    let foundCanteena = this.components.tiles[canteenIndex]
+    if (this.cacheService.isCanteenInCache()) {
+      let canteen: Canteen = this.cacheService.getCanteenFromCache()
+      foundCanteena.desc = canteen.menu[0].meals[0].title.split("|")[0]
+    } else {
+      foundCanteena.desc = "canteen.preview"
+    }
+    this.components.tiles[canteenIndex] = foundCanteena
   }
   async updateTileOpacity(name: string, deactivate: boolean) {
     let searchIndex = this.components.tiles.findIndex(x => x.name.startsWith(name))

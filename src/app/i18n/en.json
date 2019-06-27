@@ -17,6 +17,7 @@
     },
     "canteen": {
         "screenTitle": "Weekly Menu",
+        "preview": "no menu found",
         "student": "Students",
         "employee": "Employees"
     },

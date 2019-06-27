@@ -64,6 +64,9 @@ export class ScheduleComponent implements OnInit {
         }
     }
     calcHeight(item) {
-        return 35 * (item.lectures.length) + 65
+        return 100 * (item.lectures.length) + 40
+    }
+    trimTime(text: string) {
+        return text.split(":").slice(0, 2).join(":")
     }
 }

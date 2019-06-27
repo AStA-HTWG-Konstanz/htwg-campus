@@ -19,8 +19,8 @@
                     <Label class="item-name" fontSize="20" text="{{ item.name | translate}}" verticalAlignment="center"
                         horizontalAlignment="center" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}"></Label>
                     <Label *ngIf="item.inactive" text="{{ item.desc | translate}}" class="item-desc" textWrap="true"></Label>
-                    <Label *ngIf="item.name === 'dashboard.canteen'" text="{{ menu }}" color="whitesmoke" class="item-desc"
-                        textWrap="true"></Label>
+                    <Label *ngIf="item.name === 'dashboard.canteen'" text="{{ item.desc | translate}}" color="whitesmoke"
+                        class="item-desc" textWrap="true"></Label>
                     <Image *ngIf="!item.inactive && item.name !== 'dashboard.canteen'" src="{{ item.imageSrc }}" class="cardImage"></Image>
                 </StackLayout>
             </StackLayout>
