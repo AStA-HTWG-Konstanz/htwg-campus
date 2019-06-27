@@ -9,7 +9,8 @@
   }
 .login-logo {
   margin-bottom: 50;
-  height: 250;
+  height: 40%;
+  max-height: 250;
 }
 .input {
   width: 70%;

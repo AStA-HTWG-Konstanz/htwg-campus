@@ -158,7 +158,19 @@ components that have the btn class name.
 }
 .grades-table-header {
     text-align: center;
-    font-size: 16;
+    font-size: 18;
+    font-weight: bold;
+}
+.grades-page {
+    height: 100%;
+    padding: 10; 
+}
+.grades-page-container {
+    padding: 10;
+}
+.schedule-page {
+    margin: 10;
+    padding-top: 0;
 }
 .schedule-lecture-block {
     padding-top: 3;
@@ -166,23 +178,27 @@ components that have the btn class name.
     padding-left: 5;
     padding-right: 5;
 }
-.schedule-table-header {
-    text-align: center;
-    font-weight: normal;
-    font-size: 14;
+.lecture-name {
+    text-align: left;
+    font-weight: bold;
+    font-size: 18;
 }
 .schedule-day-header {
-    text-align: center;
+    text-align: left;
+    vertical-align: center;
     font-weight: normal;
     font-size: 26;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5;
+}
+.schedule-lecture-block StackLayout {
+    margin-left: auto;
+    margin-right: auto;
+    width: 94%;
 }
 .schedule-table-content {
-    font-size: 14;
-    padding-left: 10px;
-    padding-right: 10px;
+    font-size: 16;
+    padding-left: 10;
+    padding-right: 10;
 }
 .schedule-collapse-symbol {
     font-size: 31;
@@ -275,17 +291,24 @@ components that have the btn class name.
     color: #fff;
 }
 .grades-table-header {
-    background-color:#334152; 
-    color: #fff;
+    color: black;
+}
+.schedule-page {
+    background-color: white;
+}
+.grades-page-container {
+    background-color: white;
 }
 .schedule-table-header {
-    background-color:#334152; 
-    color: #fff;
+    color: black;
 }
 .schedule-day-header {
     background-color: white; 
     color: black;
     border-radius: 5;
+}
+.schedule-lecture-block .hr {
+    background-color: #334152;
 }
 .schedule-collapse-symbol {
     color: #009b91;

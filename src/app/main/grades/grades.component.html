@@ -8,19 +8,20 @@
 <StackLayout *ngIf=currentGrades class="page page-content" tkMainContent>
     <TabView>
         <ng-container *ngFor="let item of currentGrades">
-            <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px;" *tabItem="{title: changeIdentifier(item.semesterIdentifier)}">
-                <Label width="100%" height="10" textAlignment="center" verticalAlignment="center" text="" class="h2 pt-2 pb-1"></Label>
-                <GridLayout columns="*5,*,*" rows="30" width="100%" stlye="padding-top: 20; border-radius: 5;">
-                    <Label class="grades-table-header" col="0" width="100%" text="{{ 'grades.course' | translate}}"></Label>
-                    <Label class="grades-table-header" col="1" width="100%" text="{{ 'grades.mark' | translate}}"></Label>
-                    <Label class="grades-table-header" col="2" width="100%" text="ECTS"></Label>
-                </GridLayout>
-                <GridLayout columns="*5,*,*" rows="30" *ngFor="let performance of item.semesterPerformance; index as i"
-                    width="100%">
-                    <Label col="0" height="20" width="100%" text="{{performance.name}}" stlye="margin-left: 10px;"></Label>
-                    <Label col="1" height="20" width="100%" text="{{performance.grade}}" style="text-align: center;"></Label>
-                    <Label col="2" height="20" width="100%" text="{{performance.ects}}" style="text-align: center;"></Label>
-                </GridLayout>
+            <StackLayout class="grades-page" *tabItem="{title: changeIdentifier(item.semesterIdentifier)}">
+                <StackLayout class="grades-page-container">
+                    <GridLayout columns="*4,*,*" rows="30" width="100%">
+                        <Label class="grades-table-header" col="0" text="{{ 'grades.course' | translate}}"></Label>
+                        <Label class="grades-table-header" col="1" text="{{ 'grades.mark' | translate}}"></Label>
+                        <Label class="grades-table-header" col="2" text="ECTS"></Label>
+                    </GridLayout>
+                    <GridLayout columns="*4,*,*" rows="30" *ngFor="let performance of item.semesterPerformance; index as i"
+                        width="100%">
+                        <Label col="0" text="{{performance.name}}" stlye="margin-left: 10px;"></Label>
+                        <Label col="1" text="{{performance.grade}}" style="text-align: center;"></Label>
+                        <Label col="2" text="{{performance.ects}}" style="text-align: center;"></Label>
+                    </GridLayout>
+                </StackLayout>
             </StackLayout>
         </ng-container>
     </TabView>
