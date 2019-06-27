@@ -54,12 +54,11 @@ export class MainComponent implements OnInit, OnChanges {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
     this.refreshDashBoard();
-    this.refreshTile();
 
   }
   ngOnChanges() {
-    this.refreshDashBoard();
-    this.refreshTile()
+    // this.refreshDashBoard();
+    // this.refreshTile()
   }
   async refreshDashBoard() {
     if (this.cacheService.isDashBoardInCache()) {
@@ -78,7 +77,6 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
   async refreshTile() {
-    console.log("refresh tiles view")
     if (!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
       this.canteenService.getMenu().then((canteen: Canteen) => {
         this.cacheService.loadCanteenInCache(canteen)
@@ -87,6 +85,7 @@ export class MainComponent implements OnInit, OnChanges {
         this.price = canteen.menu[0].meals[0].priceStud + "€"
         console.log("loaded Canteen")
       }, (rejected: any) => {
+        this.menu = "no menu found"
         console.log("canteen error: " + JSON.stringify(rejected))
         this.updateTileOpacity("dashboard.canteen", true)
       }
@@ -180,7 +179,6 @@ export class MainComponent implements OnInit, OnChanges {
         }
       )
     }
-    console.log("refresh tile view finished")
   }
   onPullToRefreshInitiated(args: any) {
     this.refreshTile();
