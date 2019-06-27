@@ -8,7 +8,7 @@
 
 <ScrollView class="page page-content" heigth="100%" tkMainContent>
     <StackLayout class="event-page">
-        <StackLayout *ngFor="let item of getEvents()">
+        <StackLayout *ngFor="let item of semesterEvents">
             <Label text="{{item.title}}" class="event-header" textWrap="true" height="60"></Label>
             <Label text="{{item.eventDate}}" class="event-body" textWrap="true"></Label>
         </StackLayout>

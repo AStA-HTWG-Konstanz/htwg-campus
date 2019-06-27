@@ -53,7 +53,7 @@
         "de": "Deutsch"
     },
     "nav": {
-        "home": "Hauptseit",
+        "home": "Hauptseite",
         "language": "Sprache",
         "about": "Über",
         "settings": "Einstellungen",
@@ -68,5 +68,9 @@
         "endlicht": "Endlicht",
         "events": "Termine",
         "balance": "Drucker Guthaben"
+    },
+    "strandbar": {
+        "open": "geöffnet",
+        "close": "geschlossen"
     }
 }

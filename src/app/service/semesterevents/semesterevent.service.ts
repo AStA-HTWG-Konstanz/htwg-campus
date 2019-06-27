@@ -8,7 +8,6 @@ import { BackendRequestService } from '../backend-request/backend-request.servic
 })
 export class SemestereventService {
   private serverUrl = "https://app.asta.htwg-konstanz.de/api/events"
-  private events: SemesterEvents;
 
   constructor(private backendRequest: BackendRequestService) { }
 
@@ -20,19 +19,18 @@ export class SemestereventService {
     return new Promise((resolve, reject) => {
       this.eventsRequest().then(
         (response: HttpResponse) => {
-          if (response.statusCode == 200) {
-            this.events = response.content.toJSON() as any as SemesterEvents;
-            return resolve(this.events);
+          if (response.statusCode !== 200) {
+            return reject("events service reject: " + response.statusCode);
+          }
+          if (response.content.toString().length > 0) {
+            return resolve(response.content.toJSON() as any as SemesterEvents);
           } else {
-            this.events = this.dummy
-            return resolve(this.events)
+            reject(response)
           }
 
         },
         (err) => {
-          this.events = this.dummy
-          resolve(this.events)
-          //reject(err)
+          reject(err)
         }
       );
     })

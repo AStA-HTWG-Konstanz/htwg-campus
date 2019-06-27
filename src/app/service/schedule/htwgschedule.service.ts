@@ -8,37 +8,29 @@ import { HttpResponse } from 'tns-core-modules/http/http';
 export class HtwgscheduleService {
   private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/lectures";
 
-  latestRequest: Date;
   storedResponse: Schedule;
   constructor(private backendRequest: BackendRequestService) { }
 
   getTimeTable(): Promise<Schedule> {
     return new Promise((resolve, reject) => {
-      if (
-        this.storedResponse &&
-        this.latestRequest.getDay() == new Date().getDay()
-      ) {
-        console.log("already requested today");
-        resolve(this.storedResponse);
-      } else {
-        this.backendRequest.request(this.serverUrl).then(
-          (response: HttpResponse) => {
-            let content = response.content.toString();
-            if (content.length > 0) {
-              console.log("schedule response:");
-              this.latestRequest = new Date();
-              this.storedResponse = this.lectureParser(response.content.toJSON);
-              resolve(this.storedResponse);
-            } else {
-              this.latestRequest = new Date();
-              this.storedResponse = this.lectureParser(this.dummySchedule)
-              resolve(this.storedResponse);
-              //reject("empty responsefrom schedule request");
-            }
-          },
-          error => reject(error)
-        );
-      }
+      this.backendRequest.request(this.serverUrl).then(
+        (response: HttpResponse) => {
+          if (response.statusCode !== 200) {
+            return reject("schedule service reject: " + response.statusCode);
+          }
+          let content = response.content.toString();
+          if (content.length > 0 && response.content.toJSON != null) {
+            console.log("schedule response:");
+            this.storedResponse = this.lectureParser(response.content.toJSON);
+            if (!this.storedResponse) return reject(content);
+            console.log(JSON.stringify(this.storedResponse))
+            resolve(this.storedResponse);
+          } else {
+            reject(content);
+          }
+        },
+        error => reject(error)
+      );
     });
   }
   lectureParser(lecturePayload: Object) {

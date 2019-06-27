@@ -20,7 +20,11 @@ export class EndlichtComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.endlicht = this.cacheService.getEndlichtFromCache().endlicht
+    if (this.cacheService.isEndlichtInCache()) {
+      this.endlicht = this.cacheService.getEndlichtFromCache().endlicht
+    } else {
+      alert("Lectures current not available")
+    }
   }
 
   reformTabTitel(date: string) {

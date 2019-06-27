@@ -68,5 +68,9 @@
         "endlicht": "Endlicht",
         "events": "Events",
         "balance": "Printer Balance"
+    },
+    "strandbar": {
+        "open": "opend",
+        "close": "closed"
     }
 }

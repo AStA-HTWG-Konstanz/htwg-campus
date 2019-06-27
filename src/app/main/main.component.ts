@@ -50,10 +50,11 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.page.on('navigatingTo', (data) => {
-      if(data.isBackNavigation)
-      this.ngOnInit()
-    });
+    // this.page.on('navigatingTo', (data) => {
+    //   if (data.isBackNavigation) {
+    //     this.ngOnInit()
+    //   }
+    // });
     if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
@@ -78,10 +79,15 @@ export class MainComponent implements OnInit {
         this.menu = canteen.menu[0].meals[0].title.split("|")[0]
         this.price = canteen.menu[0].meals[0].priceStud + "€"
         console.log("loaded Canteen")
-      }, (rejected: any) => alert(JSON.stringify(rejected))
+      }, (rejected: any) => {
+        console.log("canteen error: " + JSON.stringify(rejected))
+        this.updateTileOpacity("dashboard.canteen", true)
+      }
       )
     } else {
       var canteen: Canteen = this.cacheService.getCanteenFromCache()
+      if (!canteen || canteen.menu.length == 0) return
+      console.log(JSON.stringify(canteen))
       this.menu = canteen.menu[0].meals[0].title.split("|")[0]
       this.price = canteen.menu[0].meals[0].priceStud + "€"
     }
@@ -90,8 +96,12 @@ export class MainComponent implements OnInit {
       this.scheduleService.getTimeTable().then(
         (resolved: Schedule) => {
           this.cacheService.loadLecturesInCache(resolved)
+          this.updateTileOpacity("dashboard.lectures", false)
           console.log("loaded Lectures")
-        }, (rejected: any) => alert(JSON.stringify(rejected))
+        }, (rejected: any) => {
+          console.log("lectures error: " + JSON.stringify(rejected))
+          this.updateTileOpacity("dashboard.lectures", true)
+        }
       );
     }
 
@@ -99,8 +109,12 @@ export class MainComponent implements OnInit {
       this.semesterEventService.getIsOpen().then(
         (resolved: SemesterEvents) => {
           this.cacheService.loadEventsInCache(resolved);
+          this.updateTileOpacity("dashboard.events", false)
           console.log("loaded Events")
-        }, (rejected: any) => console.log(JSON.stringify(rejected))
+        }, (rejected: any) => {
+          console.log("events error: " + JSON.stringify(rejected))
+          this.updateTileOpacity("dashboard.events", true)
+        }
       )
     }
 
@@ -108,8 +122,12 @@ export class MainComponent implements OnInit {
       this.endlichtService.getEndlicht().then(
         (resolved: Endlicht) => {
           this.cacheService.loadEndlichtInCache(resolved);
+          this.updateTileOpacity("dashboard.endlicht", false)
           console.log("loaded Endlicht")
-        }, (rejected: any) => console.log(JSON.stringify(rejected))
+        }, (rejected: any) => {
+          console.log("endlicht error: " + JSON.stringify(rejected))
+          this.updateTileOpacity("dashboard.endlicht", true)
+        }
       )
     }
 
@@ -117,8 +135,12 @@ export class MainComponent implements OnInit {
       this.gradeService.getGrades().then(
         (resolved: Grades) => {
           this.cacheService.loadGradesInCache(resolved)
+          this.updateTileOpacity("dashboard.grades", false)
           console.log("loaded Grades")
-        }, (rejected: any) => alert(JSON.stringify(rejected))
+        }, (rejected: any) => {
+          console.log("grades error: " + JSON.stringify(rejected))
+          this.updateTileOpacity("dashboard.grades", true)
+        }
       );
     }
     if (!this.cacheService.isPrintBalanceInCache() || !this.cacheService.printBalanceFromToday()) {
@@ -126,9 +148,13 @@ export class MainComponent implements OnInit {
         (resolved: Balance) => {
           this.cacheService.loadPrintBalanceInCache(resolved)
           this.updatePrintTile()
+          this.updateTileOpacity("dashboard.balance", false)
           this.cacheService.loadDashBoardInCache(this.components)
           console.log("loaded print balance")
-        }, (rejected: any) => alert(JSON.stringify(rejected))
+        }, (rejected: any) => {
+          console.log("print balance error: " + JSON.stringify(rejected))
+          this.updateTileOpacity("dashboard.balance", true)
+        }
       );
     }
     if (!this.cacheService.isStrandbarInCache() || !this.cacheService.strandbarFromCurrentHour()) {
@@ -136,10 +162,13 @@ export class MainComponent implements OnInit {
         (resolve: Strandbar) => {
           this.cacheService.loadStrandbarInCache(resolve)
           this.updateStrandBar()
+          this.updateTileOpacity("dashboard.strandbar", false)
           this.cacheService.loadDashBoardInCache(this.components)
           console.log("loaded strandbar")
-        },
-        (reject: any) => (rejected: any) => alert(JSON.stringify(rejected))
+        }, (rejected: any) => {
+          console.log("strandbar error: " + JSON.stringify(rejected))
+          this.updateTileOpacity("dashboard.strandbar", true)
+        }
       )
     }
   }
@@ -175,12 +204,12 @@ export class MainComponent implements OnInit {
       let balance: Balance = this.cacheService.getPrintBalanceFromCache()
       let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
       console.log("rounds printer")
-      if(balanceIndex == -1 && rounds > 0){
+      if (balanceIndex == -1 && rounds > 0) {
         await new Promise(resolve => setTimeout(resolve, 200));
-        this.updatePrintTile(rounds -1)
+        this.updatePrintTile(rounds - 1)
       } else {
-        if (balanceIndex == -1) return
         let tmp = this.components.tiles[balanceIndex]
+        if (!tmp) return
         tmp.setDesc(balance.print + "€")
         this.components.tiles[balanceIndex] = tmp
       }
@@ -195,18 +224,36 @@ export class MainComponent implements OnInit {
         await new Promise(resolve => setTimeout(resolve, 200));
         this.updateStrandBar(rounds - 1)
       } else {
-        if(strandBarIndex == -1) return
         let tmp = this.components.tiles[strandBarIndex]
-        tmp.setDesc(strandbar.isOpen ? "is open" : "is closed")
+        if (!tmp) return
+        let showTileDesc = strandbar.isOpen ? "strandbar.open" : "strandbar.close"
+        tmp.setDesc(showTileDesc)
         this.components.tiles[strandBarIndex] = tmp
       }
     }
   }
+  private updateTileOpacity(name: string, deactivate: boolean) {
+    let searchIndex = this.components.tiles.findIndex(x => x.name.startsWith(name))
+    if (searchIndex < 0) return
+    let tmp = this.components.tiles[searchIndex]
+    if (deactivate) {
+      tmp.setDeactivate()
+    } else {
+      tmp.unsetDeactivate()
+    }
+    this.components.tiles[searchIndex] = tmp
+  }
+  public showTileBackgroundColor(item: MainTile) {
+    return item.inactive ? '#eee' : '#334152';
+  }
+  public showTileDeactivate(item: MainTile) {
+    return item.deactivate ? '.5' : '1.0'
+  }
 
   public onNavigationItemTap(args: ListViewEventData) {
-    if (!this.components.tiles[args.index].inactive) {
-      this.routerExtensions.navigateByUrl(this.components.tiles[args.index].navigate, { transition: { name: 'slideLeft' } })
-    }
+    let item = this.components.tiles[args.index]
+    if (item.deactivate || item.inactive) return
+    this.routerExtensions.navigateByUrl(item.navigate, { transition: { name: 'slideLeft' } })
   }
 
 

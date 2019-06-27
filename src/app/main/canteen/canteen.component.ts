@@ -30,8 +30,11 @@ export class CanteenComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.cacheService.isCanteenInCache())
+    if (this.cacheService.isCanteenInCache()) {
       this.canteen = this.cacheService.getCanteenFromCache().menu
+    } else {
+      alert("Canteen current not available")
+    }
   }
 
   navigateBack() {

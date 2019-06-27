@@ -8,26 +8,21 @@ import { Grades } from '~/app/model/grades/grades';
 export class GradesService {
     private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/grades";
 
-    latestRequest: Date;
-    storedResponse: Grades
     constructor(private backendRequest: BackendRequestService) { }
 
     getGrades(): Promise<Grades> {
         return new Promise((resolve, reject) => {
             this.backendRequest.request(this.serverUrl).then(
                 (response: HttpResponse) => {
+                    if (response.statusCode !== 200) {
+                        return reject("grades service reject: " + response.statusCode);
+                    }
                     let content = response.content.toString();
                     if (content.length > 0) {
                         console.log("grades response: ");
-                        this.latestRequest = new Date();
-                        this.storedResponse = this.dummyResponse//response.content.toJson() as SemesterGrades[];
-                        resolve(this.storedResponse);
+                        resolve(response.content.toJSON() as Grades);
                     } else {
-                        this.storedResponse = this.dummyResponse;
-                        this.latestRequest = new Date();
-                        console.log("resolve dummy")
-                        resolve(this.storedResponse);
-                        //reject("empty response from grades request");
+                        reject(response);
                     }
                 },
                 error => {
@@ -321,5 +316,6 @@ export class GradesService {
                         master: false
                     }]
             }
-        ]}
+        ]
+    }
 }

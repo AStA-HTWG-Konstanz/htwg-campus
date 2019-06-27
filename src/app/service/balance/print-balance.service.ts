@@ -10,40 +10,24 @@ import { Balance } from '~/app/model/balance/balance';
 export class PrintBalanceService {
     private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/balance";
 
-    latestRequest: Date;
-    storedResponse: Balance;
     constructor(private backendRequest: BackendRequestService) { }
 
     getBalance(): Promise<Balance> {
         return new Promise((resolve, reject) => {
-            if (this.latestRequest && this.latestRequest.getDay() == new Date().getDay()) {
-                console.log("already requested today");
-                resolve(this.storedResponse);
-            } else {
-                this.backendRequest.request(this.serverUrl).then(
-                    (response: HttpResponse) => {
-                        let content = response.content.toString();
-                        if (response.statusCode == 200 && content.length > 1) {
-                            this.latestRequest = new Date();
-                            this.storedResponse = response.content.toJSON().balance as Balance;
-                            resolve(this.storedResponse);
-                        } else {
-                            console.log("resolve dummy in balance service")
-                            this.latestRequest = new Date();
-                            this.storedResponse = this.dummy.balance as Balance;
-                            resolve(this.storedResponse)
-                            //reject("empty response from balance request");
-                        }
-                    },
-                    error => reject(error)
-                );
-            }
+            this.backendRequest.request(this.serverUrl).then(
+                (response: HttpResponse) => {
+                    if (response.statusCode !== 200) {
+                        return reject("printer balance service reject: " + response.statusCode);
+                    }
+                    let content = response.content.toString();
+                    if (content.length > 1) {
+                        resolve(response.content.toJSON().balance as Balance);
+                    } else {
+                        reject(response);
+                    }
+                },
+                error => reject(error)
+            );
         });
-    }
-
-    dummy = {
-        "balance": {
-            "print": "10,00"
-        }
     }
 }
