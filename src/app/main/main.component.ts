@@ -51,14 +51,15 @@ export class MainComponent implements OnInit, OnChanges {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
     this.refreshDashBoard();
+    this.refreshCache();
     this.updateCanteena()
     this.updatePrintTile()
     this.updateStrandBar()
-
+    this.refreshTile()
   }
   ngOnChanges() {
-    // this.refreshDashBoard();
-    // this.refreshTile()
+    this.refreshDashBoard();
+    this.refreshTile()
   }
   async refreshDashBoard() {
     if (this.cacheService.isDashBoardInCache()) {
@@ -73,69 +74,57 @@ export class MainComponent implements OnInit, OnChanges {
         new MainTile("dashboard.events", "", "events", "~/images/events.png", false),
         new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
       ]);
+      this.refreshCache();
       this.cacheService.loadDashBoardInCache(this.components);
     }
   }
-  async refreshTile() {
+  async refreshCache() {
+    console.log("refresh cache")
     if (!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
       this.canteenService.getMenu().then((canteen: Canteen) => {
         this.cacheService.loadCanteenInCache(canteen)
-        this.updateTileOpacity("dashboard.canteen", false)
         console.log("loaded Canteen")
       }, (rejected: any) => {
         console.log("canteen error: " + JSON.stringify(rejected))
-        this.updateTileOpacity("dashboard.canteen", true)
       })
     }
-
     if (!this.cacheService.isLecturesInCache() || !this.cacheService.lecturesFromToday()) {
       this.scheduleService.getTimeTable().then(
         (resolved: Schedule) => {
           this.cacheService.loadLecturesInCache(resolved)
-          this.updateTileOpacity("dashboard.lectures", false)
           console.log("loaded Lectures")
         }, (rejected: any) => {
           console.log("lectures error: " + JSON.stringify(rejected))
-          this.updateTileOpacity("dashboard.lectures", true)
         }
       );
     }
-
     if (!this.cacheService.isEventsInCache() || !this.cacheService.eventsFromToday()) {
       this.semesterEventService.getIsOpen().then(
         (resolved: SemesterEvents) => {
           this.cacheService.loadEventsInCache(resolved);
-          this.updateTileOpacity("dashboard.events", false)
           console.log("loaded Events")
         }, (rejected: any) => {
           console.log("events error: " + JSON.stringify(rejected))
-          this.updateTileOpacity("dashboard.events", true)
         }
       )
     }
-
     if (!this.cacheService.isEndlichtInCache() || !this.cacheService.endlichtFromToday()) {
       this.endlichtService.getEndlicht().then(
         (resolved: Endlicht) => {
           this.cacheService.loadEndlichtInCache(resolved);
-          this.updateTileOpacity("dashboard.endlicht", false)
           console.log("loaded Endlicht")
         }, (rejected: any) => {
           console.log("endlicht error: " + JSON.stringify(rejected))
-          this.updateTileOpacity("dashboard.endlicht", true)
         }
       )
     }
-
     if (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday()) {
       this.gradeService.getGrades().then(
         (resolved: Grades) => {
           this.cacheService.loadGradesInCache(resolved)
-          this.updateTileOpacity("dashboard.grades", false)
           console.log("loaded Grades")
         }, (rejected: any) => {
           console.log("grades error: " + JSON.stringify(rejected))
-          this.updateTileOpacity("dashboard.grades", true)
         }
       );
     }
@@ -143,12 +132,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.balanceService.getBalance().then(
         (resolved: Balance) => {
           this.cacheService.loadPrintBalanceInCache(resolved)
-          this.updateTileOpacity("dashboard.balance", false)
-          this.cacheService.loadDashBoardInCache(this.components)
           console.log("loaded print balance")
         }, (rejected: any) => {
           console.log("print balance error: " + JSON.stringify(rejected))
-          this.updateTileOpacity("dashboard.balance", true)
         }
       );
     }
@@ -156,20 +142,63 @@ export class MainComponent implements OnInit, OnChanges {
       this.strandbarService.getIsOpen().then(
         (resolve: Strandbar) => {
           this.cacheService.loadStrandbarInCache(resolve)
-          this.updateTileOpacity("dashboard.strandbar", false)
-          this.cacheService.loadDashBoardInCache(this.components)
           console.log("loaded strandbar")
         }, (rejected: any) => {
           console.log("strandbar error: " + JSON.stringify(rejected))
-          this.updateTileOpacity("dashboard.strandbar", true)
         }
       )
+    }
+    this.refreshTile();
+  }
+
+  async refreshTile() {
+    console.log("refresh tiles")
+    if (this.cacheService.isCanteenInCache()) {
+      this.updateTileOpacity("dashboard.canteen", false)
+    } else {
+      this.updateTileOpacity("dashboard.canteen", true)
+    }
+
+    if (this.cacheService.isLecturesInCache()) {
+      this.updateTileOpacity("dashboard.lectures", false)
+    } else {
+      this.updateTileOpacity("dashboard.lectures", true)
+    }
+
+    if (this.cacheService.isEventsInCache()) {
+      this.updateTileOpacity("dashboard.events", false)
+    } else {
+      this.updateTileOpacity("dashboard.events", true)
+    }
+
+    if (this.cacheService.isEndlichtInCache()) {
+      this.updateTileOpacity("dashboard.endlicht", false)
+    } else {
+      this.updateTileOpacity("dashboard.endlicht", true)
+    }
+
+    if (this.cacheService.isGradesInCache()) {
+      this.updateTileOpacity("dashboard.grades", false)
+    } else {
+      this.updateTileOpacity("dashboard.grades", true)
+    }
+
+    if (this.cacheService.isPrintBalanceInCache()) {
+      this.updateTileOpacity("dashboard.balance", false)
+    } else {
+      this.updateTileOpacity("dashboard.balance", true)
+    }
+
+    if (this.cacheService.isStrandbarInCache()) {
+      this.updateTileOpacity("dashboard.strandbar", false)
+    } {
+      this.updateTileOpacity("dashboard.strandbar", true)
     }
     this.cacheService.loadDashBoardInCache(this.components);
   }
 
   onPullToRefreshInitiated(args: any) {
-    this.refreshTile();
+    this.refreshCache();
     setTimeout(function () {
       const listView = args.object;
       listView.notifyPullToRefreshFinished();
@@ -195,15 +224,16 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
   public onItemReordered(args: ListViewEventData) {
+    this.refreshCache();
     this.cacheService.loadDashBoardInCache(this.components)
     //console.log("Item reordered. Old index: " + args.index + " " + "new index: " + args.data.targetIndex);
   }
 
   async updatePrintTile() {
+    console.log("refresh print balance")
     if (this.cacheService.isPrintBalanceInCache()) {
       let balance: Balance = this.cacheService.getPrintBalanceFromCache()
       let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
-      console.log("rounds printer")
       if (balanceIndex !== -1) {
         let foundPrint = this.components.tiles[balanceIndex]
         foundPrint.desc = balance.print + "€"
@@ -212,10 +242,10 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
   async updateStrandBar() {
+    console.log("refresh stranbar")
     if (this.cacheService.isStrandbarInCache()) {
       let strandbar: Strandbar = this.cacheService.getStrandbarFromCache()
       let strandBarIndex = this.components.tiles.findIndex(x => x.navigate == "strandbar")
-      console.log("rounds strandbar")
       if (strandBarIndex !== -1) {
         let foundStrandbar = this.components.tiles[strandBarIndex]
         let showTileDesc = strandbar.isOpen ? "strandbar.open" : "strandbar.close"
@@ -225,6 +255,7 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
   async updateCanteena() {
+    console.log("refresh canteena")
     let canteenIndex = this.components.tiles.findIndex(x => x.navigate == "canteen")
     let foundCanteena = this.components.tiles[canteenIndex]
     if (this.cacheService.isCanteenInCache()) {
@@ -255,6 +286,7 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   public onNavigationItemTap(args: ListViewEventData) {
+    this.cacheService.loadDashBoardInCache(this.components);
     let item = this.components.tiles[args.index]
     if (item.deactivate || item.inactive) return
     this.routerExtensions.navigateByUrl(item.navigate, { transition: { name: 'slideLeft' } })
