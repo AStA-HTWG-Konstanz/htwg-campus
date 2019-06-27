@@ -273,7 +273,7 @@ components that have the btn class name.
     font-weight: bold;
     text-align: left;
     padding: auto;
-    margin: 5%;
+    margin: 6%;
     height: 40;
     vertical-align: middle;
     border-radius: 5;
@@ -287,4 +287,5 @@ components that have the btn class name.
     text-align: center;
     padding: 5;
     margin: 5%;
+    text-align: left;
 }
