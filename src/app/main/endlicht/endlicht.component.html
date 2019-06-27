@@ -9,14 +9,14 @@
 <!--<StackLayout class="page page-content" tkMainContent>
     <Label text="todo"></Label>
 </StackLayout>-->
-<ScrollView class="page page-content" heigth="100%" tkMainContent>
-    <StackLayout class="event-page">
-        <Label text="{{ 'endlicht.opening' | translate}}" class="event-header" textWrap="true" height="60"></Label>
+<ScrollView *ngIf=endlicht class="page page-content" heigth="100%" tkMainContent>
+    <StackLayout width="90%" style="background-color: white;margin-top: 5%" class="event-page">
+        <Label text="{{ 'endlicht.opening' | translate}}" class="event-header" textWrap="true"></Label>
         <StackLayout orientation="horizontal" *ngFor="let item of endlicht.openingHours">
             <Label text={{reformTabTitel(item.date)}} class="event-body" width="50%" style="text-align: left;"></Label>
             <Label text="{{item.startTime}} - {{item.endTime}}" class="event-body" textWrap="true"></Label>
         </StackLayout>
-        <Label text="{{ 'endlicht.beverages' | translate}}" class="event-header" textWrap="true" height="60"></Label>
+        <Label text="{{ 'endlicht.beverages' | translate}}" class="event-header" textWrap="true"></Label>
         <StackLayout orientation="horizontal" *ngFor="let item of endlicht.beverages">
             <Label text={{item.name}} class="event-body" style="text-align: left;" width="50%" text-align="left"></Label>
             <Label text="{{item.price}} €" class="event-body" textWrap="true" ></Label>
