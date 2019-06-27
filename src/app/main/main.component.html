@@ -10,8 +10,8 @@
     <!-- <Image class="bottom" backgroundImage="~/images/htwg.jpg" loadMode="async"></Image>
     <Image class="top" backgroundImage="~/images/htwg2.jpg" loadMode="async"></Image> -->
 
-    <RadListView [items]="components.tiles" marginRight="-2" itemReorder="true" (itemReordered)="onItemReordered($event)"
-        (itemLoading)="onItemLoading($event)" (itemTap)="onNavigationItemTap($event)">
+    <RadListView [items]="components.tiles" marginRight="-2" itemReorder="true" pullToRefresh="true" (itemReordered)="onItemReordered($event)"
+        (itemLoading)="onItemLoading($event)" (itemTap)="onNavigationItemTap($event)" (pullToRefreshInitiated)="onPullToRefreshInitiated($event)">
         <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="180" spanCount="2"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item">
             <StackLayout class="card-tile" backgroundcolor="{{showTileBackgroundColor(item)}}" opacity="{{showTileDeactivate(item)}}">

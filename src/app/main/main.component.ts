@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as app from 'tns-core-modules/application';
@@ -29,7 +29,7 @@ declare var CGSizeMake
   styleUrls: ['./main.component.css'],
   moduleId: module.id,
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnChanges {
 
   components: Dashboard = null;
   menu: string;
@@ -49,6 +49,7 @@ export class MainComponent implements OnInit {
   ) {
   }
 
+
   ngOnInit() {
     // this.page.on('navigatingTo', (data) => {
     //   if (data.isBackNavigation) {
@@ -58,6 +59,15 @@ export class MainComponent implements OnInit {
     if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
+    this.refreshDashBoard();
+    this.refreshTile();
+    
+  }
+  ngOnChanges() {
+    this.refreshDashBoard();
+    this.refreshTile()
+  }
+  async refreshDashBoard() {
     if (this.cacheService.isDashBoardInCache()) {
       this.components = this.cacheService.getDashBoardFromCache();
     } else {
@@ -72,10 +82,13 @@ export class MainComponent implements OnInit {
       ]);
       this.cacheService.loadDashBoardInCache(this.components);
     }
-
+  }
+  async refreshTile() {
+    console.log("refresh tiles view")
     if (!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
       this.canteenService.getMenu().then((canteen: Canteen) => {
         this.cacheService.loadCanteenInCache(canteen)
+        this.updateTileOpacity("dashboard.canteen", false)
         this.menu = canteen.menu[0].meals[0].title.split("|")[0]
         this.price = canteen.menu[0].meals[0].priceStud + "€"
         console.log("loaded Canteen")
@@ -171,6 +184,14 @@ export class MainComponent implements OnInit {
         }
       )
     }
+    console.log("refresh tile view finished")
+  }
+  onPullToRefreshInitiated(args: any) {
+    this.refreshTile();
+    setTimeout(function () {
+      const listView = args.object;
+      listView.notifyPullToRefreshFinished();
+    }, 3000);
   }
 
   onDrawerButtonTap(): void {
@@ -208,10 +229,10 @@ export class MainComponent implements OnInit {
         await new Promise(resolve => setTimeout(resolve, 200));
         this.updatePrintTile(rounds - 1)
       } else {
-        let tmp = this.components.tiles[balanceIndex]
-        if (!tmp) return
-        tmp.setDesc(balance.print + "€")
-        this.components.tiles[balanceIndex] = tmp
+        let foundPrint = this.components.tiles[balanceIndex]
+        if (!foundPrint) return
+        foundPrint.desc = balance.print + "€"
+        this.components.tiles[balanceIndex] = foundPrint
       }
     }
   }
@@ -224,24 +245,25 @@ export class MainComponent implements OnInit {
         await new Promise(resolve => setTimeout(resolve, 200));
         this.updateStrandBar(rounds - 1)
       } else {
-        let tmp = this.components.tiles[strandBarIndex]
-        if (!tmp) return
+        let foundStrandbar = this.components.tiles[strandBarIndex]
+        if (!foundStrandbar) return
         let showTileDesc = strandbar.isOpen ? "strandbar.open" : "strandbar.close"
-        tmp.setDesc(showTileDesc)
-        this.components.tiles[strandBarIndex] = tmp
+        foundStrandbar.desc = showTileDesc
+        this.components.tiles[strandBarIndex] = foundStrandbar
       }
     }
   }
-  private updateTileOpacity(name: string, deactivate: boolean) {
+  async updateTileOpacity(name: string, deactivate: boolean) {
     let searchIndex = this.components.tiles.findIndex(x => x.name.startsWith(name))
     if (searchIndex < 0) return
-    let tmp = this.components.tiles[searchIndex]
+    let foundTile: MainTile = this.components.tiles[searchIndex]
+    if (!foundTile) return
     if (deactivate) {
-      tmp.setDeactivate()
+      foundTile.deactivate = true
     } else {
-      tmp.unsetDeactivate()
+      foundTile.deactivate = false
     }
-    this.components.tiles[searchIndex] = tmp
+    this.components.tiles[searchIndex] = foundTile
   }
   public showTileBackgroundColor(item: MainTile) {
     return item.inactive ? '#eee' : '#334152';
