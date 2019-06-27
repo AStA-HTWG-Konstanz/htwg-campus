@@ -7,8 +7,8 @@
 </ActionBar>
 <StackLayout *ngIf=canteen class="page page-content" tkMainContent>
     <TabView androidOffscreenTabLimit="0">
-        <ng-container *ngFor="let menu of canteen">
-            <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px;" *tabItem="{title: reformTabTitel(menu.date)}">
+        <ng-container width="50%" *ngFor="let menu of canteen">
+            <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px; width: 50%;" *tabItem="{title: reformTabTitel(menu.date)}">
                 <Label height="10"></Label>
                 <StackLayout *ngFor="let meal of menu.meals">
                     <Label text="{{meal.ctgry}}" class="meal-category"></Label>

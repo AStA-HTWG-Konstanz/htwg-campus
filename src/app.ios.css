@@ -184,7 +184,8 @@ components that have the btn class name.
     color: #334152;
 }
 .page {
-    background-color: #d9e5ec;
+    background-image: url("~/images/login.png");
+    background-size: cover;
     color: black;
 }
 .sidedrawer { 
@@ -259,14 +260,17 @@ components that have the btn class name.
     /* background-color: #fff; */
 }
 .event-header {
-    background-color: #334152;
-    color:white;
     font-size: 20;
-    text-align: center;
+    font-weight: bold;
+    text-align: left;
     padding: auto;
-    margin: 5;
+    margin: 5%;
+    height: 40;
     vertical-align: middle;
     border-radius: 5;
+    border-bottom-width: 1; 
+    border-bottom-color: gray;
+    padding-top: 35px;
 }
 .event-body {
     color: black;
