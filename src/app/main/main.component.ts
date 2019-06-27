@@ -45,15 +45,10 @@ export class MainComponent implements OnInit {
     private endlichtService: EndlichtService,
     private balanceService: PrintBalanceService,
     private strandbarService: StrandbarService,
-    private page: Page
   ) {
   }
 
   ngOnInit() {
-    this.page.on('navigatingTo', (data) => {
-      if(data.isBackNavigation)
-      this.ngOnInit()
-    });
     if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
@@ -74,14 +69,16 @@ export class MainComponent implements OnInit {
 
     if (!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
       this.canteenService.getMenu().then((canteen: Canteen) => {
+        console.log(canteen)
         this.cacheService.loadCanteenInCache(canteen)
         this.menu = canteen.menu[0].meals[0].title.split("|")[0]
         this.price = canteen.menu[0].meals[0].priceStud + "€"
         console.log("loaded Canteen")
-      }, (rejected: any) => alert(JSON.stringify(rejected))
+      }, (rejected: any) => this.menu = "no menu found"
       )
     } else {
       var canteen: Canteen = this.cacheService.getCanteenFromCache()
+      console.log(canteen)
       this.menu = canteen.menu[0].meals[0].title.split("|")[0]
       this.price = canteen.menu[0].meals[0].priceStud + "€"
     }

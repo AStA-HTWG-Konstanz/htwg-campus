@@ -33,6 +33,8 @@ export class CanteenService {
                 this.getCanteen().then(
                     (response: HttpResponse) => {
                         let content = response.content.toJSON() as any as Canteen;
+                        if(content.menu.length == 0)
+                            return;
                         var today = new Date();
                         for (var i = 0; i < content.menu.length; ++i) {
                             var date = new Date(content.menu[i].date)

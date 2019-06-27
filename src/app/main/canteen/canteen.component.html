@@ -5,7 +5,7 @@
         <Label col="1" text="{{ 'canteen.screenTitle' | translate}}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
-<StackLayout class="page page-content" tkMainContent>
+<StackLayout *ngIf=canteen class="page page-content" tkMainContent>
     <TabView androidOffscreenTabLimit="0">
         <ng-container *ngFor="let menu of canteen">
             <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px;" *tabItem="{title: reformTabTitel(menu.date)}">

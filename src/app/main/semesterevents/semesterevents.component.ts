@@ -23,14 +23,9 @@ export class SemestereventsComponent implements OnInit {
   ngOnInit() {
     this.semesterEvents = this.cacheService.getEventsFromCache(); 
   }
+  
   navigateBack() {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true });
-  }
-  getEvents() {
-    if (this.semesterEvents) {
-      return this.semesterEvents.events
-    }
-    return null;
   }
 
 

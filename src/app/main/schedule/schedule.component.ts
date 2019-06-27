@@ -8,6 +8,7 @@ import { isIOS, isAndroid } from 'tns-core-modules/ui/page/page';
 declare var UIView, NSMutableArray, NSIndexPath;
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 import { CacheService } from '~/app/service/cache/cache.service';
+import { Lecture } from '~/app/model/schedule/lectures/lecture/Lecture';
 
 @Component({
     selector: 'ns-schedule',
@@ -30,7 +31,9 @@ export class ScheduleComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.lectures = this.cacheService.getLecturesFromCache().lectures;
+        var lecturestmp: Schedule = this.cacheService.getLecturesFromCache()
+        if(lecturestmp)
+            this.lectures = lecturestmp.lectures
     }
 
     navigateBack() {

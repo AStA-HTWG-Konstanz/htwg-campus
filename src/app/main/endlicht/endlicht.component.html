@@ -9,7 +9,7 @@
 <!--<StackLayout class="page page-content" tkMainContent>
     <Label text="todo"></Label>
 </StackLayout>-->
-<ScrollView class="page page-content" heigth="100%" tkMainContent>
+<ScrollView *ngIf=endlicht class="page page-content" heigth="100%" tkMainContent>
     <StackLayout class="event-page">
         <Label text="{{ 'endlicht.opening' | translate}}" class="event-header" textWrap="true" height="60"></Label>
         <StackLayout orientation="horizontal" *ngFor="let item of endlicht.openingHours">
