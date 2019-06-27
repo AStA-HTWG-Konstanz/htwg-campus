@@ -32,6 +32,8 @@ export class CanteenService {
                         return reject("canteen service reject: " + response.statusCode);
                     }
                     let content = response.content.toJSON() as any as Canteen;
+                    if (content.menu.length == 0)
+                        return reject("canteen service response failed");
                     var today = new Date();
                     for (var i = 0; i < content.menu.length; ++i) {
                         var date = new Date(content.menu[i].date)

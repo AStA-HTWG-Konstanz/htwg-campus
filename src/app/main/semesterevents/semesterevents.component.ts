@@ -27,6 +27,7 @@ export class SemestereventsComponent implements OnInit {
       alert("Events current not available")
     }
   }
+
   navigateBack() {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true });
   }

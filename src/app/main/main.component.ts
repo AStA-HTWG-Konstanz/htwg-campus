@@ -45,23 +45,17 @@ export class MainComponent implements OnInit, OnChanges {
     private endlichtService: EndlichtService,
     private balanceService: PrintBalanceService,
     private strandbarService: StrandbarService,
-    private page: Page
   ) {
   }
 
 
   ngOnInit() {
-    // this.page.on('navigatingTo', (data) => {
-    //   if (data.isBackNavigation) {
-    //     this.ngOnInit()
-    //   }
-    // });
     if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
     this.refreshDashBoard();
     this.refreshTile();
-    
+
   }
   ngOnChanges() {
     this.refreshDashBoard();
@@ -99,8 +93,10 @@ export class MainComponent implements OnInit, OnChanges {
       )
     } else {
       var canteen: Canteen = this.cacheService.getCanteenFromCache()
-      if (!canteen || canteen.menu.length == 0) return
-      console.log(JSON.stringify(canteen))
+      if (!canteen || canteen.menu.length == 0) {
+        this.menu = "no menu found"
+        return
+      }
       this.menu = canteen.menu[0].meals[0].title.split("|")[0]
       this.price = canteen.menu[0].meals[0].priceStud + "€"
     }
