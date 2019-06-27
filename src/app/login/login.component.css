@@ -13,7 +13,7 @@
 }
 .input {
   width: 70%;
-  max-width: 200;
+  max-width: 70;
   margin-bottom: 20;
   placeholder-color: rgb(163, 163, 163);
   background-color: white;
@@ -21,8 +21,12 @@
 }
 .login-button {
   background-color: #009b91;
+  max-width: 70;
+  margin: 0;
+  padding: 0;
+  width: 72%;
   color: white;
   font-size: 18;
-  border-radius: 5;
-  width: 40%;
+  border-radius: 0;
+  height: 55;
 }

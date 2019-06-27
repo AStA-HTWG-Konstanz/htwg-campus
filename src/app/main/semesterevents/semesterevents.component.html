@@ -5,10 +5,9 @@
         <Label col="1" text="{{ 'events.screenTitle' | translate}}" class="action-bar-label"></Label>
     </GridLayout>
 </ActionBar>
-
 <ScrollView *ngIf=semesterEvents class="page page-content" heigth="100%" tkMainContent>
     <StackLayout width="90%" style="background-color: white;margin-top: 5%" class="event-page">
-        <StackLayout *ngFor="let item of semesterEvents.events">
+        <StackLayout *ngFor="let item of semesterEvents">
             <Label text="{{item.title}}" class="event-header" textWrap="true" height="60"></Label>
             <Label text="{{item.eventDate}}" class="event-body" textWrap="true"></Label>
         </StackLayout>

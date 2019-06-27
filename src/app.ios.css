@@ -43,13 +43,13 @@ components that have the btn class name.
 
 .sidedrawer {
     margin: 0;
-    padding-left: 15;
-    padding-right: 15;
+    padding: 0;
 }
 .sidedrawer-content{
     padding-left: 10;
     padding-right: 10;
-    
+    margin-left: 20;
+    margin-right: 20;
 }
  .sidedrawer-list-item{
     padding-left: 15;
@@ -66,6 +66,27 @@ components that have the btn class name.
     width: 20;
     margin-right: 10;
     font-weight: normal;
+}
+.sidedrawer-header {
+    width: 100%;
+}
+.sidedrawer-header .fa {
+    text-align: right;
+    font-size: 25;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    margin-right: 2;
+    horizontal-align: right;
+    vertical-align: top;
+}
+.sidedrawer-footer {
+    font-size: 20;
+    text-align: center;
+    horizontal-align: center;
+    vertical-align: top;
+    font-weight: 100;
+    padding-bottom: 5;
 }
 .activityBar {
     width: 50;
@@ -191,6 +212,10 @@ components that have the btn class name.
 .sidedrawer { 
     background-color: #334152;
 }
+.sidedrawer-header {
+    background-color: #334152;
+    color: white;
+}
 .sidedrawer-list-item-icon,.sidedrawer-list-item{
     color: #334152;
 }
@@ -200,11 +225,10 @@ components that have the btn class name.
 .sidedrawer.sidedrawer-left .footnote {
     color: #334152;
 }
- .sidedrawer-header-brand {
+ /* .sidedrawer-header-brand {
      color: black;
      font-weight: bold;
-    /* background-color: #009b91; */
-}
+} */
 .sidedrawer-content{ 
     background-color: #fff;
 }

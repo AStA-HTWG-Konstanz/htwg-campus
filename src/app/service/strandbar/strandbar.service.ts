@@ -20,11 +20,17 @@ export class StrandbarService {
     return new Promise((resolve, reject) => {
       this.strandBarRequest().then(
         (response: HttpResponse) => {
-          if (response.statusCode == 200) {
-            return resolve(response.content.toJSON());
+          if (response.statusCode !== 200) {
+            return reject("strandbar service reject: " + response.statusCode);
+          }
+          if (response.content.toString().length > 0) {
+            if (response.content.toJSON() as boolean) {
+              return resolve(response.content.toJSON());
+            } else {
+              reject(response)
+            }
           } else {
-            // TODO change
-            return resolve(new Strandbar(true));
+            reject(response)
           }
         },
         (err) => reject(err)

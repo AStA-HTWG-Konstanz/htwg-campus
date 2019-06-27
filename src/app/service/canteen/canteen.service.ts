@@ -13,9 +13,6 @@ import { CacheService } from "../cache/cache.service";
 export class CanteenService {
     private serverUrl = "https://app.asta.htwg-konstanz.de"
 
-    canteen: Canteen;
-    currentDate: Date;
-
     constructor(
         private loginSession: LoginService,
         private backendRequest: BackendRequestService,
@@ -29,27 +26,27 @@ export class CanteenService {
 
     getMenu(): Promise<Canteen> {
         return new Promise((resolve, reject) => {
-                //this.loginSession.login(this.loginSession.getUser());
-                this.getCanteen().then(
-                    (response: HttpResponse) => {
-                        let content = response.content.toJSON() as any as Canteen;
-                        if(content.menu.length == 0)
-                            return;
-                        var today = new Date();
-                        for (var i = 0; i < content.menu.length; ++i) {
-                            var date = new Date(content.menu[i].date)
-                            if (today < date) {
-                                content.menu = content.menu.slice(i)
-                                break;
-                            }
+            this.getCanteen().then(
+                (response: HttpResponse) => {
+                    if (response.statusCode !== 200) {
+                        return reject("canteen service reject: " + response.statusCode);
+                    }
+                    let content = response.content.toJSON() as any as Canteen;
+                    if (content.menu.length == 0)
+                        return reject("canteen service response failed");
+                    var today = new Date();
+                    for (var i = 0; i < content.menu.length; ++i) {
+                        var date = new Date(content.menu[i].date)
+                        if (today < date) {
+                            content.menu = content.menu.slice(i)
+                            break;
                         }
-                        this.canteen = content;
-                        this.currentDate = new Date(this.canteen.menu[0].date)
-                        return resolve(this.canteen);
-                    },
-                    (err) => reject(err)
-                );
-            }
+                    }
+                    return resolve(content);
+                },
+                (err) => reject(err)
+            );
+        }
         )
     }
 }

@@ -68,15 +68,15 @@ export class BackendRequestService {
     /* if times is set to 0, it works like the function request */
     if (times == 0) return this.get_request(serverUrl);
     /* if the response is forbidden, it will start a new login session and start the GET request again */
-    return this.get_request(serverUrl).then<HttpResponse>((response: HttpResponse) => {
-      if (response.content.toString().startsWith("Forbidden")) {
-        this.login.login(this.getUser());
-        return this.safe_get_request(serverUrl, times - 1);
-      } else {
-        return response
+    return this.get_request(serverUrl).then<HttpResponse>(
+      (response: HttpResponse) => {
+        if (response.content.toString().startsWith("Forbidden")) {
+          this.login.login(this.getUser());
+          return this.safe_get_request(serverUrl, times - 1);
+        } else {
+          return response
+        }
       }
-    })
-
+    )
   }
-
 }

@@ -1,46 +1,32 @@
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
-    <GridLayout tkDrawerContent rows="40, *,40" class="sidedrawer sidedrawer-left">
-        <!-- <StackLayout class="sidedrawer-header">
-           <Label class="sidedrawer-header-brand" text="{{userNameInSideBar}}"></Label>
+    <GridLayout tkDrawerContent rows="50, *,50" columns="*2,0" class="sidedrawer sidedrawer-left">
+        <StackLayout row="0" colum="1" class="sidedrawer-header">
+            <Label class="fa" text="&#xf00d;" (ontap)="closeDrawer()"></Label>
         </StackLayout>
-         <StackLayout class="hr"></StackLayout> -->
 
         <ScrollView row="1">
             <StackLayout class="sidedrawer-content">
-                <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/main']" clearHistory="true"
-                    (tap)="closeDrawer()">
-                    <Label col="0" text="&#xf015;" class="fa"></Label>
-                    <Label col="1" text="{{ 'nav.home' | translate}}" class="nav-name"></Label>
-                </GridLayout>
-                 <StackLayout class="hr"></StackLayout>
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item">
-                    <Label col="0" text="&#xf1ea;" class="fa"></Label>
                     <Label col="1" text="{{ 'nav.language' | translate }}" class="nav-name" (tap)=selectLanguage()></Label>
                 </GridLayout>
 
                 <StackLayout class="hr"></StackLayout>
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item">
-                    <Label col="0" text="&#xf002;" class="fa"></Label>
                     <Label col="1" text="{{ 'nav.about' | translate}}" class="nav-name"></Label>
                 </GridLayout>
 
                 <StackLayout class="hr"></StackLayout>
 
-                <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/settings']" (tap)="closeDrawer()">
-                    <Label col="0" text="&#xf013;" class="fa"></Label>
-                    <Label col="1" text="{{ 'nav.settings' | translate}}" class="nav-name"></Label>
-                </GridLayout>
-
-                <StackLayout class="hr"></StackLayout>
-
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/login']" (tap)="logout()">
-                    <Label col="0" text="&#xf005;" class="fa"></Label>
                     <Label col="1" text="{{ 'nav.logout' | translate}}" class="nav-name"></Label>
                 </GridLayout>
             </StackLayout>
         </ScrollView>
+        <StackLayout row="2" class="sidedrawer-header">
+            <Label class="sidedrawer-footer" text="Powered by AStA"></Label>
+        </StackLayout>
     </GridLayout>
     <page-router-outlet tkMainContent class="page page-content"></page-router-outlet>
 </RadSideDrawer>

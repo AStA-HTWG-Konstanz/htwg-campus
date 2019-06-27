@@ -20,7 +20,7 @@ export class ScheduleComponent implements OnInit {
     @ViewChild("actionButton", { static: false })
     _buttonRef: ActionButtonComponent;
 
-    lectures: Array<LecturesPerDay>;
+    lectures: Array<LecturesPerDay> = new Array();
     clickedList: Array<number> = new Array();
     selectedIndex: number = 0;
     constructor(
@@ -31,16 +31,18 @@ export class ScheduleComponent implements OnInit {
     }
 
     ngOnInit() {
-        var lecturestmp: Schedule = this.cacheService.getLecturesFromCache()
-        if(lecturestmp)
-            this.lectures = lecturestmp.lectures
+        if (this.cacheService.isLecturesInCache()) {
+            this.lectures = this.cacheService.getLecturesFromCache().lectures;
+        } else {
+            alert("Lectures current not available")
+        }
     }
 
     navigateBack() {
         this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true });
     }
 
-    
+
     templateSelector(item: any, index: number, items: any): string {
         return item.selected ? "expanded" : "default";
     }
