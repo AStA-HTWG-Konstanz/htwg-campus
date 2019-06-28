@@ -7,17 +7,25 @@
 </ActionBar>
 <StackLayout *ngIf=canteen class="page page-content" tkMainContent>
     <TabView androidOffscreenTabLimit="0">
-        <ng-container width="50%" *ngFor="let menu of canteen">
-            <StackLayout height="100%" style="padding-left: 10px; padding-right: 10px; width: 50%;" *tabItem="{title: reformTabTitel(menu.date)}">
-                <Label height="10"></Label>
-                <StackLayout *ngFor="let meal of menu.meals">
-                    <Label text="{{meal.ctgry}}" class="meal-category"></Label>
-                    <Label text="{{meal.title}}" textWrap="true" style="font-size: 16pt"></Label>
-                    <Label text=""></Label>
-                    <Label text="{{ 'canteen.student' | translate}}: {{meal.priceStud}} €" style="text-align: right"></Label>
-                    <Label text="{{ 'canteen.employee' | translate}}: {{meal.priceEmpl}} €" style="text-align: right"></Label>
-                </StackLayout>
-            </StackLayout>
+        <ng-container *ngFor="let menu of canteen">
+            <FlexboxLayout flexDirection="column" class="grades-page" *tabItem="{title: reformTabTitel(menu.date)}">
+                <ScrollView>
+                    <StackLayout class="grades-page-container">
+                        <StackLayout *ngFor="let meal of menu.meals">
+                            <Label text="{{meal.ctgry}}" class="grades-table-header"></Label>
+                            <StackLayout height="{{calcHeight(meal.title)}}" *ngFor="let info of reformMenuContent(meal.title)">
+                                <Label [text]="info" textWrap="true"></Label>
+                            </StackLayout>
+                            <FlexboxLayout flexDirection="row" alignContent="center">
+                                <Label text="{{ 'canteen.student' | translate}}: {{meal.priceStud}} €" style="text-align: center; color: gray"></Label>
+                                <Label text="" width="20%"></Label>
+                                <Label text="{{ 'canteen.employee' | translate}}: {{meal.priceEmpl}} €" style="text-align: center; color: gray"></Label>
+                            </FlexboxLayout>
+                            <Label tetx=""></Label>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </FlexboxLayout>
         </ng-container>
     </TabView>
 </StackLayout>

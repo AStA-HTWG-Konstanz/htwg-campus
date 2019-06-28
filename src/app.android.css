@@ -144,10 +144,11 @@ components that have the btn class name.
     
 }
 .item-desc {
-    padding-top: 35;
+    /* padding-top: 35; */
     padding-left: auto;
     padding-right: auto;
     vertical-align: center;
+    /* horizontal-align: center; */
     text-align: center;
     font-size: 32;
     font-weight: bold;
