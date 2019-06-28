@@ -18,11 +18,14 @@
                 <StackLayout class="card-item">
                     <Label class="item-name" fontSize="20" text="{{ item.name | translate}}" verticalAlignment="center"
                         horizontalAlignment="center" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}"></Label>
-                    <Label *ngIf="item.inactive || item.name === 'dashboard.canteen'" text="{{ item.desc | translate}}"
-                        class="item-desc" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}" style="padding-top: {{item.inactive ? '35':'5'}}; font-size: {{item.inactive ? '32':'26'}};"></Label>
+                    <Label *ngIf="item.inactive || item.name === 'dashboard.canteen' || item.name === 'dashboard.lectures'"
+                        text="{{ item.desc | translate}}" class="item-desc" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}"
+                        style="padding-top: {{item.inactive ? '35':'5'}}; font-size: {{item.inactive ? '32':'26'}};"></Label>
                     <!-- <Label *ngIf="" text="{{ item.desc | translate}}" color="whitesmoke"
                         class="item-desc" textWrap="true"></Label> -->
-                    <Image *ngIf="!item.inactive && item.name !== 'dashboard.canteen'" src="{{ item.imageSrc }}" class="cardImage"></Image>
+                    <Label *ngIf="item.secDesc.length > 1" class="item-sec-desc" [text]="item.secDesc" color="{{item.inactive? '#000' : '#fff' }}"></Label>
+                    <Image *ngIf="!item.inactive && item.name !== 'dashboard.canteen' && item.name !== 'dashboard.lectures'"
+                        src="{{ item.imageSrc }}" class="cardImage"></Image>
                 </StackLayout>
             </StackLayout>
         </ng-template>
