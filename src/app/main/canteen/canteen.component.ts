@@ -23,10 +23,18 @@ export class CanteenComponent implements OnInit {
   ) { }
 
   reformTabTitel(date: string) {
-    let dateList = date.split('-')
-    let day = dateList[2].length == 1 ? "0" + dateList[2] : dateList[2];
+    let dateList = date.split('.')
+    let day = dateList[0].length == 1 ? "0" + dateList[0] : dateList[0];
     let month = dateList[1].length == 1 ? "0" + dateList[1] : dateList[1];
     return day + "." + month
+  }
+  reformMenuContent(menu: string) {
+    let items = menu.split("|")
+    return items.map(x => x.trim());
+  }
+
+  calcHeight(item) {
+    return 15 + this.reformMenuContent(item).length * 1;
   }
 
   ngOnInit() {

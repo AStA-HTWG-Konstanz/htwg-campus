@@ -22,6 +22,7 @@ import { Dashboard } from '../model/dashboard/Dashboard';
 import { StrandbarService } from '../service/strandbar/strandbar.service';
 import { Strandbar } from '../model/strandbar/strandbar';
 import { isIOS, isAndroid, Color, Page } from 'tns-core-modules/ui/page/page';
+import { Lecture } from '../model/schedule/lectures/lecture/Lecture';
 declare var CGSizeMake
 @Component({
   selector: 'ns-main',
@@ -55,6 +56,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.updateCanteena()
     this.updatePrintTile()
     this.updateStrandBar()
+    this.updateLectures();
     this.refreshTile()
   }
   ngOnChanges() {
@@ -71,7 +73,7 @@ export class MainComponent implements OnInit, OnChanges {
         new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
         new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
         new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
-        new MainTile("dashboard.events", "", "events", "~/images/events.png", false),
+        new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
         new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
       ]);
       this.refreshCache();
@@ -260,11 +262,38 @@ export class MainComponent implements OnInit, OnChanges {
     let foundCanteena = this.components.tiles[canteenIndex]
     if (this.cacheService.isCanteenInCache()) {
       let canteen: Canteen = this.cacheService.getCanteenFromCache()
-      foundCanteena.desc = canteen.menu[0].meals[0].title.split("|")[0]
+      foundCanteena.desc = canteen.menu[0].meals[0].title.split("|")[0].split("(")[0]
+      foundCanteena.secDesc = canteen.menu[0].meals[0].ctgry + " | " + canteen.menu[0].meals[0].priceStud + "€"
     } else {
       foundCanteena.desc = "canteen.preview"
+      foundCanteena.secDesc = "";
     }
     this.components.tiles[canteenIndex] = foundCanteena
+  }
+  async updateLectures() {
+    console.log("refresh lectures")
+    let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.lectures")
+    let foundLectures = this.components.tiles[lecturesIndex]
+    if (this.cacheService.isLecturesInCache()) {
+      let lectures: Schedule = this.cacheService.getLecturesFromCache()
+      let currentDate: Date = new Date()
+      let nextLecture = lectures.lectures
+        .map(lecturesPerday => {
+          return lecturesPerday.lectures.filter(eachLecture => {
+            let htime = eachLecture.startTime.split(":")
+            let compareTime = new Date(lecturesPerday.date)
+            compareTime.setHours(Number(htime[0]) - Number(htime[1]), 0, 0)
+            return compareTime.getTime() - currentDate.getTime() > 0
+          })
+        })
+        .filter(x => x.length > 0)
+      foundLectures.desc = nextLecture[0][0].name.split(" ").splice(2).join(" ")
+      foundLectures.secDesc = nextLecture[0][0].room + " | " + nextLecture[0][0].startTime.split(":").slice(0, 2).join(":")
+    } else {
+      foundLectures.desc = "no lecture found";
+      foundLectures.secDesc = "";
+    }
+    this.components.tiles[lecturesIndex] = foundLectures
   }
   async updateTileOpacity(name: string, deactivate: boolean) {
     let searchIndex = this.components.tiles.findIndex(x => x.name.startsWith(name))

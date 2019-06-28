@@ -20,7 +20,7 @@ export class SemestereventService {
       this.eventsRequest().then(
         (response: HttpResponse) => {
           if (response.statusCode !== 200) {
-            return reject("events service reject: " + response.statusCode);
+            return resolve(this.dummy)//reject("events service reject: " + response.statusCode);
           }
           if (response.content.toString().length > 0) {
             return resolve(response.content.toJSON() as any as SemesterEvents);

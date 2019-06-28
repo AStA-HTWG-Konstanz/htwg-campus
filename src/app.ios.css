@@ -138,13 +138,20 @@ components that have the btn class name.
     font-weight: 400;
 }
 .item-desc {
-    padding-top: 35;
+    /* padding-top: 35; */
+    padding-left: auto;
+    padding-right: auto;
+    vertical-align: center;
+    /* horizontal-align: center; */
+    text-align: center;
+    font-size: 32;
+    font-weight: bold;
+}
+.item-sec-desc {
     padding-left: auto;
     padding-right: auto;
     vertical-align: center;
     text-align: center;
-    font-size: 32;
-    font-weight: bold;
 }
 .meal-category {
     text-align: center;
@@ -311,19 +318,21 @@ components that have the btn class name.
     font-weight: bold;
     text-align: left;
     padding: auto;
-    margin: 6%;
-    height: 40;
+    margin: 20;
+    margin-bottom: 10;
+    /* height: 40; */
     vertical-align: middle;
-    border-radius: 5;
     border-bottom-width: 1; 
     border-bottom-color: gray;
-    padding-top: 35px;
 }
 .event-body {
     color: black;
     font-size: 16;
     text-align: center;
     padding: 5;
-    margin: 5%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 20;
+    margin-right: 20;
     text-align: left;
 }
