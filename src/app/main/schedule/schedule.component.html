@@ -6,13 +6,14 @@
     </GridLayout>
 </ActionBar>
 
-<GridLayout columns="*" rows="*" *ngIf=lectures class="page page-content" tkMainContent>
-    <RadListView row="0" col="0" #scheduleView class="list-group" [items]="lectures" [itemTemplateSelector]="templateSelector"
+<DockLayout class="page page-content" tkMainContent>
+    <!-- <DockLayout  width="100%"> -->
+    <RadListView #scheduleView class="list-group" [items]="lectures" [itemTemplateSelector]="templateSelector"
         (itemTap)="onItemTap($event)" class="schedule-page">
         <ListViewStaggeredLayout tkListViewLayout itemTemplate scrollDirection="Vertical" spanCount="1"></ListViewStaggeredLayout>
         <ng-template tkTemplateKey="default" let-item="item">
             <GridLayout order="1" columns="*,30" rows="35,5" class="schedule-lecture-block">
-                <Label row="0" col="0" width="100%" [text]="item.date" class="h2 schedule-day-header"></Label>
+                <Label row="0" col="0" width="100%" text="{{formatDay(item.date)}}" class="h2 schedule-day-header"></Label>
                 <Label row="0" col="1" width="100%" text="+" class="schedule-collapse-symbol"></Label>
                 <StackLayout row="1" col="0" colspan="2" class="hr"></StackLayout>
             </GridLayout>
@@ -20,11 +21,12 @@
         <ng-template tkTemplateKey="expanded" let-item="item">
             <StackLayout>
                 <GridLayout columns="*,30" rows="35,5" class="schedule-lecture-block">
-                    <Label row="0" col="0" width="100%" [text]="item.date" class="h2 schedule-day-header"></Label>
+                    <Label row="0" col="0" width="100%" text="{{formatDay(item.date)}}" class="h2 schedule-day-header"></Label>
                     <Label row="0" col="1" width="100%" text="-" class="schedule-collapse-symbol schedule-collapse-symbol-minus"
                         horizontalAlignment="center" verticalAlignment="center"></Label>
                     <StackLayout row="1" col="0" colspan="2" class="hr"></StackLayout>
                 </GridLayout>
+                <StackLayout height="10"></StackLayout>
                 <GridLayout columns="*" rows="20,20,20,20,10" width="100%" *ngFor="let lecture of item.lectures" class="schedule-table-content">
                     <Label row="0" [text]="lecture.name" height="20" class="lecture-name"></Label>
                     <Label row="1" [text]="lecture.room" height="20"></Label>
@@ -35,4 +37,5 @@
             </StackLayout>
         </ng-template>
     </RadListView>
-</GridLayout>
+    <!-- </DockLayout> -->
+</DockLayout>

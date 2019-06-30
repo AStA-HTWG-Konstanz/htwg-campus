@@ -24,7 +24,8 @@
     "endlicht": {
         "screenTitle": "Endlicht",
         "opening": "Opening Hours",
-        "beverages": "Beverages"
+        "beverages": "Beverages",
+        "map": "Campus map"
     },
     "events": {
         "screenTitle": "Events"
@@ -42,7 +43,21 @@
         "room": "Room",
         "start": "Start",
         "end": "End",
-        "category": "Category"
+        "category": "Category",
+        "sunday": "Su",
+        "monday": "Mo",
+        "tuesday": "Tu",
+        "wednesday": "We",
+        "thursday": "Th",
+        "friday": "Fr",
+        "saturday": "Sa",
+        "sundayF": "Sunday",
+        "mondayF": "Monday",
+        "tuesdayF": "Tuesday",
+        "wednesdayF": "Wednesday",
+        "thursdayF": "Thursday",
+        "fridayF": "Friday",
+        "saturdayF": "Saturday"
     },
     "settings": {
         "screenTitle": "Settings",

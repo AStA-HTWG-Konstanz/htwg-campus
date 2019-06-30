@@ -10,18 +10,20 @@
         <ng-container *ngFor="let menu of canteen">
             <FlexboxLayout flexDirection="column" class="grades-page" *tabItem="{title: reformTabTitel(menu.date)}">
                 <ScrollView>
-                    <StackLayout class="grades-page-container">
+                    <StackLayout class="grades-page-container" padding="20">
                         <StackLayout *ngFor="let meal of menu.meals">
                             <Label text="{{meal.ctgry}}" class="grades-table-header"></Label>
+                            <StackLayout class="hr"></StackLayout>
                             <StackLayout height="{{calcHeight(meal.title)}}" *ngFor="let info of reformMenuContent(meal.title)">
                                 <Label [text]="info" textWrap="true"></Label>
                             </StackLayout>
-                            <FlexboxLayout flexDirection="row" alignContent="center">
-                                <Label text="{{ 'canteen.student' | translate}}: {{meal.priceStud}} €" style="text-align: center; color: gray"></Label>
-                                <Label text="" width="20%"></Label>
-                                <Label text="{{ 'canteen.employee' | translate}}: {{meal.priceEmpl}} €" style="text-align: center; color: gray"></Label>
-                            </FlexboxLayout>
-                            <Label tetx=""></Label>
+                            <GridLayout rows="10,*,10" columns="*,6*,*,6*,*">
+                                <Label row="1" col="1" colspan="2" text="{{ 'canteen.student' | translate}}: {{meal.priceStud}} €"
+                                    style="text-align: center; color: gray"></Label>
+                                <Label row="1" col="3" colspan="2" text="{{ 'canteen.employee' | translate}}: {{meal.priceEmpl}} €"
+                                    style="text-align: center; color: gray"></Label>
+                            </GridLayout>
+                            <Label text=""></Label>
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

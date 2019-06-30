@@ -130,19 +130,23 @@ components that have the btn class name.
     border-width: 0.3;
 }
 .cardImage {
-    margin: 15;
+    margin-left: 15;
+    margin-right: 15;
 }
 .card-item {
-    width: 100%;
-    height: 100%;
     font-weight: 400;
+    
+}
+.item-name {
+    font-size: 20;
+    vertical-align: center;
+    horizontal-align: center;
 }
 .item-desc {
-    /* padding-top: 35; */
-    padding-left: auto;
-    padding-right: auto;
+    padding-top: auto;
+    padding-bottom: auto;
     vertical-align: center;
-    /* horizontal-align: center; */
+    horizontal-align: center;
     text-align: center;
     font-size: 32;
     font-weight: bold;
@@ -171,14 +175,15 @@ components that have the btn class name.
 }
 .schedule-page {
     margin: 10;
+    padding-left: 20;
+    padding-right: 20;
     padding-top: 0;
-    background-color: white;
 }
 .schedule-lecture-block {
-    padding-top: 10;
-    padding-bottom: 5;
-    padding-left: 5;
-    padding-right: 5;
+    padding-top: 20;
+    /* padding-bottom: 10; */
+    padding-left: 20;
+    padding-right: 20;
 }
 .lecture-name {
     text-align: left;
@@ -188,7 +193,7 @@ components that have the btn class name.
 .schedule-day-header {
     text-align: left;
     vertical-align: center;
-    font-weight: normal;
+    font-weight: bold;
     font-size: 26;
     padding-left: 5;
 }
@@ -199,12 +204,17 @@ components that have the btn class name.
 }
 .schedule-table-content {
     font-size: 16;
-    padding-left: 10;
-    padding-right: 10;
+    padding-left: 20;
+    padding-right: 20;
 }
 .schedule-collapse-symbol {
     font-size: 31;
-    margin-top: -9;
+    margin-top: -5;
+}
+.schedule-collapse-symbol-minus {
+    margin-right: -10;
+    margin-top: -11;
+    font-size: 35;
 }
 .home-panel{
     vertical-align: center; 
@@ -215,7 +225,7 @@ components that have the btn class name.
 .description-label{
     margin-bottom: 15;
 }
-/* ************ */
+
 /* light theme */
 .hr {
     background-color:#303030;
@@ -318,9 +328,8 @@ components that have the btn class name.
     font-weight: bold;
     text-align: left;
     padding: auto;
-    margin: 20;
     margin-bottom: 10;
-    /* height: 40; */
+    margin-top: 10;
     vertical-align: middle;
     border-bottom-width: 1; 
     border-bottom-color: gray;
@@ -328,11 +337,5 @@ components that have the btn class name.
 .event-body {
     color: black;
     font-size: 16;
-    text-align: center;
-    padding: 5;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 20;
-    margin-right: 20;
     text-align: left;
 }

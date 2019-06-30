@@ -9,6 +9,7 @@ declare var UIView, NSMutableArray, NSIndexPath;
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 import { CacheService } from '~/app/service/cache/cache.service';
 import { Lecture } from '~/app/model/schedule/lectures/lecture/Lecture';
+import { DateFromatService } from '~/app/service/dateFormat/date-fromat.service';
 
 @Component({
     selector: 'ns-schedule',
@@ -26,7 +27,8 @@ export class ScheduleComponent implements OnInit {
     constructor(
         private scheduleService: HtwgscheduleService,
         private routerExtensions: RouterExtensions,
-        private cacheService: CacheService
+        private cacheService: CacheService,
+        private dateFormatService: DateFromatService
     ) {
     }
 
@@ -68,5 +70,13 @@ export class ScheduleComponent implements OnInit {
     }
     trimTime(text: string) {
         return text.split(":").slice(0, 2).join(":")
+    }
+    formatDay(showDay: string) {
+        let tmp = showDay.split("-")
+        let day = tmp[2].length == 1 ? "0" + tmp[2] : tmp[2]
+        let month = tmp[1].length == 1 ? "0" + tmp[1] : tmp[1]
+        let year = tmp[0]
+        let currDate = new Date(year + "-" + month + "-" + day)
+        return this.dateFormatService.getFullDayOfWeekAsString(currDate)
     }
 }

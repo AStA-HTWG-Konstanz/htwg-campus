@@ -4,6 +4,7 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { CanteenService } from '~/app/service/canteen/canteen.service';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 import { CacheService } from '~/app/service/cache/cache.service';
+import { DateFromatService } from '~/app/service/dateFormat/date-fromat.service';
 
 @Component({
   selector: 'ns-canteen',
@@ -19,14 +20,17 @@ export class CanteenComponent implements OnInit {
   constructor(
     private routerExtensions: RouterExtensions,
     private canteenService: CanteenService,
-    private cacheService: CacheService
+    private cacheService: CacheService,
+    private dateFormatService: DateFromatService
   ) { }
 
   reformTabTitel(date: string) {
     let dateList = date.split('.')
     let day = dateList[0].length == 1 ? "0" + dateList[0] : dateList[0];
     let month = dateList[1].length == 1 ? "0" + dateList[1] : dateList[1];
-    return day + "." + month
+    let year = dateList[2]
+    let currDay = new Date(year + "-" + month + "-" + day)
+    return this.dateFormatService.getDayOfWeekAsString(currDay) + " " + day + "." + month
   }
   reformMenuContent(menu: string) {
     let items = menu.split("|")
