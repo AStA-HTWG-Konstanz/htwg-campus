@@ -23,6 +23,8 @@ import { StrandbarService } from '../service/strandbar/strandbar.service';
 import { Strandbar } from '../model/strandbar/strandbar';
 import { isIOS, isAndroid, Color, Page } from 'tns-core-modules/ui/page/page';
 import { Lecture } from '../model/schedule/lectures/lecture/Lecture';
+import { TranslateService } from '@ngx-translate/core';
+import { DateFromatService } from '../service/dateFormat/date-fromat.service';
 declare var CGSizeMake
 @Component({
   selector: 'ns-main',
@@ -44,6 +46,7 @@ export class MainComponent implements OnInit, OnChanges {
     private endlichtService: EndlichtService,
     private balanceService: PrintBalanceService,
     private strandbarService: StrandbarService,
+    private dateFormatService: DateFromatService,
   ) { }
 
 
@@ -268,10 +271,12 @@ export class MainComponent implements OnInit, OnChanges {
       foundCanteena.desc = "canteen.preview"
       foundCanteena.secDesc = "";
     }
+    foundCanteena.hasSecDesc = true;
     this.components.tiles[canteenIndex] = foundCanteena
   }
   async updateLectures() {
     console.log("refresh lectures")
+
     let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.lectures")
     let foundLectures = this.components.tiles[lecturesIndex]
     if (this.cacheService.isLecturesInCache()) {
@@ -279,20 +284,26 @@ export class MainComponent implements OnInit, OnChanges {
       let currentDate: Date = new Date()
       let nextLecture = lectures.lectures
         .map(lecturesPerday => {
-          return lecturesPerday.lectures.filter(eachLecture => {
+          let filteredLectures = lecturesPerday.lectures.filter(eachLecture => {
             let htime = eachLecture.startTime.split(":")
             let compareTime = new Date(lecturesPerday.date)
             compareTime.setHours(Number(htime[0]) - Number(htime[1]), 0, 0)
             return compareTime.getTime() - currentDate.getTime() > 0
+          }).map(eachLecture => {
+            eachLecture.name = eachLecture.name.split(" ").splice(2).join(" ")
+            eachLecture.startTime = this.dateFormatService.getDayOfWeekAsString(new Date(lecturesPerday.date)) + " " + eachLecture.startTime.split(":").slice(0, 2).join(":")
+            return eachLecture
           })
-        })
-        .filter(x => x.length > 0)
-      foundLectures.desc = nextLecture[0][0].name.split(" ").splice(2).join(" ")
-      foundLectures.secDesc = nextLecture[0][0].room + " | " + nextLecture[0][0].startTime.split(":").slice(0, 2).join(":")
+          return filteredLectures
+        }).filter(x => x.length > 0).reduce(x => x)
+      let headLecture = nextLecture[0]
+      foundLectures.desc = headLecture.name
+      foundLectures.secDesc = headLecture.room + " | " + headLecture.startTime
     } else {
       foundLectures.desc = "no lecture found";
       foundLectures.secDesc = "";
     }
+    foundLectures.hasSecDesc = true;
     this.components.tiles[lecturesIndex] = foundLectures
   }
   async updateTileOpacity(name: string, deactivate: boolean) {
@@ -320,6 +331,4 @@ export class MainComponent implements OnInit, OnChanges {
     if (item.deactivate || item.inactive) return
     this.routerExtensions.navigateByUrl(item.navigate, { transition: { name: 'slideLeft' } })
   }
-
-
 }

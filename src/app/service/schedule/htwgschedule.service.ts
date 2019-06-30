@@ -35,7 +35,7 @@ export class HtwgscheduleService {
   dummy: any = {
     "lectures": [
       {
-        "date": "2019-6-28",
+        "date": "2019-6-30",
         "lectures": [
           {
             "name": "AIN SE5 IT-Sicherheit",
@@ -66,7 +66,7 @@ export class HtwgscheduleService {
         ]
       },
       {
-        "date": "2019-7-6",
+        "date": "2019-7-5",
         "lectures": [
           {
             "name": "AIN SE5 IT-Sicherheit",

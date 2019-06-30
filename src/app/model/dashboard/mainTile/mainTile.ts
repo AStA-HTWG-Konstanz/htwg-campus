@@ -1,6 +1,7 @@
 export class MainTile {
     name: string
     desc: string = "";
+    hasSecDesc: boolean = false;
     secDesc: string = "";
     navigate: string
     imageSrc: string

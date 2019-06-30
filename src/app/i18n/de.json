@@ -24,7 +24,8 @@
     "endlicht": {
         "screenTitle": "Endlicht",
         "opening": "Öffnungszeiten",
-        "beverages": "Getränke Liste"
+        "beverages": "Getränke Liste",
+        "map": "Campusplan"
     },
     "events": {
         "screenTitle": "Termine"
@@ -42,7 +43,21 @@
         "room": "Raum",
         "start": "Beginn",
         "end": "Ende",
-        "category": "Kategorie"
+        "category": "Kategorie",
+        "sunday": "So",
+        "monday": "Mo",
+        "tuesday": "Di",
+        "wednesday": "Mi",
+        "thursday": "Do",
+        "friday": "Fr",
+        "saturday": "Sa",
+        "sundayF": "Sonntag",
+        "mondayF": "Montag",
+        "tuesdayF": "Dienstag",
+        "wednesdayF": "Mittwoch",
+        "thursdayF": "Donnerstag",
+        "fridayF": "Freitag",
+        "saturdayF": "Samstag"
     },
     "settings": {
         "screenTitle": "Einstellungen",

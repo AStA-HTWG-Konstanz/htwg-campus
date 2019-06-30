@@ -6,10 +6,10 @@
     </GridLayout>
 </ActionBar>
 <ScrollView *ngIf=semesterEvents class="page page-content" heigth="100%" tkMainContent>
-    <StackLayout style="background-color: white;margin:10;" class="event-page">
-        <StackLayout *ngFor="let item of semesterEvents">
-            <Label text="{{item.title}}" class="event-header" textWrap="true"></Label>
-            <Label text="{{item.eventDate}}" class="event-body" textWrap="true"></Label>
-        </StackLayout>
+    <StackLayout style="background-color: white; margin:10; padding-left: 20; padding-right: 20;" class="event-page">
+        <GridLayout rows="2*,*" columns="*" *ngFor="let item of semesterEvents">
+            <Label row="0" text="{{item.title}}" class="event-header" textWrap="true"></Label>
+            <Label row="1" text="{{item.eventDate}}" class="event-body" textWrap="true"></Label>
+        </GridLayout>
     </StackLayout>
 </ScrollView>

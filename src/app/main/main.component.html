@@ -15,18 +15,17 @@
         <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="180" spanCount="2"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item">
             <StackLayout class="card-tile" backgroundcolor="{{showTileBackgroundColor(item)}}" opacity="{{showTileDeactivate(item)}}">
-                <StackLayout class="card-item">
-                    <Label class="item-name" fontSize="20" text="{{ item.name | translate}}" verticalAlignment="center"
-                        horizontalAlignment="center" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}"></Label>
-                    <Label *ngIf="item.inactive || item.name === 'dashboard.canteen' || item.name === 'dashboard.lectures'"
-                        text="{{ item.desc | translate}}" class="item-desc" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}"
-                        style="padding-top: {{item.inactive ? '35':'5'}}; font-size: {{item.inactive ? '32':'26'}};"></Label>
-                    <!-- <Label *ngIf="" text="{{ item.desc | translate}}" color="whitesmoke"
-                        class="item-desc" textWrap="true"></Label> -->
-                    <Label *ngIf="item.secDesc.length > 1" class="item-sec-desc" [text]="item.secDesc" color="{{item.inactive? '#000' : '#fff' }}"></Label>
-                    <Image *ngIf="!item.inactive && item.name !== 'dashboard.canteen' && item.name !== 'dashboard.lectures'"
-                        src="{{ item.imageSrc }}" class="cardImage"></Image>
-                </StackLayout>
+                <GridLayout class="card-item" columns="*,4*,*" rows="*,*,*,*">
+                    <Label col="0" colspan="3" row="0" class="item-name" text="{{ item.name | translate}}" color="{{item.inactive? '#000' : '#fff' }}"
+                        textWrap="true"></Label>
+                    <Label col="0" colspan="3" row="1" rowspan="2" *ngIf="item.inactive || item.hasSecDesc" text="{{ item.desc | translate}}"
+                        class="item-desc" textWrap="true" color="{{item.inactive? '#000' : '#fff' }}" paddingTop="{{item.inactive ? '35':'5'}}"
+                        fontSize="{{item.inactive ? '32':'26'}}"></Label>
+                    <Image col="1" colspan="1" row="1" rowspan="3" *ngIf="!item.inactive && !item.hasSecDesc" src="{{ item.imageSrc }}"
+                        class="cardImage"></Image>
+                    <Label col="0" colspan="3" row="3" *ngIf="item.hasSecDesc" class="item-sec-desc" [text]="item.secDesc"
+                        color="{{item.inactive? '#000' : '#fff' }}"></Label>
+                </GridLayout>
             </StackLayout>
         </ng-template>
     </RadListView>

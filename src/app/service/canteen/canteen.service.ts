@@ -57,26 +57,26 @@ export class CanteenService {
                     {
                         "ctgry": "Seezeit-Teller",
                         "title": "Tortelloni Mediterraneo (25a) | Petersilien-Mandelpesto (3,32a) | Riosalat | Balsamicodressing (34,36) | Frischobst Apfel | (Veg)",
-                        "priceStud": "string",
-                        "priceEmpl": "string",
+                        "priceStud": "3,10",
+                        "priceEmpl": "5,10",
                     },
                     {
                         "ctgry": "hin&weg",
                         "title": "Kartoffelpuffer Apfelmus (3,28,25a)",
-                        "priceStud": "string",
-                        "priceEmpl": "string",
+                        "priceStud": "3,10",
+                        "priceEmpl": "3,60",
                     },
                     {
                         "ctgry": "KombinierBar",
                         "title": "Rezept des Monats | Zitronenhähnchen (36) | Bratensauce | (G)",
-                        "priceStud": "string",
-                        "priceEmpl": "string",
+                        "priceStud": "3,10",
+                        "priceEmpl": "5,10",
                     },
                     {
                         "ctgry": "Beilagen",
                         "title": "Kartoffeln | Reis | Kaisergemüse | Salat | Dessert",
-                        "priceStud": "string",
-                        "priceEmpl": "string",
+                        "priceStud": "0,70",
+                        "priceEmpl": "1,20",
                     }
                 ]
             },
