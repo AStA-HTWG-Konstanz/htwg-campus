@@ -70,15 +70,26 @@ export class MainComponent implements OnInit, OnChanges {
     if (this.cacheService.isDashBoardInCache()) {
       this.components = this.cacheService.getDashBoardFromCache();
     } else {
-      this.components = new Dashboard([
-        new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
-        new MainTile("dashboard.grades", "", "grades", "~/images/student_hat.png", false),
-        new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
-        new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
-        new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
-        new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
-        new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
-      ]);
+      if (this.cacheService.getUserFromCache().student) {
+        this.components = new Dashboard([
+          new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+          new MainTile("dashboard.grades", "", "grades", "~/images/student_hat.png", false),
+          new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+          new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
+          new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+          new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
+          new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+        ]);
+      } else {
+        this.components = new Dashboard([
+          new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+          new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+          new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
+          new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+          new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
+          new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+        ]);
+      }
       this.refreshCache();
       this.cacheService.loadDashBoardInCache(this.components);
     }
@@ -123,7 +134,7 @@ export class MainComponent implements OnInit, OnChanges {
         }
       )
     }
-    if (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday()) {
+    if (this.cacheService.getUserFromCache().student && (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday())) {
       this.gradeService.getGrades().then(
         (resolved: Grades) => {
           this.cacheService.loadGradesInCache(resolved)
@@ -182,7 +193,7 @@ export class MainComponent implements OnInit, OnChanges {
       this.updateTileOpacity("dashboard.endlicht", true)
     }
 
-    if (this.cacheService.isGradesInCache()) {
+    if (this.cacheService.getUserFromCache().student && this.cacheService.isGradesInCache()) {
       this.updateTileOpacity("dashboard.grades", false)
     } else {
       this.updateTileOpacity("dashboard.grades", true)
@@ -320,9 +331,6 @@ export class MainComponent implements OnInit, OnChanges {
   }
   public showTileBackgroundColor(item: MainTile) {
     return item.inactive ? '#eee' : '#334152';
-  }
-  public showTileDeactivate(item: MainTile) {
-    return item.deactivate ? '.5' : '1.0'
   }
 
   public onNavigationItemTap(args: ListViewEventData) {

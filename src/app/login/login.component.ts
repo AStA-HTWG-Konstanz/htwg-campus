@@ -41,8 +41,9 @@ export class LoginComponent implements OnInit {
     this.processing = true;
     this.error = false;
     this.loginservice.login(this.user).then(
-      (resolved: any) => {
-        this.cacheService.loadUserInCache(this.user)
+      (resolved: { student: boolean }) => {
+        let newUser = new User(this.user.username, this.user.password, resolved.student)
+        this.cacheService.loadUserInCache(newUser)
         this.processing = false;
         this.routerExtensions.navigateByUrl("main", { clearHistory: true });
       },

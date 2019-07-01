@@ -31,10 +31,7 @@ export class EndlichtComponent implements OnInit {
 
   reformTabTitel(date: string) {
     let currDate = new Date(date)
-    let dateList = date.split('-')
-    let day = dateList[2].length == 1 ? "0" + dateList[2] : dateList[2];
-    let month = dateList[1].length == 1 ? "0" + dateList[1] : dateList[1];
-    return this.dateFormatService.getDayOfWeekAsString(currDate) + " " + day + "." + month
+    return this.dateFormatService.getFullDayOfWeekAsString(currDate)
   }
 
   getEndlicht() {

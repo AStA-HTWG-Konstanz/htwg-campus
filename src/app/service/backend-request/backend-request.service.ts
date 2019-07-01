@@ -41,7 +41,7 @@ export class BackendRequestService {
       url: serverUrl,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      content: JSON.stringify(user)
+      content: JSON.stringify({ username: user.username, password: user.password })
     })
   }
 

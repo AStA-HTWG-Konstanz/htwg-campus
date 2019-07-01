@@ -14,7 +14,7 @@
         (itemLoading)="onItemLoading($event)" (itemTap)="onNavigationItemTap($event)" (pullToRefreshInitiated)="onPullToRefreshInitiated($event)">
         <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" ios:itemHeight="180" spanCount="2"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item">
-            <StackLayout class="card-tile" backgroundcolor="{{showTileBackgroundColor(item)}}" opacity="{{showTileDeactivate(item)}}">
+            <StackLayout class="card-tile" backgroundcolor="{{showTileBackgroundColor(item)}}">
                 <GridLayout class="card-item" columns="*,4*,*" rows="*,*,*,*">
                     <Label col="0" colspan="3" row="0" class="item-name" text="{{ item.name | translate}}" color="{{item.inactive? '#000' : '#fff' }}"
                         textWrap="true"></Label>
