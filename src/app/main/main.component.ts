@@ -70,15 +70,26 @@ export class MainComponent implements OnInit, OnChanges {
     if (this.cacheService.isDashBoardInCache()) {
       this.components = this.cacheService.getDashBoardFromCache();
     } else {
-      this.components = new Dashboard([
-        new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
-        new MainTile("dashboard.grades", "", "grades", "~/images/student_hat.png", false),
-        new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
-        new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
-        new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
-        new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
-        new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
-      ]);
+      if (this.cacheService.getUserFromCache().student) {
+        this.components = new Dashboard([
+          new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+          new MainTile("dashboard.grades", "", "grades", "~/images/student_hat.png", false),
+          new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+          new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
+          new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+          new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
+          new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+        ]);
+      } else {
+        this.components = new Dashboard([
+          new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+          new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+          new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
+          new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+          new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
+          new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+        ]);
+      }
       this.refreshCache();
       this.cacheService.loadDashBoardInCache(this.components);
     }
@@ -123,7 +134,7 @@ export class MainComponent implements OnInit, OnChanges {
         }
       )
     }
-    if (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday()) {
+    if (this.cacheService.getUserFromCache().student && (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday())) {
       this.gradeService.getGrades().then(
         (resolved: Grades) => {
           this.cacheService.loadGradesInCache(resolved)
@@ -182,7 +193,7 @@ export class MainComponent implements OnInit, OnChanges {
       this.updateTileOpacity("dashboard.endlicht", true)
     }
 
-    if (this.cacheService.isGradesInCache()) {
+    if (this.cacheService.getUserFromCache().student && this.cacheService.isGradesInCache()) {
       this.updateTileOpacity("dashboard.grades", false)
     } else {
       this.updateTileOpacity("dashboard.grades", true)
@@ -286,12 +297,12 @@ export class MainComponent implements OnInit, OnChanges {
         .map(lecturesPerday => {
           let filteredLectures = lecturesPerday.lectures.filter(eachLecture => {
             let htime = eachLecture.startTime.split(":")
-            let compareTime = new Date(lecturesPerday.date)
+            let compareTime = new Date(this.reformDate(lecturesPerday.date))
             compareTime.setHours(Number(htime[0]) - Number(htime[1]), 0, 0)
             return compareTime.getTime() - currentDate.getTime() > 0
           }).map(eachLecture => {
             eachLecture.name = eachLecture.name.split(" ").splice(2).join(" ")
-            eachLecture.startTime = this.dateFormatService.getDayOfWeekAsString(new Date(lecturesPerday.date)) + " " + eachLecture.startTime.split(":").slice(0, 2).join(":")
+            eachLecture.startTime = this.dateFormatService.getDayOfWeekAsString(new Date(this.reformDate(lecturesPerday.date))) + " " + eachLecture.startTime.split(":").slice(0, 2).join(":")
             return eachLecture
           })
           return filteredLectures
@@ -321,14 +332,19 @@ export class MainComponent implements OnInit, OnChanges {
   public showTileBackgroundColor(item: MainTile) {
     return item.inactive ? '#eee' : '#334152';
   }
-  public showTileDeactivate(item: MainTile) {
-    return item.deactivate ? '.5' : '1.0'
-  }
 
   public onNavigationItemTap(args: ListViewEventData) {
     this.cacheService.loadDashBoardInCache(this.components);
     let item = this.components.tiles[args.index]
     if (item.deactivate || item.inactive) return
     this.routerExtensions.navigateByUrl(item.navigate, { transition: { name: 'slideLeft' } })
+  }
+
+  private reformDate(dateAsString: string): string {
+    let tmp = dateAsString.split("-")
+    let year = tmp[0]
+    let month = tmp[1].length == 1 ? "0" + tmp[1] : tmp[1]
+    let day = tmp[2].length == 1 ? "0" + tmp[2] : tmp[2]
+    return year + "-" + month + "-" + day
   }
 }
