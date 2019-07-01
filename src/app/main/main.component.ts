@@ -286,12 +286,12 @@ export class MainComponent implements OnInit, OnChanges {
         .map(lecturesPerday => {
           let filteredLectures = lecturesPerday.lectures.filter(eachLecture => {
             let htime = eachLecture.startTime.split(":")
-            let compareTime = new Date(lecturesPerday.date)
+            let compareTime = new Date(this.reformDate(lecturesPerday.date))
             compareTime.setHours(Number(htime[0]) - Number(htime[1]), 0, 0)
             return compareTime.getTime() - currentDate.getTime() > 0
           }).map(eachLecture => {
             eachLecture.name = eachLecture.name.split(" ").splice(2).join(" ")
-            eachLecture.startTime = this.dateFormatService.getDayOfWeekAsString(new Date(lecturesPerday.date)) + " " + eachLecture.startTime.split(":").slice(0, 2).join(":")
+            eachLecture.startTime = this.dateFormatService.getDayOfWeekAsString(new Date(this.reformDate(lecturesPerday.date))) + " " + eachLecture.startTime.split(":").slice(0, 2).join(":")
             return eachLecture
           })
           return filteredLectures
@@ -330,5 +330,13 @@ export class MainComponent implements OnInit, OnChanges {
     let item = this.components.tiles[args.index]
     if (item.deactivate || item.inactive) return
     this.routerExtensions.navigateByUrl(item.navigate, { transition: { name: 'slideLeft' } })
+  }
+
+  private reformDate(dateAsString: string): string {
+    let tmp = dateAsString.split("-")
+    let year = tmp[0]
+    let month = tmp[1].length == 1 ? "0" + tmp[1] : tmp[1]
+    let day = tmp[2].length == 1 ? "0" + tmp[2] : tmp[2]
+    return year + "-" + month + "-" + day
   }
 }
