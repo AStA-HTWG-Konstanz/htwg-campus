@@ -19,13 +19,14 @@ import { EndlichtComponent } from "./main/endlicht/endlicht.component";
 import { SemestereventsComponent } from "./main/semesterevents/semesterevents.component";
 import { CacheService } from './service/cache/cache.service';
 import { EndlichtService } from "./service/endlicht/endlicht.service";
+import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { Http } from "@angular/http";
-import { NativeScriptHttpModule } from "nativescript-angular/http";
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader"
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsComponent } from "./settings/settings.component";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 
-export function HttpLoaderFactory(http: Http) {
+export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "/i18n/", ".json")
 }
 
@@ -38,12 +39,13 @@ export function HttpLoaderFactory(http: Http) {
         AppRoutingModule,
         NativeScriptUISideDrawerModule,
         NativeScriptUIListViewModule,
-        NativeScriptHttpModule,
+        NativeScriptHttpClientModule,
+        HttpClientModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
-                deps: [Http]
+                deps: [HttpClient]
             }
         })
     ],
