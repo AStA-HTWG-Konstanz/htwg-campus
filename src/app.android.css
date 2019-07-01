@@ -177,15 +177,15 @@ components that have the btn class name.
 }
 .schedule-page {
     margin: 10;
-    padding-left: 20;
-    padding-right: 20;
+    padding-left: 10;
+    padding-right: 10;
     padding-top: 0;
 }
 .schedule-lecture-block {
     padding-top: 20;
     /* padding-bottom: 10; */
-    padding-left: 20;
-    padding-right: 20;
+    padding-left: 10;
+    padding-right: 10;
 }
 .lecture-name {
     text-align: left;

@@ -60,11 +60,10 @@ export class MainComponent implements OnInit, OnChanges {
     this.updatePrintTile()
     this.updateStrandBar()
     this.updateLectures();
-    this.refreshTile()
   }
   ngOnChanges() {
     this.refreshDashBoard();
-    this.refreshTile()
+    this.refreshCache();
   }
   async refreshDashBoard() {
     if (this.cacheService.isDashBoardInCache()) {
@@ -90,7 +89,6 @@ export class MainComponent implements OnInit, OnChanges {
           new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
         ]);
       }
-      this.refreshCache();
       this.cacheService.loadDashBoardInCache(this.components);
     }
   }
@@ -164,53 +162,10 @@ export class MainComponent implements OnInit, OnChanges {
         }
       )
     }
-    this.refreshTile();
-  }
-
-  async refreshTile() {
-    console.log("refresh tiles")
-    if (this.cacheService.isCanteenInCache()) {
-      this.updateTileOpacity("dashboard.canteen", false)
-    } else {
-      this.updateTileOpacity("dashboard.canteen", true)
-    }
-
-    if (this.cacheService.isLecturesInCache()) {
-      this.updateTileOpacity("dashboard.lectures", false)
-    } else {
-      this.updateTileOpacity("dashboard.lectures", true)
-    }
-
-    if (this.cacheService.isEventsInCache()) {
-      this.updateTileOpacity("dashboard.events", false)
-    } else {
-      this.updateTileOpacity("dashboard.events", true)
-    }
-
-    if (this.cacheService.isEndlichtInCache()) {
-      this.updateTileOpacity("dashboard.endlicht", false)
-    } else {
-      this.updateTileOpacity("dashboard.endlicht", true)
-    }
-
-    if (this.cacheService.getUserFromCache().student && this.cacheService.isGradesInCache()) {
-      this.updateTileOpacity("dashboard.grades", false)
-    } else {
-      this.updateTileOpacity("dashboard.grades", true)
-    }
-
-    if (this.cacheService.isPrintBalanceInCache()) {
-      this.updateTileOpacity("dashboard.balance", false)
-    } else {
-      this.updateTileOpacity("dashboard.balance", true)
-    }
-
-    if (this.cacheService.isStrandbarInCache()) {
-      this.updateTileOpacity("dashboard.strandbar", false)
-    } {
-      this.updateTileOpacity("dashboard.strandbar", true)
-    }
-    this.cacheService.loadDashBoardInCache(this.components);
+    this.updateCanteena()
+    this.updatePrintTile()
+    this.updateStrandBar()
+    this.updateLectures();
   }
 
   onPullToRefreshInitiated(args: any) {
@@ -241,34 +196,32 @@ export class MainComponent implements OnInit, OnChanges {
   }
   public onItemReordered(args: ListViewEventData) {
     this.refreshCache();
-    this.cacheService.loadDashBoardInCache(this.components)
-    //console.log("Item reordered. Old index: " + args.index + " " + "new index: " + args.data.targetIndex);
   }
 
   async updatePrintTile() {
     console.log("refresh print balance")
+    let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
+    let foundPrint = this.components.tiles[balanceIndex]
     if (this.cacheService.isPrintBalanceInCache()) {
       let balance: Balance = this.cacheService.getPrintBalanceFromCache()
-      let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
-      if (balanceIndex !== -1) {
-        let foundPrint = this.components.tiles[balanceIndex]
-        foundPrint.desc = balance.print + "€"
-        this.components.tiles[balanceIndex] = foundPrint
-      }
+      foundPrint.desc = balance.print + "€"
+    } else {
+      foundPrint.desc = "";
     }
+    this.components.tiles[balanceIndex] = foundPrint
   }
   async updateStrandBar() {
     console.log("refresh stranbar")
+    let strandBarIndex = this.components.tiles.findIndex(x => x.navigate == "strandbar")
+    let foundStrandbar = this.components.tiles[strandBarIndex]
     if (this.cacheService.isStrandbarInCache()) {
       let strandbar: Strandbar = this.cacheService.getStrandbarFromCache()
-      let strandBarIndex = this.components.tiles.findIndex(x => x.navigate == "strandbar")
-      if (strandBarIndex !== -1) {
-        let foundStrandbar = this.components.tiles[strandBarIndex]
-        let showTileDesc = strandbar.isOpen ? "strandbar.open" : "strandbar.close"
-        foundStrandbar.desc = showTileDesc
-        this.components.tiles[strandBarIndex] = foundStrandbar
-      }
+      let showTileDesc = strandbar.isOpen ? "strandbar.open" : "strandbar.close"
+      foundStrandbar.desc = showTileDesc
+    } else {
+      foundStrandbar.desc = ""
     }
+    this.components.tiles[strandBarIndex] = foundStrandbar
   }
   async updateCanteena() {
     console.log("refresh canteena")
@@ -279,7 +232,7 @@ export class MainComponent implements OnInit, OnChanges {
       foundCanteena.desc = canteen.menu[0].meals[0].title.split("|")[0].split("(")[0]
       foundCanteena.secDesc = canteen.menu[0].meals[0].ctgry + " | " + canteen.menu[0].meals[0].priceStud + "€"
     } else {
-      foundCanteena.desc = "canteen.preview"
+      foundCanteena.desc = "dashboard.preview"
       foundCanteena.secDesc = "";
     }
     foundCanteena.hasSecDesc = true;
@@ -287,7 +240,6 @@ export class MainComponent implements OnInit, OnChanges {
   }
   async updateLectures() {
     console.log("refresh lectures")
-
     let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.lectures")
     let foundLectures = this.components.tiles[lecturesIndex]
     if (this.cacheService.isLecturesInCache()) {
@@ -311,24 +263,13 @@ export class MainComponent implements OnInit, OnChanges {
       foundLectures.desc = headLecture.name
       foundLectures.secDesc = headLecture.room + " | " + headLecture.startTime
     } else {
-      foundLectures.desc = "no lecture found";
+      foundLectures.desc = "dashboard.preview";
       foundLectures.secDesc = "";
     }
     foundLectures.hasSecDesc = true;
     this.components.tiles[lecturesIndex] = foundLectures
   }
-  async updateTileOpacity(name: string, deactivate: boolean) {
-    let searchIndex = this.components.tiles.findIndex(x => x.name.startsWith(name))
-    if (searchIndex < 0) return
-    let foundTile: MainTile = this.components.tiles[searchIndex]
-    if (!foundTile) return
-    if (deactivate) {
-      foundTile.deactivate = true
-    } else {
-      foundTile.deactivate = false
-    }
-    this.components.tiles[searchIndex] = foundTile
-  }
+
   public showTileBackgroundColor(item: MainTile) {
     return item.inactive ? '#eee' : '#334152';
   }
