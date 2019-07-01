@@ -83,7 +83,8 @@
         "strandbar": "Strandbar",
         "endlicht": "Endlicht",
         "events": "Termine",
-        "balance": "Drucker Guthaben"
+        "balance": "Drucker Guthaben",
+        "preview": "Derzeit nicht verfügbar"
     },
     "strandbar": {
         "open": "geöffnet",

@@ -83,7 +83,8 @@
         "strandbar": "Strandbar",
         "endlicht": "Endlicht",
         "events": "Events",
-        "balance": "Printer Balance"
+        "balance": "Printer Balance",
+        "preview": "current not avialable"
     },
     "strandbar": {
         "open": "opend",

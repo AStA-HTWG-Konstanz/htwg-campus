@@ -13,7 +13,7 @@ export class LoginService {
     private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/auth"
     private header = { "Content-Type": "application/json" }
 
-    constructor( private cacheService: CacheService) { }
+    constructor(private cacheService: CacheService) { }
 
     login(user: User): Promise<Object> {
         return request({
