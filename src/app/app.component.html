@@ -13,7 +13,7 @@
 
                 <StackLayout class="hr"></StackLayout>
 
-                <GridLayout columns="auto, *" class="sidedrawer-list-item">
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/about']" (tap)="closeDrawer()">
                     <Label col="1" text="{{ 'nav.about' | translate}}" class="nav-name"></Label>
                 </GridLayout>
 

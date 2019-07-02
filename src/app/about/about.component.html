@@ -1,0 +1,23 @@
+<ActionBar class="action-bar">
+    <NavigationButton visibility="collapsed"></NavigationButton>
+    <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
+        <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
+        <Label col="1" text="{{ 'about.screenTitle' | translate}}" class="action-bar-label"></Label>
+    </GridLayout>
+</ActionBar>
+<ScrollView class="page page-content" heigth="100%" tkMainContent>
+    <StackLayout style="background-color: white; margin:10; padding-left: 20; padding-right: 20;" class="event-page">
+        <Label text="{{ 'about.developer' | translate}}" class="event-header" textWrap="true"></Label>
+        <StackLayout *ngFor="let item of developer">
+            <Label text="{{item.name}}, {{item.departmend}}" class="event-body" textWrap="true"></Label>
+        </StackLayout>
+        <Label text="{{'about.designer' | translate}}" class="event-header" textWrap="true"></Label>
+        <StackLayout *ngFor="let item of designer">
+            <Label text="{{item.name}}, {{item.departmend}}" class="event-body" textWrap="true"></Label>
+        </StackLayout>
+        <Label text="{{ 'about.supervisor' | translate}}" class="event-header" textWrap="true"></Label>
+        <StackLayout *ngFor="let item of supervisor">
+            <Label text="{{item.name}}, {{item.departmend}}" class="event-body" textWrap="true"></Label>
+        </StackLayout>
+    </StackLayout>
+</ScrollView>
