@@ -21,7 +21,7 @@ export class HtwgscheduleService {
           let content = response.content.toString();
           if (content.length > 0 && response.content.toJSON != null) {
             console.log("schedule response:");
-            this.storedResponse = this.dummy//response.content.toJSON() as any as Schedule;
+            this.storedResponse = response.content.toJSON() as any as Schedule;
             if (!this.storedResponse) return reject(content);
             resolve(this.storedResponse);
           } else {
@@ -31,59 +31,5 @@ export class HtwgscheduleService {
         error => reject(error)
       );
     });
-  }
-  dummy: any = {
-    "lectures": [
-      {
-        "date": "2019-6-30",
-        "lectures": [
-          {
-            "name": "AIN SE5 IT-Sicherheit",
-            "startTime": "14:00:00",
-            "endTime": "15:30:00",
-            "room": "O - 002",
-            "category": "Einzelveranstaltung"
-          }
-        ]
-      },
-      {
-        "date": "2019-6-5",
-        "lectures": [
-          {
-            "name": "AIN SE4 Software-Archtekturen",
-            "startTime": "08:00:00",
-            "endTime": "09:30:00",
-            "room": "F - 033",
-            "category": "Vorlesung/Übung"
-          },
-          {
-            "name": "AIN SE4 Software-Archtekturen",
-            "startTime": "09:45:00",
-            "endTime": "11:15:00",
-            "room": "F - 033",
-            "category": "Vorlesung/Übung"
-          }
-        ]
-      },
-      {
-        "date": "2019-7-5",
-        "lectures": [
-          {
-            "name": "AIN SE5 IT-Sicherheit",
-            "startTime": "08:00:00",
-            "endTime": "09:30:00",
-            "room": "O - 008",
-            "category": "Einzelveranstaltung"
-          },
-          {
-            "name": "AIN SE5 IT-Sicherheit",
-            "startTime": "08:00:00",
-            "endTime": "09:30:00",
-            "room": "F - 223",
-            "category": "Einzelveranstaltung"
-          }
-        ]
-      }
-    ]
   }
 }
