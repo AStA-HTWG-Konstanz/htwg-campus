@@ -20,7 +20,7 @@ export class SemestereventService {
       this.eventsRequest().then(
         (response: HttpResponse) => {
           if (response.statusCode !== 200) {
-            return resolve(this.dummy)//reject("events service reject: " + response.statusCode);
+            return reject("events service reject: " + response.statusCode);
           }
           if (response.content.toString().length > 0) {
             return resolve(response.content.toJSON() as any as SemesterEvents);
@@ -34,29 +34,5 @@ export class SemestereventService {
         }
       );
     })
-  }
-  dummy: SemesterEvents = {
-    "events": [
-      {
-        "title": "Prüfungsanmeldezeitraum Sommersemester 2019",
-        "eventDate": "Mittwoch, 8. Mai bis Mittwoch, 22. Mai 2019"
-      },
-      {
-        "title": "Prüfungszeitraum Sommersemester 2019",
-        "eventDate": "Samstag, 06. Juli bis Mittwoch 31. Juli 2019"
-      },
-      {
-        "title": "Zweiter Prüfungszeitraum Sommersemester 2019",
-        "eventDate": "Montag, 23. September bis Freitag, 4. Oktober 2019"
-      },
-      {
-        "title": "Vorlesungsbeginn",
-        "eventDate": "18. März 2019"
-      },
-      {
-        "title": "Vorlesungsende",
-        "eventDate": "05. Juli 2019"
-      }
-    ]
   }
 }

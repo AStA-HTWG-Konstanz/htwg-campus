@@ -21,7 +21,7 @@ export class EndlichtService {
             this.getResponse().then(
                 (response: HttpResponse) => {
                     if (response.statusCode !== 200) {
-                        return resolve(this.dummyResponse)//reject("endlicht service reject: " + response.statusCode);
+                        return reject("endlicht service reject: " + response.statusCode);
                     }
                     let content: Endlicht = response.content.toJSON() as any as Endlicht
                     return resolve(content)
@@ -30,57 +30,4 @@ export class EndlichtService {
             )
         })
     }
-    dummyResponse: Endlicht =
-        {
-            endlicht: {
-                openingHours: [
-                    {
-                        date: "2019-04-22",
-                        startTime: "09:30",
-                        endTime: "16:00"
-                    },
-                    {
-                        date: "2019-04-23",
-                        startTime: "09:30",
-                        endTime: "16:00"
-                    },
-                    {
-                        date: "2019-04-24",
-                        startTime: "09:30",
-                        endTime: "16:00"
-                    },
-                    {
-                        date: "2019-04-25",
-                        startTime: "09:30",
-                        endTime: "16:00"
-                    },
-                    {
-                        date: "2019-04-26",
-                        startTime: "09:30",
-                        endTime: "14:00"
-                    }
-                ],
-                specials: [
-                    {
-                        name: "Eiskaffee",
-                        price: "1.50"
-                    }
-                ],
-                beverages: [
-                    {
-                        name: "Café Creme",
-                        price: "1.00"
-                    },
-                    {
-                        name: "Espresso",
-                        price: "0.80"
-                    },
-                    {
-                        name: "Cola",
-                        price: "1.20"
-                    }
-                ]
-            }
-
-        }
 }
