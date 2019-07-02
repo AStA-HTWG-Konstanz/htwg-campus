@@ -7,6 +7,12 @@
             "NSLocationWhenInUseUsageDescription": "This will be added to InfoPlist.strings"
         }
     },
+    "about": {
+        "screenTitle": "About",
+        "developer": "Developed by",
+        "designer": "Designed by",
+        "supervisor": "Supervised by"
+    },
     "login": {
         "signin": "Sign in",
         "signout": "Logout",

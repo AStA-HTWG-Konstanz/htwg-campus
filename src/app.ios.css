@@ -158,8 +158,9 @@ components that have the btn class name.
     text-align: center;
 }
 .meal-category {
-    text-align: center;
+    text-align: left;
     font-size: 20;
+    font-weight: bold;
 }
 .grades-table-header {
     text-align: center;
@@ -294,8 +295,7 @@ components that have the btn class name.
     border-color: rgb(211, 211, 211);
 }
 .meal-category {
-    background-color:#334152; 
-    color: #fff;
+    color: black;
 }
 .grades-table-header {
     color: black;

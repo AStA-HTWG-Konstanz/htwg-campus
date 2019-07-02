@@ -25,6 +25,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsComponent } from "./settings/settings.component";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { AboutComponent } from "./about/about.component";
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "/i18n/", ".json")
@@ -59,7 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         EndlichtComponent,
         SemestereventsComponent,
         ActionButtonComponent,
-        SettingsComponent
+        SettingsComponent,
+        AboutComponent
     ],
     providers: [
         AuthGuard,

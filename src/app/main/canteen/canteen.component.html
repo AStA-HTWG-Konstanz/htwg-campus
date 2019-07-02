@@ -12,7 +12,7 @@
                 <ScrollView>
                     <StackLayout class="grades-page-container" padding="20">
                         <StackLayout *ngFor="let meal of menu.meals">
-                            <Label text="{{meal.ctgry}}" class="grades-table-header"></Label>
+                            <Label text="{{meal.ctgry}}" class="meal-category"></Label>
                             <StackLayout class="hr"></StackLayout>
                             <StackLayout marginTop="5" height="{{calcHeight(meal.title)}}" *ngFor="let info of reformMenuContent(meal.title)">
                                 <Label [text]="info" textWrap="true"></Label>
