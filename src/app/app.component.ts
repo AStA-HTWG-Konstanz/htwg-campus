@@ -43,29 +43,36 @@ export class AppComponent {
     }
 
     selectLanguage() {
-        var message = "Sprache auswählen"
-        if (this.translate.currentLang === "en")
-            message = "Choose a language"
+        let message = this.translate.currentLang === "en" ? "Choose a language" : "Sprache auswählen"
         dialogs.action({
             message: message,
-            cancelButtonText: "Schließen",
+            cancelButtonText: this.translate.currentLang === "en" ? "Close" : "Schließen",
             actions: ["Deutsch", "English"]
         }).then(result => {
             if (result === "Deutsch") {
                 if (!(this.cacheService.isLanguageInCache() && this.cacheService.getLanguageFromCache() == "de")) {
                     this.cacheService.loadLanguageInCache("de");
                     this.translate.use("de")
-                    this.canteenService.getMenu().then((resolved) => this.cacheService.loadCanteenInCache(resolved))
+                    this.refreshCanteenLocation()
                 }
             }
             if (result === "English") {
                 if (!(this.cacheService.isLanguageInCache() && this.cacheService.getLanguageFromCache() == "en")) {
                     this.cacheService.loadLanguageInCache("en");
                     this.translate.use("en")
-                    this.canteenService.getMenu().then((resolved) => this.cacheService.loadCanteenInCache(resolved))
+                    this.refreshCanteenLocation()
                 }
             }
             this.closeDrawer()
+        })
+    }
+
+    refreshCanteenLocation() {
+        this.canteenService.getMenu().then((canteen: Canteen) => {
+            this.cacheService.loadCanteenInCache(canteen)
+            console.log("loaded Canteen")
+        }, (rejected: any) => {
+            console.log("canteen error: " + JSON.stringify(rejected))
         })
     }
 

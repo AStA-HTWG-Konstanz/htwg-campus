@@ -258,10 +258,9 @@ export class MainComponent implements OnInit, OnChanges {
             return eachLecture
           })
           return filteredLectures
-        }).filter(x => x.length > 0).reduce(x => x)
-      let headLecture = nextLecture[0]
-      foundLectures.desc = headLecture.name
-      foundLectures.secDesc = headLecture.room + " | " + headLecture.startTime
+        }).reduce(x => x)
+      foundLectures.desc = nextLecture.length > 0 ? nextLecture[0].name : "dashboard.preview";
+      foundLectures.secDesc = nextLecture.length > 0 ? nextLecture[0].room + " | " + nextLecture[0].startTime : "";
     } else {
       foundLectures.desc = "dashboard.preview";
       foundLectures.secDesc = "";
