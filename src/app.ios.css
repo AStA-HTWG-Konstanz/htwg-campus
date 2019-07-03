@@ -127,7 +127,7 @@ components that have the btn class name.
     padding-bottom: 10;
     padding-left: auto;
     padding-right: auto;
-    border-width: 0.3;
+    border-width: 0.1;
 }
 .cardImage {
     margin-left: 15;
@@ -239,7 +239,7 @@ components that have the btn class name.
     color: #334152;
 }
 .page {
-    background-image: url("~/images/login.png");
+    background-image: url("~/images/background_light_2.png");
     background-size: cover;
     color: black;
 }

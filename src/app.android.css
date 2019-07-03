@@ -241,7 +241,7 @@ components that have the btn class name.
     color: #334152;
 }
 .page {
-    background-image: url("~/images/login.png");
+    background-image: url("~/images/background_light_2.png");
     background-size: cover;
     color: black;
 }
