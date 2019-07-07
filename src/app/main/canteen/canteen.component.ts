@@ -25,7 +25,7 @@ export class CanteenComponent implements OnInit {
   ) { }
 
   reformTabTitel(date: string) {
-    let dateList = date.split('.')
+    let dateList = date.split('-')
     let day = dateList[0].length == 1 ? "0" + dateList[0] : dateList[0];
     let month = dateList[1].length == 1 ? "0" + dateList[1] : dateList[1];
     let year = dateList[2]

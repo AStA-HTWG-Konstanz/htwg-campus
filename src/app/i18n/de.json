@@ -93,7 +93,7 @@
         "preview": "Derzeit nicht verfügbar"
     },
     "strandbar": {
-        "open": "geöffnet",
-        "close": "geschlossen"
+        "open": "offen",
+        "close": "zu"
     }
 }
