@@ -26,9 +26,9 @@ export class CanteenComponent implements OnInit {
 
   reformTabTitel(date: string) {
     let dateList = date.split('-')
-    let day = dateList[0].length == 1 ? "0" + dateList[0] : dateList[0];
+    let day = dateList[2].length == 1 ? "0" + dateList[2] : dateList[2];
     let month = dateList[1].length == 1 ? "0" + dateList[1] : dateList[1];
-    let year = dateList[2]
+    let year = dateList[0]
     let currDay = new Date(year + "-" + month + "-" + day)
     return this.dateFormatService.getDayOfWeekAsString(currDay) + " " + day + "." + month
   }
