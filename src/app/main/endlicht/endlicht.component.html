@@ -12,16 +12,16 @@
 <ScrollView *ngIf=endlicht class="page page-content" heigth="100%" tkMainContent>
     <StackLayout style="background-color: white; margin:10; padding-left: 20; padding-right: 20;" class="event-page">
         <Label text="{{ 'endlicht.opening' | translate}}" class="event-header"></Label>
-        <GridLayout rows="2*,*" columns="*,*,*" *ngFor="let item of endlicht.openingHours">
+        <GridLayout rows="2*,*" columns="*,*,*" *ngFor="let item of endlicht[0].openingHours">
             <Label row="0" col="0" colspan="2" text={{reformTabTitel(item.date)}} class="event-body"></Label>
             <Label row="0" col="2" colspan="1" text="{{item.startTime}} - {{item.endTime}}" class="event-body"></Label>
         </GridLayout>
         <Label text="{{ 'endlicht.beverages' | translate}}" class="event-header" textWrap="true"></Label>
-        <GridLayout rows="2*,*" columns="*,*,*" *ngFor="let item of endlicht.beverages">
+        <GridLayout rows="2*,*" columns="*,*,*" *ngFor="let item of endlicht[0].beverages">
             <Label row="0" col="0" colspan="2" text={{item.name}} class="event-body"></Label>
             <Label row="0" col="2" colspan="1" text="{{item.price}} €" class="event-body"></Label>
         </GridLayout>
-        <GridLayout rows="2*,*" columns="*,*,*" *ngFor="let item of endlicht.specials">
+        <GridLayout rows="2*,*" columns="*,*,*" *ngFor="let item of endlicht[0].specials">
             <Label row="0" col="0" colspan="2" text="{{item.name}} (special)" class="event-body"></Label>
             <Label row="0" col="2" colspan="1" text="{{item.price}} €" class="event-body"></Label>
         </GridLayout>

@@ -1,11 +1,11 @@
 {
   "nativescript": {
     "id": "org.nativescript.htwgapp",
-    "tns-android": {
-      "version": "5.4.2"
-    },
     "tns-ios": {
       "version": "5.4.2"
+    },
+    "tns-android": {
+      "version": "5.4.0"
     }
   },
   "description": "NativeScript Application",
@@ -27,6 +27,7 @@
     "nativescript-theme-core": "~1.0.6",
     "nativescript-ui-listview": "^6.4.1",
     "nativescript-ui-sidedrawer": "^6.0.0",
+    "random-token": "^0.0.8",
     "reflect-metadata": "~0.1.13",
     "rxjs": "~6.5.2",
     "rxjs-compat": "^6.5.2",
@@ -39,7 +40,7 @@
     "@nativescript/schematics": "~0.6.0",
     "nativescript-dev-typescript": "~0.10.0",
     "nativescript-dev-webpack": "~0.24.1",
-    "typescript": "^3.4.5"
+    "typescript": "3.4.5"
   },
   "gitHead": "8ab7726d1ee9991706069c1359c552e67ee0d1a4",
   "readme": "NativeScript Application"

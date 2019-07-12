@@ -224,6 +224,8 @@ export class CacheService {
         appSettings.remove("lecturesTimestamp");
         appSettings.remove("grades");
         appSettings.remove("gradesTimestamp");
+        appSettings.remove("canteen");
+        appSettings.remove("canteenTimestamp")
         appSettings.clear();
     }
 

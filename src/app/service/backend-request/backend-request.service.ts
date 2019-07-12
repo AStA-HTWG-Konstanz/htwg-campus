@@ -4,6 +4,7 @@ import { scheduleUser } from '~/app/model/scheduleuser/scheduleuser.model';
 import { User } from '~/app/model/user/user.model';
 import { LoginService } from '../login/login.service';
 import { CacheService } from '../cache/cache.service';
+import * as randomToken from "random-token"
 
 /**
  * Sends request to backend
@@ -41,7 +42,19 @@ export class BackendRequestService {
       url: serverUrl,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      content: JSON.stringify({ username: user.username, password: user.password })
+      content: JSON.stringify({ username: user.username, password: user.password, student: user.student })
+    })
+  }
+
+  request_grades(serverUrl: string) {
+    var token = randomToken(12);
+    let user = this.getUser();
+    if (user == null) return new Promise((resolve, reject) => reject("user hasn`t login"));
+    return request({
+      url: serverUrl,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      content: JSON.stringify({ username: user.username, password: user.password, student: user.student, token: token })
     })
   }
 
@@ -62,7 +75,6 @@ export class BackendRequestService {
    * @param times counter for how many tries to send the request again
    */
   safe_get_request(serverUrl: string, times?: number): Promise<HttpResponse> {
-    console.log("found " + JSON.stringify(times) + " times")
     /* if times isn´t set, use the default of 2 repeats */
     if (!times) return this.safe_get_request(serverUrl, 2);
     /* if times is set to 0, it works like the function request */

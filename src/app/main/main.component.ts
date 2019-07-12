@@ -47,6 +47,7 @@ export class MainComponent implements OnInit, OnChanges {
     private balanceService: PrintBalanceService,
     private strandbarService: StrandbarService,
     private dateFormatService: DateFromatService,
+    private translate: TranslateService
   ) { }
 
 
@@ -54,12 +55,18 @@ export class MainComponent implements OnInit, OnChanges {
     if (!this.cacheService.isUserInCache()) {
       this.routerExtensions.navigateByUrl("login", { transition: { name: 'slideRight' } })
     }
+    if (this.cacheService.isLanguageInCache()) {
+      this.translate.use(this.cacheService.getLanguageFromCache())
+  } else {
+      this.cacheService.loadLanguageInCache("de");
+      this.translate.use("de")
+  }
     this.refreshDashBoard();
     this.refreshCache();
-    this.updateCanteena()
+    /*this.updateCanteena()
     this.updatePrintTile()
     this.updateStrandBar()
-    this.updateLectures();
+    this.updateLectures();*/
   }
   ngOnChanges() {
     this.refreshDashBoard();
@@ -93,22 +100,17 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
   async refreshCache() {
-    console.log("refresh cache")
     if (!this.cacheService.isCanteenInCache() || !this.cacheService.cantennFromToday()) {
-      this.canteenService.getMenu().then((canteen: Canteen) => {
-        this.cacheService.loadCanteenInCache(canteen)
-        console.log("loaded Canteen")
+      this.canteenService.getMenu().then((resolved: Canteen) => {
+        this.cacheService.loadCanteenInCache(resolved)
       }, (rejected: any) => {
-        console.log("canteen error: " + JSON.stringify(rejected))
       })
     }
     if (!this.cacheService.isLecturesInCache() || !this.cacheService.lecturesFromToday()) {
       this.scheduleService.getTimeTable().then(
         (resolved: Schedule) => {
           this.cacheService.loadLecturesInCache(resolved)
-          console.log("loaded Lectures")
         }, (rejected: any) => {
-          console.log("lectures error: " + JSON.stringify(rejected))
         }
       );
     }
@@ -116,9 +118,7 @@ export class MainComponent implements OnInit, OnChanges {
       this.semesterEventService.getIsOpen().then(
         (resolved: SemesterEvents) => {
           this.cacheService.loadEventsInCache(resolved);
-          console.log("loaded Events")
         }, (rejected: any) => {
-          console.log("events error: " + JSON.stringify(rejected))
         }
       )
     }
@@ -126,9 +126,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.endlichtService.getEndlicht().then(
         (resolved: Endlicht) => {
           this.cacheService.loadEndlichtInCache(resolved);
-          console.log("loaded Endlicht")
+          
         }, (rejected: any) => {
-          console.log("endlicht error: " + JSON.stringify(rejected))
+          
         }
       )
     }
@@ -136,9 +136,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.gradeService.getGrades().then(
         (resolved: Grades) => {
           this.cacheService.loadGradesInCache(resolved)
-          console.log("loaded Grades")
+          
         }, (rejected: any) => {
-          console.log("grades error: " + JSON.stringify(rejected))
+          
         }
       );
     }
@@ -146,9 +146,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.balanceService.getBalance().then(
         (resolved: Balance) => {
           this.cacheService.loadPrintBalanceInCache(resolved)
-          console.log("loaded print balance")
+          
         }, (rejected: any) => {
-          console.log("print balance error: " + JSON.stringify(rejected))
+          
         }
       );
     }
@@ -156,9 +156,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.strandbarService.getIsOpen().then(
         (resolve: Strandbar) => {
           this.cacheService.loadStrandbarInCache(resolve)
-          console.log("loaded strandbar")
+          
         }, (rejected: any) => {
-          console.log("strandbar error: " + JSON.stringify(rejected))
+          
         }
       )
     }
@@ -199,7 +199,7 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   async updatePrintTile() {
-    console.log("refresh print balance")
+    
     let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
     let foundPrint = this.components.tiles[balanceIndex]
     if (this.cacheService.isPrintBalanceInCache()) {
@@ -211,7 +211,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[balanceIndex] = foundPrint
   }
   async updateStrandBar() {
-    console.log("refresh stranbar")
+    
     let strandBarIndex = this.components.tiles.findIndex(x => x.navigate == "strandbar")
     let foundStrandbar = this.components.tiles[strandBarIndex]
     if (this.cacheService.isStrandbarInCache()) {
@@ -224,7 +224,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[strandBarIndex] = foundStrandbar
   }
   async updateCanteena() {
-    console.log("refresh canteena")
+    
     let canteenIndex = this.components.tiles.findIndex(x => x.navigate == "canteen")
     let foundCanteena = this.components.tiles[canteenIndex]
     if (this.cacheService.isCanteenInCache()) {
@@ -239,7 +239,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[canteenIndex] = foundCanteena
   }
   async updateLectures() {
-    console.log("refresh lectures")
+    
     let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.lectures")
     let foundLectures = this.components.tiles[lecturesIndex]
     if (this.cacheService.isLecturesInCache()) {
@@ -277,6 +277,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.cacheService.loadDashBoardInCache(this.components);
     let item = this.components.tiles[args.index]
     if (item.deactivate || item.inactive) return
+    if( item.secDesc === "" && item.navigate === "schedule") return
     this.routerExtensions.navigateByUrl(item.navigate, { transition: { name: 'slideLeft' } })
   }
 

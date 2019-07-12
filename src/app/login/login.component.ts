@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
       (rejected: any) => {
         this.error = true;
         this.processing = false;
-        console.log(JSON.stringify(rejected))
       }
     )
   }

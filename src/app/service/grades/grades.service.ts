@@ -12,21 +12,19 @@ export class GradesService {
 
     getGrades(): Promise<Grades> {
         return new Promise((resolve, reject) => {
-            this.backendRequest.request(this.serverUrl).then(
+            this.backendRequest.request_grades(this.serverUrl).then(
                 (response: HttpResponse) => {
                     if (response.statusCode !== 200) {
                         return reject("grades service reject: " + response.statusCode);
                     }
                     let content = response.content.toString();
                     if (content.length > 0) {
-                        console.log("grades response: ");
                         resolve(response.content.toJSON() as Grades);
                     } else {
                         reject(response);
                     }
                 },
                 error => {
-                    console.log("error");
                     reject(error)
                 }
             );

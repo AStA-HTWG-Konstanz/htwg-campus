@@ -70,9 +70,7 @@ export class AppComponent {
     refreshCanteenLocation() {
         this.canteenService.getMenu().then((canteen: Canteen) => {
             this.cacheService.loadCanteenInCache(canteen)
-            console.log("loaded Canteen")
         }, (rejected: any) => {
-            console.log("canteen error: " + JSON.stringify(rejected))
         })
     }
 

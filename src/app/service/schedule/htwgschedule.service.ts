@@ -20,7 +20,6 @@ export class HtwgscheduleService {
           }
           let content = response.content.toString();
           if (content.length > 0 && response.content.toJSON != null) {
-            console.log("schedule response:");
             this.storedResponse = response.content.toJSON() as any as Schedule;
             if (!this.storedResponse) return reject(content);
             resolve(this.storedResponse);
