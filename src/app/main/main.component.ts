@@ -57,16 +57,12 @@ export class MainComponent implements OnInit, OnChanges {
     }
     if (this.cacheService.isLanguageInCache()) {
       this.translate.use(this.cacheService.getLanguageFromCache())
-  } else {
+    } else {
       this.cacheService.loadLanguageInCache("de");
       this.translate.use("de")
-  }
+    }
     this.refreshDashBoard();
     this.refreshCache();
-    /*this.updateCanteena()
-    this.updatePrintTile()
-    this.updateStrandBar()
-    this.updateLectures();*/
   }
   ngOnChanges() {
     this.refreshDashBoard();
@@ -126,9 +122,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.endlichtService.getEndlicht().then(
         (resolved: Endlicht) => {
           this.cacheService.loadEndlichtInCache(resolved);
-          
+
         }, (rejected: any) => {
-          
+
         }
       )
     }
@@ -136,9 +132,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.gradeService.getGrades().then(
         (resolved: Grades) => {
           this.cacheService.loadGradesInCache(resolved)
-          
+
         }, (rejected: any) => {
-          
+
         }
       );
     }
@@ -146,9 +142,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.balanceService.getBalance().then(
         (resolved: Balance) => {
           this.cacheService.loadPrintBalanceInCache(resolved)
-          
+
         }, (rejected: any) => {
-          
+
         }
       );
     }
@@ -156,9 +152,9 @@ export class MainComponent implements OnInit, OnChanges {
       this.strandbarService.getIsOpen().then(
         (resolve: Strandbar) => {
           this.cacheService.loadStrandbarInCache(resolve)
-          
+
         }, (rejected: any) => {
-          
+
         }
       )
     }
@@ -199,7 +195,7 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   async updatePrintTile() {
-    
+
     let balanceIndex = this.components.tiles.findIndex(x => x.navigate == "balance")
     let foundPrint = this.components.tiles[balanceIndex]
     if (this.cacheService.isPrintBalanceInCache()) {
@@ -211,12 +207,12 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[balanceIndex] = foundPrint
   }
   async updateStrandBar() {
-    
+
     let strandBarIndex = this.components.tiles.findIndex(x => x.navigate == "strandbar")
     let foundStrandbar = this.components.tiles[strandBarIndex]
     if (this.cacheService.isStrandbarInCache()) {
       let strandbar: Strandbar = this.cacheService.getStrandbarFromCache()
-      let showTileDesc = strandbar.isOpen ? "strandbar.open" : "strandbar.close"
+      let showTileDesc = strandbar.open ? "strandbar.open" : "strandbar.close"
       foundStrandbar.desc = showTileDesc
     } else {
       foundStrandbar.desc = ""
@@ -224,7 +220,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[strandBarIndex] = foundStrandbar
   }
   async updateCanteena() {
-    
+
     let canteenIndex = this.components.tiles.findIndex(x => x.navigate == "canteen")
     let foundCanteena = this.components.tiles[canteenIndex]
     if (this.cacheService.isCanteenInCache()) {
@@ -239,7 +235,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[canteenIndex] = foundCanteena
   }
   async updateLectures() {
-    
+
     let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.lectures")
     let foundLectures = this.components.tiles[lecturesIndex]
     if (this.cacheService.isLecturesInCache()) {
@@ -277,7 +273,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.cacheService.loadDashBoardInCache(this.components);
     let item = this.components.tiles[args.index]
     if (item.deactivate || item.inactive) return
-    if( item.secDesc === "" && item.navigate === "schedule") return
+    if (item.secDesc === "" && item.navigate === "schedule") return
     this.routerExtensions.navigateByUrl(item.navigate, { transition: { name: 'slideLeft' } })
   }
 
