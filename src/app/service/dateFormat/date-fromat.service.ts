@@ -19,4 +19,17 @@ export class DateFromatService {
     this.translate.get(this.days[date.getDay()] + "F").subscribe((res: string) => getDayOfFound = res);
     return getDayOfFound;
   }
+
+  /**
+   * fill numbers under 10 with leading zeros. 
+   * Fix IOS Date format
+   * @param dateAsString 
+   */
+  public reformDate(dateAsString: string): string {
+    let tmp = dateAsString.split("-")
+    let year = tmp[0]
+    let month = tmp[1].length == 1 ? "0" + tmp[1] : tmp[1]
+    let day = tmp[2].length == 1 ? "0" + tmp[2] : tmp[2]
+    return year + "-" + month + "-" + day
+  }
 }

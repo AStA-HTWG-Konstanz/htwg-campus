@@ -5,6 +5,7 @@ import { CanteenService } from '~/app/service/canteen/canteen.service';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 import { CacheService } from '~/app/service/cache/cache.service';
 import { DateFromatService } from '~/app/service/dateFormat/date-fromat.service';
+import { Canteen } from '~/app/model/canteen/canteen';
 
 @Component({
   selector: 'ns-canteen',
@@ -43,7 +44,13 @@ export class CanteenComponent implements OnInit {
 
   ngOnInit() {
     if (this.cacheService.isCanteenInCache()) {
-      this.canteen = this.cacheService.getCanteenFromCache().menu
+      let currentDate: Date = new Date()
+      currentDate.setHours(0, 0, 0)
+      this.canteen = this.cacheService.getCanteenFromCache().menu.filter(menu => {
+        let menuDate = new Date(this.dateFormatService.reformDate(menu.date))
+        menuDate.setHours(0, 0, 0)
+        return menuDate >= currentDate
+      })
     } else {
       alert("Canteen current not available")
     }

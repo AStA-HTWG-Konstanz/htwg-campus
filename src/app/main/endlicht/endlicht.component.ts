@@ -30,8 +30,15 @@ export class EndlichtComponent implements OnInit {
   }
 
   reformTabTitel(date: string) {
-    let currDate = new Date(date)
+    let currDate = new Date(this.reformDate(date))
     return this.dateFormatService.getFullDayOfWeekAsString(currDate)
+  }
+  private reformDate(dateAsString: string): string {
+    let tmp = dateAsString.split("-")
+    let year = tmp[2]
+    let month = tmp[1].length == 1 ? "0" + tmp[1] : tmp[1]
+    let day = tmp[0].length == 1 ? "0" + tmp[0] : tmp[0]
+    return year + "-" + month + "-" + day
   }
 
   getEndlicht() {

@@ -17,13 +17,10 @@
                             <StackLayout marginTop="5" height="{{calcHeight(meal.title)}}" *ngFor="let info of reformMenuContent(meal.title)">
                                 <Label [text]="info" textWrap="true"></Label>
                             </StackLayout>
-                            <GridLayout rows="10,*,10" columns="*,8*,*,8*,*">
-                                <Label row="1" col="1" colspan="2" text="{{ 'canteen.student' | translate}}: {{meal.priceStud}} €"
-                                    style="text-align: center; font-weight: bold; font-size: 15;"></Label>
-                                <Label row="1" col="3" colspan="2" text="{{ 'canteen.employee' | translate}}: {{meal.priceEmpl}} €"
-                                    style="text-align: center; font-weight: bold; font-size: 15;"></Label>
-                            </GridLayout>
-                            <Label text=""></Label>
+                            <StackLayout marginBottom="10" marginTop="3">
+                                <Label text="{{ 'canteen.student' | translate}}: {{meal.priceStud}} €" style="font-weight: bold"></Label>
+                                <Label text="{{ 'canteen.employee' | translate}}: {{meal.priceEmpl}} €" style="font-weight: bold"></Label>
+                            </StackLayout>
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

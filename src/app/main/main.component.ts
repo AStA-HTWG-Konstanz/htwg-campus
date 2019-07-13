@@ -220,13 +220,24 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[strandBarIndex] = foundStrandbar
   }
   async updateCanteena() {
-
     let canteenIndex = this.components.tiles.findIndex(x => x.navigate == "canteen")
     let foundCanteena = this.components.tiles[canteenIndex]
     if (this.cacheService.isCanteenInCache()) {
       let canteen: Canteen = this.cacheService.getCanteenFromCache()
-      foundCanteena.desc = canteen.menu[0].meals[0].title.split("|")[0].split("(")[0]
-      foundCanteena.secDesc = canteen.menu[0].meals[0].ctgry + " | " + canteen.menu[0].meals[0].priceStud + "€"
+      let currentDate: Date = new Date()
+      currentDate.setHours(0, 0, 0)
+      let currentMenus = canteen.menu.filter(menu => {
+        let menuDate = new Date(this.reformDate(menu.date))
+        menuDate.setHours(0, 0, 0)
+        return menuDate >= currentDate
+      })
+      if (currentMenus.length == 0) {
+        foundCanteena.desc = "dashboard.preview"
+        foundCanteena.secDesc = "";
+      } else {
+        foundCanteena.desc = currentMenus[0].meals[0].title.split("|")[0].split("(")[0]
+        foundCanteena.secDesc = currentMenus[0].meals[0].ctgry + " | " + currentMenus[0].meals[0].priceStud + "€"
+      }
     } else {
       foundCanteena.desc = "dashboard.preview"
       foundCanteena.secDesc = "";
@@ -254,9 +265,14 @@ export class MainComponent implements OnInit, OnChanges {
             return eachLecture
           })
           return filteredLectures
-        }).reduce(x => x)
-      foundLectures.desc = nextLecture.length > 0 ? nextLecture[0].name : "dashboard.preview";
-      foundLectures.secDesc = nextLecture.length > 0 ? nextLecture[0].room + " | " + nextLecture[0].startTime : "";
+        }).filter(x => x.length > 0)
+      if (nextLecture.length == 0) {
+        foundLectures.desc = "dashboard.preview";
+        foundLectures.secDesc = "";
+      } else {
+        foundLectures.desc = nextLecture.length > 0 ? nextLecture[0][0].name : "dashboard.preview";
+        foundLectures.secDesc = nextLecture.length > 0 ? nextLecture[0][0].room + " | " + nextLecture[0][0].startTime : "";
+      }
     } else {
       foundLectures.desc = "dashboard.preview";
       foundLectures.secDesc = "";
