@@ -8,7 +8,7 @@
 
 <DockLayout class="page page-content" tkMainContent>
     <!-- <DockLayout  width="100%"> -->
-    <RadListView #scheduleView class="list-group" [items]="lectures" [itemTemplateSelector]="templateSelector"
+    <RadListView *ngIf="lectures.length > 0" #scheduleView class="list-group" [items]="lectures" [itemTemplateSelector]="templateSelector"
         (itemTap)="onItemTap($event)" class="schedule-page">
         <ListViewStaggeredLayout tkListViewLayout itemTemplate scrollDirection="Vertical" spanCount="1"></ListViewStaggeredLayout>
         <ng-template tkTemplateKey="default" let-item="item">

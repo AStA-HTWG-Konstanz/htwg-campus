@@ -44,6 +44,7 @@
     "LSF": {
         "screenTitle": "Stundenplan",
         "emptyTxt": "Keine Vorlesungen verfügbar",
+        "noneLectures": "Keine Vorlesungen",
         "selectLecture": "Bitte pflege deinen Stundenplan im LSF",
         "name": "Bezeichnung",
         "room": "Raum",
@@ -93,7 +94,7 @@
         "preview": "Derzeit nicht verfügbar"
     },
     "strandbar": {
-        "open": "offen",
-        "close": "zu"
+        "open": "Offen",
+        "close": "Zu"
     }
 }

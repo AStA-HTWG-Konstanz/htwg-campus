@@ -4,7 +4,6 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { GradesService } from '~/app/service/grades/grades.service';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 import { CacheService } from '~/app/service/cache/cache.service';
-import { GradesRefreshService } from '~/app/service/grades-refresh/grades-refresh.service';
 @Component({
   selector: 'ns-grades',
   templateUrl: './grades.component.html',

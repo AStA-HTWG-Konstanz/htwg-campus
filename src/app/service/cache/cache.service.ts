@@ -113,11 +113,8 @@ export class CacheService {
     loadGradesInCache(grades: Grades): void {
         appSettings.setString("grades", JSON.stringify(grades));
         var today = new Date();
-        var refreshTime = new Date();
         today.setHours(0, 0, 0, 0);
-        refreshTime.setMinutes(0, 0, 0);
         appSettings.setString("gradesTimestamp", today.toString());
-        appSettings.setString("gradesRefreshTimestamp", refreshTime.toString())
     }
 
     getGradesFromCache(): Grades {
@@ -128,14 +125,6 @@ export class CacheService {
         var today = new Date();
         today.setHours(0, 0, 0, 0);
         if (today > new Date(appSettings.getString("gradesTimestamp")))
-            return false
-        return true
-    }
-
-    gradesRefreshLastHour(): boolean {
-        var today = new Date();
-        today.setMinutes(0, 0, 0);
-        if (today > new Date(appSettings.getString("gradesRefreshTimestamp")))
             return false
         return true
     }
@@ -235,7 +224,6 @@ export class CacheService {
         appSettings.remove("lecturesTimestamp");
         appSettings.remove("grades");
         appSettings.remove("gradesTimestamp");
-        appSettings.remove("gradesRefreshTimestamp");
         appSettings.remove("canteen");
         appSettings.remove("canteenTimestamp")
         appSettings.clear();

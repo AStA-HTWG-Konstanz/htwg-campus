@@ -25,7 +25,6 @@ import { isIOS, isAndroid, Color, Page } from 'tns-core-modules/ui/page/page';
 import { Lecture } from '../model/schedule/lectures/lecture/Lecture';
 import { TranslateService } from '@ngx-translate/core';
 import { DateFromatService } from '../service/dateFormat/date-fromat.service';
-import { GradesRefreshService } from '../service/grades-refresh/grades-refresh.service';
 declare var CGSizeMake
 @Component({
   selector: 'ns-main',
@@ -44,7 +43,6 @@ export class MainComponent implements OnInit, OnChanges {
     private scheduleService: HtwgscheduleService,
     private semesterEventService: SemestereventService,
     private gradeService: GradesService,
-    private gradeRefreshService: GradesRefreshService,
     private endlichtService: EndlichtService,
     private balanceService: PrintBalanceService,
     private strandbarService: StrandbarService,
@@ -164,7 +162,6 @@ export class MainComponent implements OnInit, OnChanges {
     this.updatePrintTile()
     this.updateStrandBar()
     this.updateLectures();
-    this.refreshGrades()
   }
 
   onPullToRefreshInitiated(args: any) {
@@ -269,7 +266,7 @@ export class MainComponent implements OnInit, OnChanges {
           return filteredLectures
         }).filter(x => x.length > 0)
       if (nextLecture.length == 0) {
-        foundLectures.desc = "dashboard.preview";
+        foundLectures.desc = "LSF.noneLectures";
         foundLectures.secDesc = "";
       } else {
         foundLectures.desc = nextLecture.length > 0 ? nextLecture[0][0].name : "dashboard.preview";
@@ -283,19 +280,6 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[lecturesIndex] = foundLectures
   }
 
-  async refreshGrades() {
-    let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.grades")
-    if (lecturesIndex < 0) return;
-    let foundLectures = this.components.tiles[lecturesIndex]
-    if (this.cacheService.isGradesInCache() && !(this.cacheService.gradesRefreshLastHour())) {
-      this.gradeRefreshService.getGrades().then(
-        (resolved: Grades) => {
-          this.cacheService.loadGradesInCache(resolved)
-        }, (rejected: any) => { }
-      )
-    }
-  }
-
   public showTileBackgroundColor(item: MainTile) {
     return item.inactive ? '#eee' : '#334152';
   }
@@ -304,7 +288,6 @@ export class MainComponent implements OnInit, OnChanges {
     this.cacheService.loadDashBoardInCache(this.components);
     let item = this.components.tiles[args.index]
     if (item.deactivate || item.inactive) return
-    if (item.secDesc === "" && item.navigate === "schedule") return
     this.routerExtensions.navigateByUrl(item.navigate, { transition: { name: 'slideLeft' } })
   }
 
