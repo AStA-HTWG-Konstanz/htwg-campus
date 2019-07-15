@@ -45,11 +45,11 @@ export class CanteenComponent implements OnInit {
   ngOnInit() {
     if (this.cacheService.isCanteenInCache()) {
       let currentDate: Date = new Date()
-      currentDate.setHours(0, 0, 0)
+      currentDate.setHours(0, 0, 0, 0)
       this.canteen = this.cacheService.getCanteenFromCache().menu.filter(menu => {
         let menuDate = new Date(this.dateFormatService.reformDate(menu.date))
-        menuDate.setHours(0, 0, 0)
-        return menuDate >= currentDate
+        menuDate.setHours(0, 0, 0, 0)
+        return currentDate.getTime() <= menuDate.getTime()
       })
     } else {
       alert("Canteen current not available")

@@ -7,6 +7,7 @@ import { LoginService } from "../login/login.service";
 import { BackendRequestService } from "../backend-request/backend-request.service";
 import { TranslateService } from "@ngx-translate/core";
 import { CacheService } from "../cache/cache.service";
+import { DateFromatService } from "../dateFormat/date-fromat.service";
 
 
 @Injectable()
@@ -16,7 +17,8 @@ export class CanteenService {
     constructor(
         private loginSession: LoginService,
         private backendRequest: BackendRequestService,
-        private cacheService: CacheService
+        private cacheService: CacheService,
+        private dateFormat: DateFromatService
     ) { }
 
     private getCanteen(): Promise<Object> {
@@ -34,9 +36,11 @@ export class CanteenService {
                     if (content.menu.length == 0)
                         return reject("canteen service response failed");
                     var today = new Date();
+                    today.setHours(0, 0, 0, 0)
                     for (var i = 0; i < content.menu.length; ++i) {
-                        var date = new Date(content.menu[i].date)
-                        if (today < date) {
+                        var date = new Date(this.dateFormat.reformDate(content.menu[i].date))
+                        date.setHours(0, 0, 0, 0)
+                        if (today <= date) {
                             content.menu = content.menu.slice(i)
                             break;
                         }
