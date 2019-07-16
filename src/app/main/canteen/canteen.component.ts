@@ -39,7 +39,7 @@ export class CanteenComponent implements OnInit {
   }
 
   calcHeight(item) {
-    return 15 + this.reformMenuContent(item).length * 1;
+    return 18 + this.reformMenuContent(item).length;
   }
 
   ngOnInit() {

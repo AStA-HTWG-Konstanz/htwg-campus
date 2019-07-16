@@ -21,7 +21,7 @@ export class AboutComponent implements OnInit {
     { name: "Stefan Schmunk", departmend: "AIN" },
     { name: "David Wolpers", departmend: "AIN" },
     { name: "Matthias Asche", departmend: "AIN" },
-    { name: "Sebastian Liehr", departmend: "AIN" }
+    { name: "Sebastian Reinbold", departmend: "AIN" }
   ];
 
   designer: { name: string, departmend: string }[] = [
