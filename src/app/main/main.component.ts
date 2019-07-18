@@ -236,7 +236,10 @@ export class MainComponent implements OnInit, OnChanges {
         foundCanteena.secDesc = "";
       } else {
         foundCanteena.desc = currentMenus[0].meals[0].title.split("|")[0].split("(")[0]
-        foundCanteena.secDesc = currentMenus[0].meals[0].ctgry + " | " + currentMenus[0].meals[0].priceStud + "€"
+        foundCanteena.secDesc = currentMenus[0].meals[0].ctgry
+        if (!(foundCanteena.desc.startsWith("geschlossen") || foundCanteena.desc.startsWith("closed"))) {
+          foundCanteena.secDesc += " | " + currentMenus[0].meals[0].priceStud + "€"
+        }
       }
     } else {
       foundCanteena.desc = "dashboard.preview"
@@ -245,6 +248,7 @@ export class MainComponent implements OnInit, OnChanges {
     foundCanteena.hasSecDesc = true;
     this.components.tiles[canteenIndex] = foundCanteena
   }
+
   async updateLectures() {
     let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.lectures")
     let foundLectures = this.components.tiles[lecturesIndex]

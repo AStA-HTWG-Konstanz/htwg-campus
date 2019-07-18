@@ -17,7 +17,7 @@
                             <StackLayout height="{{calcHeight(meal.title)}}" *ngFor="let info of reformMenuContent(meal.title)">
                                 <Label [text]="info" textWrap="true"></Label>
                             </StackLayout>
-                            <StackLayout marginBottom="10" marginTop="1">
+                            <StackLayout *ngIf="!isClosed(meal.title)" marginBottom="10" marginTop="1">
                                 <Label text="{{ 'canteen.student' | translate}}: {{meal.priceStud}} €" style="font-weight: bold"></Label>
                                 <Label marginTop="2" text="{{ 'canteen.employee' | translate}}: {{meal.priceEmpl}} €"
                                     style="font-weight: bold"></Label>

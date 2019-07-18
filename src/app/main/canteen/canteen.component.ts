@@ -56,6 +56,13 @@ export class CanteenComponent implements OnInit {
     }
   }
 
+  isClosed(menu: string) {
+    if (menu.startsWith("geschlossen") || menu.startsWith("closed")) {
+      return true;
+    }
+    return false;
+  }
+
   navigateBack() {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
   }

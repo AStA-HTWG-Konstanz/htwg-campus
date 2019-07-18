@@ -200,12 +200,15 @@ export class CacheService {
     loadStrandbarInCache(stranbar: Strandbar) {
         appSettings.setString("strandbar", JSON.stringify(stranbar))
         var today = new Date();
+        today.setMinutes(0, 0, 0)
         appSettings.setString("strandbarTimestamp", today.toString())
     }
     strandbarFromCurrentHour(): boolean {
         var today = new Date();
-        if (today.getHours() > new Date(appSettings.getString("strandbarTimestamp")).getHours())
+        today.setMinutes(0, 0, 0)
+        if (today.getHours() > new Date(appSettings.getString("strandbarTimestamp")).getHours()) {
             return false
+        }
         return true
     }
     getStrandbarFromCache(): Strandbar {
