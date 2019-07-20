@@ -25,7 +25,8 @@
         "screenTitle": "Weekly Menu",
         "preview": "no menu found",
         "student": "Students",
-        "employee": "Employees"
+        "employee": "Employees",
+        "weekend": "Weekend"
     },
     "endlicht": {
         "screenTitle": "Endlicht",

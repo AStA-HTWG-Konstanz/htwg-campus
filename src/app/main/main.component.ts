@@ -229,11 +229,15 @@ export class MainComponent implements OnInit, OnChanges {
       let currentMenus = canteen.menu.filter(menu => {
         let menuDate = new Date(this.reformDate(menu.date))
         menuDate.setHours(0, 0, 0, 0)
-        return currentDate.getTime() <= menuDate.getTime()
+        return currentDate.getTime() == menuDate.getTime()
       })
       if (currentMenus.length == 0) {
         foundCanteena.desc = "dashboard.preview"
         foundCanteena.secDesc = "";
+        if (currentDate.getDay() == 0 || currentDate.getDay() == 6) {
+          foundCanteena.desc = "canteen.weekend"
+          foundCanteena.secDesc = "";
+        }
       } else {
         foundCanteena.desc = currentMenus[0].meals[0].title.split("|")[0].split("(")[0]
         foundCanteena.secDesc = currentMenus[0].meals[0].ctgry
@@ -272,6 +276,10 @@ export class MainComponent implements OnInit, OnChanges {
       if (nextLecture.length == 0) {
         foundLectures.desc = "LSF.noneLectures";
         foundLectures.secDesc = "";
+        if (currentDate.getDay() == 0 || currentDate.getDay() == 6) {
+          foundLectures.desc = "canteen.weekend"
+          foundLectures.secDesc = "";
+        }
       } else {
         foundLectures.desc = nextLecture.length > 0 ? nextLecture[0][0].name : "dashboard.preview";
         foundLectures.secDesc = nextLecture.length > 0 ? nextLecture[0][0].room + " | " + nextLecture[0][0].startTime : "";

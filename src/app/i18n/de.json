@@ -25,7 +25,8 @@
         "screenTitle": "Speiseplan",
         "preview": "Kein Menü gefunden",
         "student": "Studierende",
-        "employee": "Mitarbeiter"
+        "employee": "Mitarbeiter",
+        "weekend": "Wochenende"
     },
     "endlicht": {
         "screenTitle": "Endlicht",
