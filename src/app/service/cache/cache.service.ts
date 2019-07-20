@@ -104,6 +104,26 @@ export class CacheService {
         return true
     }
 
+    loadTokeninCache(token: string) {
+        appSettings.setString("token", token);
+    }
+
+    isTokenInCache() {
+        if (appSettings.hasKey("token"))
+            return true
+        return false
+    }
+
+    getTokenFromCache(): string {
+        return appSettings.getString("token")
+    }
+
+    deleteTokenFromCache() {
+        if (appSettings.hasKey("token")) {
+            appSettings.remove("token")
+        }
+    }
+
     isGradesInCache(): boolean {
         if (appSettings.hasKey("grades"))
             return true
@@ -113,8 +133,11 @@ export class CacheService {
     loadGradesInCache(grades: Grades): void {
         appSettings.setString("grades", JSON.stringify(grades));
         var today = new Date();
+        var refreshTime = new Date();
         today.setHours(0, 0, 0, 0);
+        refreshTime.setMinutes(0, 0, 0);
         appSettings.setString("gradesTimestamp", today.toString());
+        appSettings.setString("gradesRefreshTimestamp", refreshTime.toString())
     }
 
     getGradesFromCache(): Grades {
@@ -127,6 +150,20 @@ export class CacheService {
         if (today > new Date(appSettings.getString("gradesTimestamp")))
             return false
         return true
+    }
+
+    gradesRefreshLastHour(): boolean {
+        var today = new Date();
+        today.setMinutes(0, 0, 0);
+        if (today > new Date(appSettings.getString("gradesRefreshTimestamp")))
+            return false
+        return true
+    }
+
+    loadGradesRefreshInCache() {
+        var refreshTime = new Date();
+        refreshTime.setMinutes(0, 0, 0);
+        appSettings.setString("gradesRefreshTimestamp", refreshTime.toString())
     }
 
     isEndlichtInCache(): boolean {
@@ -225,8 +262,10 @@ export class CacheService {
         appSettings.remove("account");
         appSettings.remove("lectures");
         appSettings.remove("lecturesTimestamp");
+        appSettings.remove("token");
         appSettings.remove("grades");
         appSettings.remove("gradesTimestamp");
+        appSettings.hasKey("gradesRefreshTimestamp") ? appSettings.remove("gradesRefreshTimestamp") : console.log("no grades");
         appSettings.remove("canteen");
         appSettings.remove("canteenTimestamp")
         appSettings.clear();

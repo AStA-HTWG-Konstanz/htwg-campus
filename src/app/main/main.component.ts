@@ -25,6 +25,7 @@ import { isIOS, isAndroid, Color, Page } from 'tns-core-modules/ui/page/page';
 import { Lecture } from '../model/schedule/lectures/lecture/Lecture';
 import { TranslateService } from '@ngx-translate/core';
 import { DateFromatService } from '../service/dateFormat/date-fromat.service';
+import { GradesRefreshService } from '../service/grades/grades-refresh.service';
 declare var CGSizeMake
 @Component({
   selector: 'ns-main',
@@ -47,7 +48,8 @@ export class MainComponent implements OnInit, OnChanges {
     private balanceService: PrintBalanceService,
     private strandbarService: StrandbarService,
     private dateFormatService: DateFromatService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private gradeRefreshService: GradesRefreshService
   ) { }
 
 
@@ -133,7 +135,15 @@ export class MainComponent implements OnInit, OnChanges {
         (resolved: Grades) => {
           this.cacheService.loadGradesInCache(resolved)
 
-        }, (rejected: any) => {
+        }, (rejected: number) => {
+          let statuscode = rejected as number
+          this.gradeRefreshService.resetToken()
+          this.gradeRefreshService.getGrades()
+          this.gradeService.getGrades().then(
+            (resolved: Grades) => {
+              this.cacheService.loadGradesInCache(resolved)
+
+            })
 
         }
       );
@@ -162,6 +172,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.updatePrintTile()
     this.updateStrandBar()
     this.updateLectures();
+    this.refreshGrades()
   }
 
   onPullToRefreshInitiated(args: any) {
@@ -229,7 +240,7 @@ export class MainComponent implements OnInit, OnChanges {
       let currentMenus = canteen.menu.filter(menu => {
         let menuDate = new Date(this.reformDate(menu.date))
         menuDate.setHours(0, 0, 0, 0)
-        return currentDate.getTime() <= menuDate.getTime()
+        return currentDate.getTime() == menuDate.getTime()
       })
       if (currentMenus.length == 0) {
         foundCanteena.desc = "dashboard.preview"
@@ -247,6 +258,20 @@ export class MainComponent implements OnInit, OnChanges {
     }
     foundCanteena.hasSecDesc = true;
     this.components.tiles[canteenIndex] = foundCanteena
+  }
+
+  async refreshGrades() {
+    let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.grades")
+    if (lecturesIndex < 0) return;
+    let foundLectures = this.components.tiles[lecturesIndex]
+    if (this.cacheService.isGradesInCache() && !(this.cacheService.gradesRefreshLastHour())) {
+      this.gradeRefreshService.getGrades().then(
+        (resolved: boolean) => {
+          console.log("is true")
+          this.cacheService.loadGradesRefreshInCache()
+        }, (rejected: any) => { }
+      )
+    }
   }
 
   async updateLectures() {
