@@ -131,22 +131,22 @@ export class MainComponent implements OnInit, OnChanges {
       )
     }
     if (this.cacheService.getUserFromCache().student && (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday())) {
-      this.gradeService.getGrades().then(
-        (resolved: Grades) => {
-          this.cacheService.loadGradesInCache(resolved)
+      this.refreshGrades();
+      if (this.cacheService.isGradesRefreshInCache()) {
+        this.gradeService.getGrades().then(
+          (resolved: Grades) => {
+            this.cacheService.loadGradesInCache(resolved)
+          }, (rejected: number) => {
+            this.gradeRefreshService.resetToken()
+            this.refreshGrades();
+            this.gradeService.getGrades().then(
+              (resolved: Grades) => {
+                this.cacheService.loadGradesInCache(resolved)
 
-        }, (rejected: number) => {
-          let statuscode = rejected as number
-          this.gradeRefreshService.resetToken()
-          this.gradeRefreshService.getGrades()
-          this.gradeService.getGrades().then(
-            (resolved: Grades) => {
-              this.cacheService.loadGradesInCache(resolved)
-
-            })
-
-        }
-      );
+              })
+          }
+        );
+      }
     }
     if (!this.cacheService.isPrintBalanceInCache() || !this.cacheService.printBalanceFromToday()) {
       this.balanceService.getBalance().then(
@@ -172,7 +172,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.updatePrintTile()
     this.updateStrandBar()
     this.updateLectures();
-    this.refreshGrades()
+    this.refreshGrades();
   }
 
   onPullToRefreshInitiated(args: any) {
@@ -265,15 +265,15 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   async refreshGrades() {
-    let lecturesIndex = this.components.tiles.findIndex(x => x.name == "dashboard.grades")
-    if (lecturesIndex < 0) return;
-    let foundLectures = this.components.tiles[lecturesIndex]
-    if (this.cacheService.isGradesInCache() && !(this.cacheService.gradesRefreshLastHour())) {
+    if (!this.cacheService.getUserFromCache().student) return;
+    if (!this.cacheService.isGradesRefreshInCache() || !this.cacheService.gradesRefreshLastHour()) {
       this.gradeRefreshService.getGrades().then(
         (resolved: boolean) => {
           console.log("is true")
           this.cacheService.loadGradesRefreshInCache()
-        }, (rejected: any) => { }
+        }, (rejected: any) => {
+          console.log("is false")
+        }
       )
     }
   }

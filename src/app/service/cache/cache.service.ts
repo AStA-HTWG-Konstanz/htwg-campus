@@ -152,6 +152,13 @@ export class CacheService {
         return true
     }
 
+    isGradesRefreshInCache() {
+        if (appSettings.hasKey("gradesRefreshTimestamp")) {
+            return true
+        }
+        return false
+    }
+
     gradesRefreshLastHour(): boolean {
         var today = new Date();
         today.setMinutes(0, 0, 0);
