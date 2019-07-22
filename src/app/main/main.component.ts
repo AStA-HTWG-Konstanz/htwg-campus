@@ -130,24 +130,6 @@ export class MainComponent implements OnInit, OnChanges {
         }
       )
     }
-    if (this.cacheService.getUserFromCache().student && (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday())) {
-      this.refreshGrades();
-      if (this.cacheService.isGradesRefreshInCache()) {
-        this.gradeService.getGrades().then(
-          (resolved: Grades) => {
-            this.cacheService.loadGradesInCache(resolved)
-          }, (rejected: number) => {
-            this.gradeRefreshService.resetToken()
-            this.refreshGrades();
-            this.gradeService.getGrades().then(
-              (resolved: Grades) => {
-                this.cacheService.loadGradesInCache(resolved)
-
-              })
-          }
-        );
-      }
-    }
     if (!this.cacheService.isPrintBalanceInCache() || !this.cacheService.printBalanceFromToday()) {
       this.balanceService.getBalance().then(
         (resolved: Balance) => {
@@ -264,15 +246,37 @@ export class MainComponent implements OnInit, OnChanges {
     this.components.tiles[canteenIndex] = foundCanteena
   }
 
+  async getGrades() {
+    console.log("get grades")
+    if (this.cacheService.getUserFromCache().student && (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday())) {
+      if (this.cacheService.isGradesRefreshInCache()) {
+        this.gradeService.getGrades().then(
+          (resolved: Grades) => {
+            this.cacheService.loadGradesInCache(resolved)
+          }, (rejected: number) => {
+            this.gradeRefreshService.resetToken()
+            this.refreshGrades();
+            this.gradeService.getGrades().then(
+              (resolved: Grades) => {
+                this.cacheService.loadGradesInCache(resolved)
+              })
+          }
+        );
+      }
+    }
+  }
+
   async refreshGrades() {
+    console.log("refresh grades")
     if (!this.cacheService.getUserFromCache().student) return;
     if (!this.cacheService.isGradesRefreshInCache() || !this.cacheService.gradesRefreshLastHour()) {
       this.gradeRefreshService.getGrades().then(
         (resolved: boolean) => {
-          console.log("is true")
           this.cacheService.loadGradesRefreshInCache()
+          if ((!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday())) {
+            this.getGrades();
+          }
         }, (rejected: any) => {
-          console.log("is false")
         }
       )
     }

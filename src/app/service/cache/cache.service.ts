@@ -135,7 +135,7 @@ export class CacheService {
         var today = new Date();
         var refreshTime = new Date();
         today.setHours(0, 0, 0, 0);
-        refreshTime.setMinutes(0, 0, 0);
+        refreshTime.setHours(0, 0, 0, 0);
         appSettings.setString("gradesTimestamp", today.toString());
         appSettings.setString("gradesRefreshTimestamp", refreshTime.toString())
     }
@@ -161,7 +161,7 @@ export class CacheService {
 
     gradesRefreshLastHour(): boolean {
         var today = new Date();
-        today.setMinutes(0, 0, 0);
+        today.setHours(0, 0, 0, 0);
         if (today > new Date(appSettings.getString("gradesRefreshTimestamp")))
             return false
         return true
@@ -169,7 +169,7 @@ export class CacheService {
 
     loadGradesRefreshInCache() {
         var refreshTime = new Date();
-        refreshTime.setMinutes(0, 0, 0);
+        refreshTime.setHours(0, 0, 0, 0);
         appSettings.setString("gradesRefreshTimestamp", refreshTime.toString())
     }
 
@@ -270,8 +270,8 @@ export class CacheService {
         appSettings.remove("lectures");
         appSettings.remove("lecturesTimestamp");
         appSettings.remove("token");
-        appSettings.remove("grades");
-        appSettings.remove("gradesTimestamp");
+        appSettings.hasKey("grades") ? appSettings.remove("grades") : console.log("no grades");
+        appSettings.hasKey("gradesTimestamp") ? appSettings.remove("gradesTimestamp") : console.log("no grades");
         appSettings.hasKey("gradesRefreshTimestamp") ? appSettings.remove("gradesRefreshTimestamp") : console.log("no grades");
         appSettings.remove("canteen");
         appSettings.remove("canteenTimestamp")

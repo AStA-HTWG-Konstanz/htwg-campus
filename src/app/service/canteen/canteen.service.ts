@@ -22,7 +22,7 @@ export class CanteenService {
     ) { }
 
     private getCanteen(): Promise<Object> {
-        return this.backendRequest.get_request(this.serverUrl + "/api/canteen/" + this.cacheService.getLanguageFromCache() + "/menu");
+        return this.backendRequest.safe_get_request(this.serverUrl + "/api/canteen/" + this.cacheService.getLanguageFromCache() + "/menu");
     }
 
     getMenu(): Promise<Canteen> {
