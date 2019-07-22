@@ -26,6 +26,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsComponent } from "./settings/settings.component";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { AboutComponent } from "./about/about.component";
+import { GradesRefreshService } from "./service/grades/grades-refresh.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "/i18n/", ".json")
@@ -70,7 +71,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         EndlichtService,
         HtwgscheduleService,
         LoginService,
-        GradesService
+        GradesService,
+        GradesRefreshService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

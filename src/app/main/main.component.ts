@@ -25,6 +25,7 @@ import { isIOS, isAndroid, Color, Page } from 'tns-core-modules/ui/page/page';
 import { Lecture } from '../model/schedule/lectures/lecture/Lecture';
 import { TranslateService } from '@ngx-translate/core';
 import { DateFromatService } from '../service/dateFormat/date-fromat.service';
+import { GradesRefreshService } from '../service/grades/grades-refresh.service';
 declare var CGSizeMake
 @Component({
   selector: 'ns-main',
@@ -47,7 +48,8 @@ export class MainComponent implements OnInit, OnChanges {
     private balanceService: PrintBalanceService,
     private strandbarService: StrandbarService,
     private dateFormatService: DateFromatService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private gradeRefreshService: GradesRefreshService
   ) { }
 
 
@@ -129,14 +131,22 @@ export class MainComponent implements OnInit, OnChanges {
       )
     }
     if (this.cacheService.getUserFromCache().student && (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday())) {
-      this.gradeService.getGrades().then(
-        (resolved: Grades) => {
-          this.cacheService.loadGradesInCache(resolved)
+      this.refreshGrades();
+      if (this.cacheService.isGradesRefreshInCache()) {
+        this.gradeService.getGrades().then(
+          (resolved: Grades) => {
+            this.cacheService.loadGradesInCache(resolved)
+          }, (rejected: number) => {
+            this.gradeRefreshService.resetToken()
+            this.refreshGrades();
+            this.gradeService.getGrades().then(
+              (resolved: Grades) => {
+                this.cacheService.loadGradesInCache(resolved)
 
-        }, (rejected: any) => {
-
-        }
-      );
+              })
+          }
+        );
+      }
     }
     if (!this.cacheService.isPrintBalanceInCache() || !this.cacheService.printBalanceFromToday()) {
       this.balanceService.getBalance().then(
@@ -162,6 +172,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.updatePrintTile()
     this.updateStrandBar()
     this.updateLectures();
+    this.refreshGrades();
   }
 
   onPullToRefreshInitiated(args: any) {
@@ -251,6 +262,20 @@ export class MainComponent implements OnInit, OnChanges {
     }
     foundCanteena.hasSecDesc = true;
     this.components.tiles[canteenIndex] = foundCanteena
+  }
+
+  async refreshGrades() {
+    if (!this.cacheService.getUserFromCache().student) return;
+    if (!this.cacheService.isGradesRefreshInCache() || !this.cacheService.gradesRefreshLastHour()) {
+      this.gradeRefreshService.getGrades().then(
+        (resolved: boolean) => {
+          console.log("is true")
+          this.cacheService.loadGradesRefreshInCache()
+        }, (rejected: any) => {
+          console.log("is false")
+        }
+      )
+    }
   }
 
   async updateLectures() {

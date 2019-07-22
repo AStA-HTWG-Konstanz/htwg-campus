@@ -1,33 +1,33 @@
-import { SemesterGrades } from '../../model/grades/semester-grades';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { BackendRequestService } from '../backend-request/backend-request.service';
 import { HttpResponse } from 'tns-core-modules/http/http';
 import { Grades } from '~/app/model/grades/grades';
 
-@Injectable()
-export class GradesService {
-    private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/grades";
+@Injectable({
+    providedIn: 'root'
+})
+export class GradesRefreshService {
+    private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/grades/refresh";
 
     constructor(private backendRequest: BackendRequestService) { }
 
-    getGrades(counter: number = 1): Promise<Grades> {
+    getGrades(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             this.backendRequest.request_grades(this.serverUrl).then(
                 (response: HttpResponse) => {
                     if (response.statusCode !== 200) {
-                        return reject(response.statusCode);
+                        return resolve(false);
                     }
-                    let content = response.content.toString();
-                    if (content.length > 0) {
-                        resolve(response.content.toJSON() as Grades);
-                    } else {
-                        reject(response);
-                    }
+                    resolve(true);
                 },
                 error => {
                     reject(error)
                 }
             );
         });
+    }
+
+    resetToken() {
+        this.backendRequest.createNewToken()
     }
 }

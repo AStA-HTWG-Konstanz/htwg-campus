@@ -5,7 +5,7 @@ import { User } from '~/app/model/user/user.model';
 import { LoginService } from '../login/login.service';
 import { CacheService } from '../cache/cache.service';
 import * as randomToken from "random-token"
-
+import * as appSettings from "tns-core-modules/application-settings";
 /**
  * Sends request to backend
  */
@@ -46,8 +46,16 @@ export class BackendRequestService {
     })
   }
 
+  createNewToken() {
+    this.cacheService.deleteTokenFromCache();
+    this.cacheService.loadTokeninCache(randomToken(12).toString());
+  }
+
   request_grades(serverUrl: string) {
-    var token = randomToken(12);
+    if (!this.cacheService.isTokenInCache()) {
+      this.createNewToken()
+    }
+    var token: string = this.cacheService.getTokenFromCache()
     let user = this.getUser();
     if (user == null) return new Promise((resolve, reject) => reject("user hasn`t login"));
     return request({
