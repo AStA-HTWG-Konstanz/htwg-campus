@@ -27,7 +27,7 @@ export class GradesComponent implements OnInit {
     if (this.cacheService.isGradesInCache()) {
       this.currentGrades = this.cacheService.getGradesFromCache().grades
     } else {
-      alert("Lectures current not available")
+      //alert("Lectures current not available")
     }
   }
 

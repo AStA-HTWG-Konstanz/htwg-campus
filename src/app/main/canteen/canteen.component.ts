@@ -52,7 +52,7 @@ export class CanteenComponent implements OnInit {
         return currentDate.getTime() <= menuDate.getTime()
       })
     } else {
-      alert("Canteen current not available")
+      //alert("Canteen current not available")
     }
   }
 

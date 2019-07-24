@@ -24,7 +24,7 @@ export class SemestereventsComponent implements OnInit {
     if (this.cacheService.isEventsInCache()) {
       this.semesterEvents = this.cacheService.getEventsFromCache().events;
     } else {
-      alert("Events current not available")
+      //alert("Events current not available")
     }
   }
 

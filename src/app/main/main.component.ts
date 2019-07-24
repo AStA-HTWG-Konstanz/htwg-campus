@@ -247,7 +247,6 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   async getGrades() {
-    console.log("get grades")
     if (this.cacheService.getUserFromCache().student && (!this.cacheService.isGradesInCache() || !this.cacheService.gradesFromToday())) {
       if (this.cacheService.isGradesRefreshInCache()) {
         this.gradeService.getGrades().then(
@@ -267,7 +266,6 @@ export class MainComponent implements OnInit, OnChanges {
   }
 
   async refreshGrades() {
-    console.log("refresh grades")
     if (!this.cacheService.getUserFromCache().student) return;
     if (!this.cacheService.isGradesRefreshInCache() || !this.cacheService.gradesRefreshLastHour()) {
       this.gradeRefreshService.getGrades().then(

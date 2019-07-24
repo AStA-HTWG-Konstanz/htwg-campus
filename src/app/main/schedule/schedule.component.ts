@@ -36,7 +36,7 @@ export class ScheduleComponent implements OnInit {
         if (this.cacheService.isLecturesInCache()) {
             this.lectures = this.cacheService.getLecturesFromCache().lectures;
         } else {
-            alert("Lectures current not available")
+            //alert("Lectures current not available")
         }
     }
 

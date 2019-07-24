@@ -25,7 +25,7 @@ export class EndlichtComponent implements OnInit {
     if (this.cacheService.isEndlichtInCache()) {
       this.endlicht = this.cacheService.getEndlichtFromCache().endlicht
     } else {
-      alert("Lectures current not available")
+      //alert("Lectures current not available")
     }
   }
 
