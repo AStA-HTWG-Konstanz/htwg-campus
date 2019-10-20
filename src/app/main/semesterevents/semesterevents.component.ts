@@ -12,7 +12,7 @@ import { CacheService } from '~/app/service/cache/cache.service';
 export class SemestereventsComponent implements OnInit {
   @ViewChild("actionButton", { static: false })
   _buttonRef: ActionButtonComponent;
-  semesterEvents: SemesterEvents;
+  semesterEvents: any[] = null;
 
 
   constructor(
@@ -21,17 +21,15 @@ export class SemestereventsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.semesterEvents = this.cacheService.getEventsFromCache(); 
+    if (this.cacheService.isEventsInCache()) {
+      this.semesterEvents = this.cacheService.getEventsFromCache().events;
+    } else {
+      //alert("Events current not available")
+    }
   }
+
   navigateBack() {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true });
   }
-  getEvents() {
-    if (this.semesterEvents) {
-      return this.semesterEvents.events
-    }
-    return null;
-  }
-
 
 }

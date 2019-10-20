@@ -7,47 +7,49 @@ import { LoginService } from "../login/login.service";
 import { BackendRequestService } from "../backend-request/backend-request.service";
 import { TranslateService } from "@ngx-translate/core";
 import { CacheService } from "../cache/cache.service";
+import { DateFromatService } from "../dateFormat/date-fromat.service";
 
 
 @Injectable()
 export class CanteenService {
     private serverUrl = "https://app.asta.htwg-konstanz.de"
 
-    canteen: Canteen;
-    currentDate: Date;
-
     constructor(
         private loginSession: LoginService,
         private backendRequest: BackendRequestService,
-        private cacheService: CacheService
+        private cacheService: CacheService,
+        private dateFormat: DateFromatService
     ) { }
 
     private getCanteen(): Promise<Object> {
-        console.log(this.cacheService.getLanguageFromCache())
-        return this.backendRequest.safe_get_request(this.serverUrl + "/api/canteen/" + this.cacheService.getLanguageFromCache() + "/menu", 1);
+        return this.backendRequest.safe_get_request(this.serverUrl + "/api/canteen/" + this.cacheService.getLanguageFromCache() + "/menu");
     }
 
     getMenu(): Promise<Canteen> {
         return new Promise((resolve, reject) => {
-                //this.loginSession.login(this.loginSession.getUser());
-                this.getCanteen().then(
-                    (response: HttpResponse) => {
-                        let content = response.content.toJSON() as any as Canteen;
-                        var today = new Date();
-                        for (var i = 0; i < content.menu.length; ++i) {
-                            var date = new Date(content.menu[i].date)
-                            if (today < date) {
-                                content.menu = content.menu.slice(i)
-                                break;
-                            }
+            this.getCanteen().then(
+                (response: HttpResponse) => {
+                    if (response.statusCode !== 200) {
+                        return reject("canteen service reject: " + response.statusCode);
+                    }
+                    let content = response.content.toJSON() as any as Canteen;
+                    if (content.menu.length == 0)
+                        return reject("canteen service response failed");
+                    var today = new Date();
+                    today.setHours(0, 0, 0, 0)
+                    for (var i = 0; i < content.menu.length; ++i) {
+                        var date = new Date(this.dateFormat.reformDate(content.menu[i].date))
+                        date.setHours(0, 0, 0, 0)
+                        if (today <= date) {
+                            content.menu = content.menu.slice(i)
+                            break;
                         }
-                        this.canteen = content;
-                        this.currentDate = new Date(this.canteen.menu[0].date)
-                        return resolve(this.canteen);
-                    },
-                    (err) => reject(err)
-                );
-            }
+                    }
+                    return resolve(content);
+                },
+                (err) => reject(err)
+            );
+        }
         )
     }
 }

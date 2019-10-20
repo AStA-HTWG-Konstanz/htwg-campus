@@ -7,6 +7,12 @@
             "NSLocationWhenInUseUsageDescription": "This will be added to InfoPlist.strings"
         }
     },
+    "about": {
+        "screenTitle": "About",
+        "developer": "Developed by",
+        "designer": "Designed by",
+        "supervisor": "Supervised by"
+    },
     "login": {
         "signin": "Sign in",
         "signout": "Logout",
@@ -17,13 +23,16 @@
     },
     "canteen": {
         "screenTitle": "Weekly Menu",
+        "preview": "no menu found",
         "student": "Students",
-        "employee": "Employees"
+        "employee": "Employees",
+        "weekend": "Weekend"
     },
     "endlicht": {
         "screenTitle": "Endlicht",
         "opening": "Opening Hours",
-        "beverages": "Beverages"
+        "beverages": "Beverages",
+        "map": "Campus map"
     },
     "events": {
         "screenTitle": "Events"
@@ -36,12 +45,27 @@
     "LSF": {
         "screenTitle": "Timetable",
         "emptyTxt": "No lectures found",
+        "noneLectures": "No lectures",
         "selectLecture": "Please schedule your timetable (LSF)",
         "name": "Name",
         "room": "Room",
         "start": "Start",
         "end": "End",
-        "category": "Category"
+        "category": "Category",
+        "sunday": "Su",
+        "monday": "Mo",
+        "tuesday": "Tu",
+        "wednesday": "We",
+        "thursday": "Th",
+        "friday": "Fr",
+        "saturday": "Sa",
+        "sundayF": "Sunday",
+        "mondayF": "Monday",
+        "tuesdayF": "Tuesday",
+        "wednesdayF": "Wednesday",
+        "thursdayF": "Thursday",
+        "fridayF": "Friday",
+        "saturdayF": "Saturday"
     },
     "settings": {
         "screenTitle": "Settings",
@@ -60,12 +84,18 @@
         "logout": "Logout"
     },
     "dashboard": {
+        "screenTitle": "Dashboard",
         "lectures": "Lectures",
         "grades": "Grades",
         "canteen": "Canteen",
         "strandbar": "Strandbar",
         "endlicht": "Endlicht",
         "events": "Events",
-        "balance": "Printer Balance"
+        "balance": "Printer Balance",
+        "preview": "currently not available"
+    },
+    "strandbar": {
+        "open": "Open",
+        "close": "Closed"
     }
 }

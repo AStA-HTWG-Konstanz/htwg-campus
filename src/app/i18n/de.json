@@ -7,6 +7,12 @@
             "NSLocationWhenInUseUsageDescription": "This will be added to InfoPlist.strings"
         }
     },
+    "about": {
+        "screenTitle": "Über",
+        "developer": "Entwickelt von",
+        "designer": "Designed von",
+        "supervisor": "Betreut von"
+    },
     "login": {
         "signin": "Anmelden",
         "signout": "Ausloggen",
@@ -17,13 +23,16 @@
     },
     "canteen": {
         "screenTitle": "Speiseplan",
+        "preview": "Kein Menü gefunden",
         "student": "Studierende",
-        "employee": "Mitarbeiter"
+        "employee": "Mitarbeiter",
+        "weekend": "Wochenende"
     },
     "endlicht": {
         "screenTitle": "Endlicht",
         "opening": "Öffnungszeiten",
-        "beverages": "Getränke Liste"
+        "beverages": "Getränke Liste",
+        "map": "Campusplan"
     },
     "events": {
         "screenTitle": "Termine"
@@ -36,12 +45,27 @@
     "LSF": {
         "screenTitle": "Stundenplan",
         "emptyTxt": "Keine Vorlesungen verfügbar",
+        "noneLectures": "Keine Vorlesungen",
         "selectLecture": "Bitte pflege deinen Stundenplan im LSF",
         "name": "Bezeichnung",
         "room": "Raum",
         "start": "Beginn",
         "end": "Ende",
-        "category": "Kategorie"
+        "category": "Kategorie",
+        "sunday": "So",
+        "monday": "Mo",
+        "tuesday": "Di",
+        "wednesday": "Mi",
+        "thursday": "Do",
+        "friday": "Fr",
+        "saturday": "Sa",
+        "sundayF": "Sonntag",
+        "mondayF": "Montag",
+        "tuesdayF": "Dienstag",
+        "wednesdayF": "Mittwoch",
+        "thursdayF": "Donnerstag",
+        "fridayF": "Freitag",
+        "saturdayF": "Samstag"
     },
     "settings": {
         "screenTitle": "Einstellungen",
@@ -53,19 +77,25 @@
         "de": "Deutsch"
     },
     "nav": {
-        "home": "Hauptseit",
+        "home": "Hauptseite",
         "language": "Sprache",
         "about": "Über",
         "settings": "Einstellungen",
         "logout": "Ausloggen"
     },
     "dashboard": {
+        "screenTitle": "Hauptmenü",
         "lectures": "Stundenplan",
         "grades": "Noten",
         "canteen": "Mensa",
         "strandbar": "Strandbar",
         "endlicht": "Endlicht",
         "events": "Termine",
-        "balance": "Drucker Guthaben"
+        "balance": "Druckerkonto",
+        "preview": "Derzeit nicht verfügbar"
+    },
+    "strandbar": {
+        "open": "Offen",
+        "close": "Zu"
     }
 }

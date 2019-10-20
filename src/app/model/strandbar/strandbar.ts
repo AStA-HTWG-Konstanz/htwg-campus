@@ -1,6 +1,6 @@
 export class Strandbar {
-    isOpen: boolean = false;
-    constructor(isOpen: boolean) {
-        this.isOpen = isOpen
+    open: boolean = false;
+    constructor(open: boolean) {
+        this.open = open
     }
 }

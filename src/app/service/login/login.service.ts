@@ -13,15 +13,15 @@ export class LoginService {
     private serverUrl = "https://app.asta.htwg-konstanz.de/api/user/auth"
     private header = { "Content-Type": "application/json" }
 
-    constructor( private cacheService: CacheService) { }
+    constructor(private cacheService: CacheService) { }
 
-    login(user: User): Promise<Object> {
+    login(user: User): Promise<HttpResponse> {
         return request({
             url: this.serverUrl,
             method: "POST",
             headers: this.header,
             content: this.getRequestBody(user)
-        }).then((response: HttpResponse) => response.content, (e) => e)
+        })
     }
     getUser(): User {
         if (this.cacheService.isUserInCache()) {

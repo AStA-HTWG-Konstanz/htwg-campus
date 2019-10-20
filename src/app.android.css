@@ -42,41 +42,55 @@ components that have the btn class name.
 }
 
 .sidedrawer {
-    margin-bottom: -100;
+    margin: 0;
+    padding: 0;
 }
-.sidedrawer-list-item-icon,.sidedrawer-list-item{}
-.sidedrawer.sidedrawer-left {}
-.sidedrawer.sidedrawer-left .footnote {}
-.sidedrawer .sidedrawer-header {
-    height: 50;
+.sidedrawer-content{
+    padding-left: 10;
+    padding-right: 10;
+    margin-left: 20;
+    margin-right: 20;
 }
-.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
-    font-size: 23;
-    text-align: left;
-    vertical-align: center;
-    padding-top: 0;
-    padding-left: 0;
-}
-.sidedrawer .sidedrawer-content{}
-.sidedrawer .sidedrawer-content .sidedrawer-list-item{
+ .sidedrawer-list-item{
     padding-left: 15;
     margin-top: 5;
     margin-bottom: 5;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
+.nav-name {
+    padding-right: 10;
     vertical-align: center;
+    font-weight: bold;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item .fa {
+.fa {
+    vertical-align: center;
     width: 20;
     margin-right: 10;
+    font-weight: normal;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
+.sidedrawer-header {
+    width: 100%;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
+.sidedrawer-header .fa {
+    text-align: right;
+    font-size: 25;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    margin-right: 2;
+    horizontal-align: right;
+    vertical-align: top;
+}
+.sidedrawer-footer {
+    font-size: 20;
+    text-align: center;
+    horizontal-align: center;
+    vertical-align: top;
+    font-weight: 100;
+    padding-bottom: 5;
 }
 .activityBar {
     width: 50;
-    height: 50;
+    height: 40;
 }
 :disabled {
     opacity: 0.5;
@@ -85,8 +99,8 @@ components that have the btn class name.
     color: red;
 }
 .action-bar-label {
-    font-size: 20;
-    margin-left: -25;
+    font-size: 26;
+    margin-left: -40;
     horizontal-align: center;
     vertical-align: center;
 }
@@ -109,58 +123,92 @@ components that have the btn class name.
 .card-tile {
     margin: 4;
     margin-top:8;
-    border-radius:5; 
-    height:180;
-    width:90%;
-    padding:0;
+    padding-top: 10;
+    padding-bottom: 10;
+    height: 180;
+    width: 90%;
+    padding-left: auto;
+    padding-right: auto;
+    border-width: 0.1;
 }
 .cardImage {
-    margin: 15;
+    margin-left: 15;
+    margin-right: 15;
 }
 .card-item {
-    width: 100%;
-    height: 100%;
     font-weight: 400;
+    
+}
+.item-name {
+    font-size: 20;
+    vertical-align: center;
+    horizontal-align: center;
 }
 .item-desc {
-    padding-top: 35;
+    padding-top: auto;
+    padding-bottom: auto;
+    vertical-align: center;
+    horizontal-align: center;
+    text-align: center;
+    font-size: 32;
+    font-weight: bold;
+}
+.item-sec-desc {
     padding-left: auto;
     padding-right: auto;
     vertical-align: center;
     text-align: center;
-    font-size: 25;
 }
 .meal-category {
-    text-align: center;
+    text-align: left;
     font-size: 20;
+    font-weight: bold;
 }
 .grades-table-header {
     text-align: center;
-    font-size: 16;
+    font-size: 18;
+    font-weight: bold;
+}
+.grades-page {
+    height: 100%;
+    padding: 10; 
+}
+.grades-page-container {
+    padding: 10;
+}
+.schedule-page {
+    margin: 10;
+    padding-left: 10;
+    padding-right: 10;
+    padding-top: 0;
 }
 .schedule-lecture-block {
-    padding-top: 3;
-    padding-bottom: 10;
-    padding-left: 5;
-    padding-right: 5;
+    padding-top: 20;
+    /* padding-bottom: 10; */
+    padding-left: 10;
+    padding-right: 10;
 }
-.schedule-table-header {
-    text-align: center;
-    font-weight: normal;
-    font-size: 14;
+.lecture-name {
+    text-align: left;
+    font-weight: bold;
+    font-size: 18;
 }
 .schedule-day-header {
-    text-align: center;
-    font-weight: normal;
+    text-align: left;
+    vertical-align: center;
+    font-weight: bold;
     font-size: 26;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5;
+}
+.schedule-lecture-block StackLayout {
+    margin-left: auto;
+    margin-right: auto;
+    width: 94%;
 }
 .schedule-table-content {
-    font-size: 14;
-    padding-left: 10px;
-    padding-right: 10px;
+    font-size: 16;
+    padding-left: 20;
+    padding-right: 20;
 }
 .schedule-collapse-symbol {
     font-size: 31;
@@ -193,44 +241,50 @@ components that have the btn class name.
     color: #334152;
 }
 .page {
-    background-color: #d9e5ec;
+    background-image: url("~/images/background_light_2.png");
+    background-size: cover;
     color: black;
 }
-
+.sidedrawer { 
+    background-color: #334152;
+}
+.sidedrawer-header {
+    background-color: #334152;
+    color: white;
+}
 .sidedrawer-list-item-icon,.sidedrawer-list-item{
     color: #334152;
 }
 .sidedrawer.sidedrawer-left {
-    background-color: #009b91;
+    background-color: #334152;
 }
 .sidedrawer.sidedrawer-left .footnote {
     color: #334152;
 }
-.sidedrawer .sidedrawer-header {
-    background-color: #009b91;
+ /* .sidedrawer-header-brand {
+     color: black;
+     font-weight: bold;
+} */
+.sidedrawer-content{ 
+    background-color: #fff;
 }
-.sidedrawer .sidedrawer-header .sidedrawer-header-brand {
-    color: #fff;
-}
-.sidedrawer .sidedrawer-content{ 
-    background-image: url("~/images/background_light_1.png");
-}
-.sidedrawer .sidedrawer-content .sidedrawer-list-item Label {
+.sidedrawer-list-item Label {
     color: black;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected {
+.sidedrawer-list-item.selected {
     background-color: #d9e5ec;
 }
-.sidedrawer .sidedrawer-content .sidedrawer-list-item.selected Label {
+.sidedrawer-list-item.selected Label {
     color:#3A53FF;
 }
 
 .action-bar-label {
-    color: white;
+    color: black;
+    font-weight: bold;
 }
 .action-bar {  
     color: #009b91;
-    background-color: #334152;
+    background-color: #d9e5ec;
 }
 .page-header-green {
     color: #009b91;
@@ -240,24 +294,30 @@ components that have the btn class name.
     color: #fff;
 }
 .card-tile {
-    /* background-color: #334152; */
+    border-color: rgb(211, 211, 211);
 }
 .meal-category {
-    background-color:#334152; 
-    color: #fff;
+    color: black;
 }
 .grades-table-header {
-    background-color:#334152; 
-    color: #fff;
+    color: black;
+}
+.schedule-page {
+    background-color: white;
+}
+.grades-page-container {
+    background-color: white;
 }
 .schedule-table-header {
-    background-color:#334152; 
-    color: #fff;
+    color: black;
 }
 .schedule-day-header {
     background-color: white; 
     color: black;
     border-radius: 5;
+}
+.schedule-lecture-block .hr {
+    background-color: #334152;
 }
 .schedule-collapse-symbol {
     color: #009b91;
@@ -266,19 +326,18 @@ components that have the btn class name.
     /* background-color: #fff; */
 }
 .event-header {
-    background-color: #334152;
-    color:white;
     font-size: 20;
-    text-align: center;
+    font-weight: bold;
+    text-align: left;
     padding: auto;
-    margin: 5;
+    margin-bottom: 10;
+    margin-top: 10;
     vertical-align: middle;
-    border-radius: 5;
+    border-bottom-width: 1; 
+    border-bottom-color: gray;
 }
 .event-body {
     color: black;
     font-size: 16;
-    text-align: center;
-    padding: 5;
-    margin: 5;
+    text-align: left;
 }

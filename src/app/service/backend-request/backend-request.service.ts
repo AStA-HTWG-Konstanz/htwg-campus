@@ -4,7 +4,8 @@ import { scheduleUser } from '~/app/model/scheduleuser/scheduleuser.model';
 import { User } from '~/app/model/user/user.model';
 import { LoginService } from '../login/login.service';
 import { CacheService } from '../cache/cache.service';
-
+import * as randomToken from "random-token"
+import * as appSettings from "tns-core-modules/application-settings";
 /**
  * Sends request to backend
  */
@@ -41,7 +42,27 @@ export class BackendRequestService {
       url: serverUrl,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      content: JSON.stringify(user)
+      content: JSON.stringify({ username: user.username, password: user.password, student: user.student })
+    })
+  }
+
+  createNewToken() {
+    this.cacheService.deleteTokenFromCache();
+    this.cacheService.loadTokeninCache(randomToken(12).toString());
+  }
+
+  request_grades(serverUrl: string) {
+    if (!this.cacheService.isTokenInCache()) {
+      this.createNewToken()
+    }
+    var token: string = this.cacheService.getTokenFromCache()
+    let user = this.getUser();
+    if (user == null) return new Promise((resolve, reject) => reject("user hasn`t login"));
+    return request({
+      url: serverUrl,
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      content: JSON.stringify({ username: user.username, password: user.password, token: token })
     })
   }
 
@@ -62,21 +83,20 @@ export class BackendRequestService {
    * @param times counter for how many tries to send the request again
    */
   safe_get_request(serverUrl: string, times?: number): Promise<HttpResponse> {
-    console.log("found " + JSON.stringify(times) + " times")
     /* if times isn´t set, use the default of 2 repeats */
     if (!times) return this.safe_get_request(serverUrl, 2);
     /* if times is set to 0, it works like the function request */
     if (times == 0) return this.get_request(serverUrl);
     /* if the response is forbidden, it will start a new login session and start the GET request again */
-    return this.get_request(serverUrl).then<HttpResponse>((response: HttpResponse) => {
-      if (response.content.toString().startsWith("Forbidden")) {
-        this.login.login(this.getUser());
-        return this.safe_get_request(serverUrl, times - 1);
-      } else {
-        return response
+    return this.get_request(serverUrl).then<HttpResponse>(
+      (response: HttpResponse) => {
+        if (response.content.toString().startsWith("Forbidden")) {
+          this.login.login(this.getUser());
+          return this.safe_get_request(serverUrl, times - 1);
+        } else {
+          return response
+        }
       }
-    })
-
+    )
   }
-
 }

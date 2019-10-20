@@ -8,6 +8,7 @@ import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { TextField } from "tns-core-modules/ui/text-field";
 import * as app from "tns-core-modules/application";
 import { CacheService } from '../service/cache/cache.service';
+import { HttpResponse } from "tns-core-modules/http";
 
 @Component({
   selector: 'ns-login',
@@ -41,15 +42,20 @@ export class LoginComponent implements OnInit {
     this.processing = true;
     this.error = false;
     this.loginservice.login(this.user).then(
-      (resolved: any) => {
-        this.cacheService.loadUserInCache(this.user)
+      (resolved: HttpResponse) => {
         this.processing = false;
+        if (resolved.statusCode != 200) {
+          this.error = true;
+          return;
+        }
+        let responseBody: { student: boolean } = resolved.content as any;
+        let newUser = new User(this.user.username, this.user.password, responseBody.student)
+        this.cacheService.loadUserInCache(newUser)
         this.routerExtensions.navigateByUrl("main", { clearHistory: true });
       },
       (rejected: any) => {
         this.error = true;
         this.processing = false;
-        console.log(JSON.stringify(rejected))
       }
     )
   }

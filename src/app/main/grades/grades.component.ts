@@ -21,19 +21,20 @@ export class GradesComponent implements OnInit {
     private routerExtensions: RouterExtensions,
     private gradeService: GradesService,
     private cacheService: CacheService) {
-    this.getGrades();
   }
 
   ngOnInit() {
+    if (this.cacheService.isGradesInCache()) {
+      this.currentGrades = this.cacheService.getGradesFromCache().grades
+    } else {
+      //alert("Lectures current not available")
+    }
   }
 
   navigateBack() {
     this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
   }
 
-  getGrades() {
-    this.currentGrades = this.cacheService.getGradesFromCache().grades
-  }
   changeIdentifier(name: string) {
     if (name.startsWith("Wintersemester")) {
       return name.replace("Wintersemester", "WS")

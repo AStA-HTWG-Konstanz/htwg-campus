@@ -1,13 +1,13 @@
 /* Add mobile styles for the component here.  */
 .main-layout {
-	width: 24;
-	height: 24;
+	width: 32;
+	height: 32;
 	padding: 4 2;
 }
 
 .line {
-    height: 2;
-    background-color: white;
-	margin: 5 1;
+    height: 3;
+    background-color: #009b91;
+	margin: 2 1;
 	border-radius: 1;
 }

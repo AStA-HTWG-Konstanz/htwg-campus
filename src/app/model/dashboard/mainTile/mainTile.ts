@@ -1,10 +1,12 @@
 export class MainTile {
     name: string
-    desc: string
+    desc: string = "";
+    hasSecDesc: boolean = false;
+    secDesc: string = "";
     navigate: string
     imageSrc: string
     inactive: boolean
-    hasDesc: boolean = false;
+    deactivate: boolean = false
 
     constructor(name: string, desc: string, navigate: string, imageSrc: string, inactive: boolean) {
         this.name = name;
@@ -12,10 +14,5 @@ export class MainTile {
         this.navigate = navigate;
         this.imageSrc = imageSrc;
         this.inactive = inactive;
-    }
-
-    setDesc(desc: string) {
-        this.desc = desc;
-        this.hasDesc = true;
     }
 }

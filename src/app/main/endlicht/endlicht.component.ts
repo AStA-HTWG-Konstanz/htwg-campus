@@ -3,6 +3,7 @@ import { RouterExtensions } from 'nativescript-angular/router';
 import { ActionButtonComponent } from '~/app/action-button/action-button.component';
 import { CacheService } from '~/app/service/cache/cache.service';
 import { EndlichtContent } from '~/app/model/endlicht/endlichtContent';
+import { DateFromatService } from '~/app/service/dateFormat/date-fromat.service';
 @Component({
   selector: 'ns-endlicht',
   templateUrl: './endlicht.component.html',
@@ -16,18 +17,28 @@ export class EndlichtComponent implements OnInit {
   endlicht: EndlichtContent
   constructor(
     private routerExtensions: RouterExtensions,
-    private cacheService: CacheService
+    private cacheService: CacheService,
+    private dateFormatService: DateFromatService
   ) { }
 
   ngOnInit() {
-    this.endlicht = this.cacheService.getEndlichtFromCache().endlicht
+    if (this.cacheService.isEndlichtInCache()) {
+      this.endlicht = this.cacheService.getEndlichtFromCache().endlicht
+    } else {
+      //alert("Lectures current not available")
+    }
   }
 
   reformTabTitel(date: string) {
-    let dateList = date.split('-')
-    let day = dateList[2].length == 1 ? "0" + dateList[2] : dateList[2];
-    let month = dateList[1].length == 1 ? "0" + dateList[1] : dateList[1];
-    return day + "." + month
+    let currDate = new Date(this.reformDate(date))
+    return this.dateFormatService.getFullDayOfWeekAsString(currDate)
+  }
+  private reformDate(dateAsString: string): string {
+    let tmp = dateAsString.split("-")
+    let year = tmp[2]
+    let month = tmp[1].length == 1 ? "0" + tmp[1] : tmp[1]
+    let day = tmp[0].length == 1 ? "0" + tmp[0] : tmp[0]
+    return year + "-" + month + "-" + day
   }
 
   getEndlicht() {
