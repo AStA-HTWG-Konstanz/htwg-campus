@@ -33,7 +33,7 @@ end
 platform :ios do
    desc "Build release for ios"
    lane :build do
-        sh("tns", "build", "ios", "--release")
+        sh("tns", "build", "ios", "--release", "--provision", "d1e4b0d9-5f15-45a0-bdb2-ef9261d51db9")
    end
 
    desc "Upload alpha to Testflight"
