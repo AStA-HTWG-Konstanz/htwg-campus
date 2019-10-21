@@ -1,5 +1,5 @@
 json_key_file("/Users/vagrant/Google_Play_Android_Developer.json")
 package_name("com.htwgcampus")
 apple_id("asta-it@htwg-konstanz.de")
-app_identifier("org.htwg-konstanz.htwgCampus")
+app_identifier("de.htwg-konstanz.htwgCampus")
 team_id "HKNKD4H357"

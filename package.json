@@ -1,6 +1,6 @@
 {
   "nativescript": {
-    "id": "org.htwg-konstanz.htwgCampus",
+    "id": "de.htwg-konstanz.htwgCampus",
     "tns-android": {
       "version": "6.0.0"
     },
