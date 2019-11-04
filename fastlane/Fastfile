@@ -55,7 +55,7 @@ platform :ios do
     desc "Increment build number"
     lane :increment_build_number do
         update_info_plist(
-            xcodeproj: "./platforms/ios/htwgcampus.xcodeproj",
+            xcodeproj: "./platforms/ios/git.xcodeproj",
             plist_path: "../../App_Resources/iOS/Info.plist",
             block: proc do |plist|
                 plist["CFBundleVersion"] = ENV["BITRISE_BUILD_NUMBER"]
