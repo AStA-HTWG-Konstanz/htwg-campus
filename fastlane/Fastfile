@@ -14,6 +14,16 @@
 # update_fastlane
 
 platform :android do
+  desc "Prepare project for android build"
+  lane :prepare do
+    sh("tns", "prepare", "android")
+  end
+
+  desc "Commit increment of build number"
+  lane :commit_build_number do
+        git_commit(path: "./App_Resources/Android/src/main/AndroidManifest.xml", message: "🤖 Changed build number for 👾 [skip ci]")
+  end
+
   desc "Build release for android"
   lane :build do
         sh 'tns build android --release --compileSdk 28 --key-store-path /Users/vagrant/my-release-key.keystore --key-store-password "$BITRISEIO_ANDROID_KEYSTORE_PASSWORD" --key-store-alias "$BITRISEIO_ANDROID_KEYSTORE_ALIAS" --key-store-alias-password "$BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD"'
@@ -21,16 +31,43 @@ platform :android do
 
   desc "Upload alpha to Google Play"
   lane :alpha do
-
+    supply(
+        track: "alpha",
+        apk: ENV["APK_PATH"]
+    )
   end
 
   desc "Upload beta to Google Play"
   lane :beta do
-
+    supply(
+        track: "beta",
+        apk: ENV["APK_PATH"]
+    )
   end
 end
 
 platform :ios do
+    desc "Prepare project for ios build"
+    lane :prepare do
+        sh("tns", "prepare", "ios")
+    end
+
+    desc "Increment build number"
+    lane :increment_build_number do
+        update_info_plist(
+            xcodeproj: "./platforms/ios/htwgcampus.xcodeproj",
+            plist_path: "../../App_Resources/iOS/Info.plist",
+            block: proc do |plist|
+                plist["CFBundleVersion"] = ENV["BITRISE_BUILD_NUMBER"]
+            end
+        )
+    end
+
+    desc "Commit increment of build number"
+    lane :commit_build_number do
+        git_commit(path: "./App_Resources/iOS/Info.plist", message: "🤖 Changed build number for 🍎 [skip ci]")
+    end
+
    desc "Build release for ios"
    lane :build do
         sh("tns", "build", "ios", "--release", "--provision", "d1e4b0d9-5f15-45a0-bdb2-ef9261d51db9", "--forDevice")
@@ -45,4 +82,23 @@ platform :ios do
    lane :beta do
 
    end
+end
+
+desc "Push incremented build numbers to Github"
+lane :push_incremented_build_numbers do
+    push_to_git_remote(
+        remote: "origin",
+        # TODO: Change to dev after testing
+        local_branch: "ci",
+        remote_branch: "ci"
+    )
+end
+
+desc "Ensure clean git status"
+lane :ensure_clean_git_status do
+    ensure_git_status_clean
+    # TODO: Change to dev after testing
+    ensure_git_branch(
+        branch: "ci"
+    )
 end
