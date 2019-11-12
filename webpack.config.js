@@ -35,8 +35,7 @@ module.exports = env => {
 
     const {
         // The 'appPath' and 'appResourcesPath' values are fetched from
-        // the nsconfig.json configuration file
-        // when bundling with `tns run android|ios --bundle`.
+        // the nsconfig.json configuration file.
         appPath = "src",
         appResourcesPath = "App_Resources",
 
@@ -51,6 +50,8 @@ module.exports = env => {
         hmr, // --env.hmr,
         unitTesting, // --env.unitTesting
         verbose, // --env.verbose
+        snapshotInDocker, // --env.snapshotInDocker
+        skipSnapshotTools // --env.skipSnapshotTools
     } = env;
 
     const isAnySourceMapEnabled = !!sourceMap || !!hiddenSourceMap;
@@ -197,7 +198,7 @@ module.exports = env => {
         module: {
             rules: [
                 {
-                    test: nsWebpack.getEntryPathRegExp(appFullPath, entryPath),
+                    include: join(appFullPath, entryPath),
                     use: [
                         // Require all Android app components
                         platform === "android" && {
@@ -272,11 +273,6 @@ module.exports = env => {
                 { from: { glob: "fonts/**" } },
                 { from: { glob: "**/*.jpg" } },
                 { from: { glob: "**/*.png" } },
-                {
-                    from: 'src/app/i18n/',
-                    to: `${dist}/i18n`,
-                    context: projectRoot
-                },
             ], { ignore: [`${relative(appPath, appResourcesFullPath)}/**`] }),
             new nsWebpack.GenerateNativeScriptEntryPointsPlugin("bundle"),
             // For instructions on how to set up workers with webpack
@@ -314,6 +310,8 @@ module.exports = env => {
             ],
             projectRoot,
             webpackConfig: config,
+            snapshotInDocker,
+            skipSnapshotTools
         }));
     }
 
