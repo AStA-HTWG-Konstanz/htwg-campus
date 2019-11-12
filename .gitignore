@@ -20,7 +20,6 @@ tags
 .DS_Store
 npm-debug.log
 nativescript-angular*.tgz
-package-lock.json
 Gemfile.lock
 
 # Apps' JS files
