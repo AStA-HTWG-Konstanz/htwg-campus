@@ -273,6 +273,11 @@ module.exports = env => {
                 { from: { glob: "fonts/**" } },
                 { from: { glob: "**/*.jpg" } },
                 { from: { glob: "**/*.png" } },
+                {
+                    from: 'src/app/i18n/',
+                    to: `${dist}/i18n`,
+                    context: projectRoot
+                },
             ], { ignore: [`${relative(appPath, appResourcesFullPath)}/**`] }),
             new nsWebpack.GenerateNativeScriptEntryPointsPlugin("bundle"),
             // For instructions on how to set up workers with webpack
