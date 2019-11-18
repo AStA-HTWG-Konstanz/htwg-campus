@@ -26,6 +26,7 @@ import { Lecture } from '../model/schedule/lectures/lecture/Lecture';
 import { TranslateService } from '@ngx-translate/core';
 import { DateFromatService } from '../service/dateFormat/date-fromat.service';
 import { GradesRefreshService } from '../service/grades/grades-refresh.service';
+import * as moment from 'moment';
 declare var CGSizeMake
 @Component({
   selector: 'ns-main',
@@ -71,28 +72,56 @@ export class MainComponent implements OnInit, OnChanges {
     this.refreshCache();
   }
   async refreshDashBoard() {
+    let strandbarActivate: boolean;
+    if (moment().isBetween('2019-03-31', '2019-10-31', 'month')) {
+      strandbarActivate = true;
+    } else {
+      strandbarActivate = false;
+    }
     if (this.cacheService.isDashBoardInCache()) {
       this.components = this.cacheService.getDashBoardFromCache();
     } else {
       if (this.cacheService.getUserFromCache().student) {
-        this.components = new Dashboard([
-          new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
-          new MainTile("dashboard.grades", "", "grades", "~/images/student_hat.png", false),
-          new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
-          new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
-          new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
-          new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
-          new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
-        ]);
+        if(strandbarActivate) {
+          this.components = new Dashboard([
+            new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+            new MainTile("dashboard.grades", "", "grades", "~/images/student_hat.png", false),
+            new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+            new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
+            new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+            new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
+            new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+          ]);
+        } else {
+          this.components = new Dashboard([
+            new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+            new MainTile("dashboard.grades", "", "grades", "~/images/student_hat.png", false),
+            new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+            new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+            new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
+            new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+          ]);
+        }
+
       } else {
-        this.components = new Dashboard([
-          new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
-          new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
-          new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true),
-          new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
-          new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
-          new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
-        ]);
+        if(strandbarActivate) {
+          this.components = new Dashboard([
+            new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+            new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+            new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", false),
+            new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+            new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
+            new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+          ]);
+        } else {
+          this.components = new Dashboard([
+            new MainTile("dashboard.lectures", "", "schedule", "~/images/schedule.png", false),
+            new MainTile("dashboard.canteen", "", "canteen", "~/images/coffee.png", false),
+            new MainTile("dashboard.endlicht", "", "endlicht", "~/images/endlicht_white.png", false),
+            new MainTile("dashboard.events", "", "events", "~/images/schedule.png", false),
+            new MainTile("dashboard.balance", "", "balance", "~/images/balance.png", true)
+          ]);
+        }
       }
       this.cacheService.loadDashBoardInCache(this.components);
     }
@@ -210,7 +239,15 @@ export class MainComponent implements OnInit, OnChanges {
     } else {
       foundStrandbar.desc = ""
     }
-    this.components.tiles[strandBarIndex] = foundStrandbar
+    if (moment().isBetween('2019-03-31', '2019-10-31', 'month')) {
+      if(strandBarIndex != -1) {
+        this.components.tiles[strandBarIndex] = foundStrandbar;
+      } else {
+        this.components.tiles.push(new MainTile("dashboard.strandbar", "", "strandbar", "~/images/wine.png", true));
+      }
+    } else {
+      this.components.tiles.splice(strandBarIndex, 1);
+    }
   }
   async updateCanteena() {
     let canteenIndex = this.components.tiles.findIndex(x => x.navigate == "canteen")

@@ -6,7 +6,7 @@ export class MainTile {
     navigate: string
     imageSrc: string
     inactive: boolean
-    deactivate: boolean = false
+    deactivate: boolean
 
     constructor(name: string, desc: string, navigate: string, imageSrc: string, inactive: boolean) {
         this.name = name;
