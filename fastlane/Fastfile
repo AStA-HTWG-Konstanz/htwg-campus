@@ -26,7 +26,7 @@ platform :android do
 
   desc "Build release for android"
   lane :build do
-        sh 'tns build android --release --compileSdk 28 --key-store-path /Users/vagrant/upload-keystore.keystore --key-store-password "$BITRISEIO_ANDROID_KEYSTORE_PASSWORD" --key-store-alias "$BITRISEIO_ANDROID_KEYSTORE_ALIAS" --key-store-alias-password "$BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD"'
+        sh 'tns build android --release --compileSdk 28 --key-store-path /Users/vagrant/upload-keystore.keystore --key-store-password "$BITRISEIO_ANDROID_KEYSTORE_PASSWORD" --key-store-alias "$BITRISEIO_ANDROID_KEYSTORE_ALIAS" --key-store-alias-password "$BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD" --aab'
   end
 
   desc "Upload alpha to Google Play"
