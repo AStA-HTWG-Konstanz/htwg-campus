@@ -2,10 +2,10 @@
   "nativescript": {
     "id": "de.htwg-konstanz.htwgCampus",
     "tns-android": {
-      "version": "6.1.2"
+      "version": "6.2.0"
     },
     "tns-ios": {
-      "version": "6.1.0"
+      "version": "6.2.0"
     }
   },
   "description": "htwgCampus",
@@ -23,22 +23,22 @@
     "@angular/router": "~8.1.2",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "~4.0.0",
-    "nativescript-angular": "~8.0.1",
+    "nativescript-angular": "^8.0.3",
     "nativescript-theme-core": "1.0.6",
     "nativescript-ui-listview": "^7.0.1",
     "nativescript-ui-sidedrawer": "^7.0.0",
     "random-token": "^0.0.8",
     "reflect-metadata": "~0.1.13",
-    "rxjs": "~6.5.2",
-    "rxjs-compat": "^6.5.2",
-    "tns-core-modules": "^6.0.1",
+    "rxjs": "^6.5.3",
+    "rxjs-compat": "^6.5.3",
+    "tns-core-modules": "^6.2.1",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular/compiler-cli": "~8.1.2",
     "@nativescript/schematics": "~0.6.0",
     "@ngtools/webpack": "~8.1.2",
-    "nativescript-dev-webpack": "~1.2.0",
+    "nativescript-dev-webpack": "^1.3.0",
     "typescript": "3.4.5"
   },
   "gitHead": "8ab7726d1ee9991706069c1359c552e67ee0d1a4",
