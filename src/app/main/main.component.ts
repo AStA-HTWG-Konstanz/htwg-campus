@@ -73,11 +73,7 @@ export class MainComponent implements OnInit, OnChanges {
   }
   async refreshDashBoard() {
     let strandbarActivate: boolean;
-    if (moment().isBetween('2019-03-31', '2019-10-31', 'month')) {
-      strandbarActivate = true;
-    } else {
-      strandbarActivate = false;
-    }
+    strandbarActivate = moment().isBetween('2019-03-31', '2019-10-31', 'month');
     if (this.cacheService.isDashBoardInCache()) {
       this.components = this.cacheService.getDashBoardFromCache();
     } else {

@@ -81,7 +81,8 @@
         "language": "Sprache",
         "about": "Über",
         "settings": "Einstellungen",
-        "logout": "Ausloggen"
+        "logout": "Ausloggen",
+        "feedback": "Feedback"
     },
     "dashboard": {
         "screenTitle": "Hauptmenü",
