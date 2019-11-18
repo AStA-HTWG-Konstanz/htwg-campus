@@ -26,6 +26,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SettingsComponent } from "./settings/settings.component";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { AboutComponent } from "./about/about.component";
+import { FeedbackComponent } from "~/app/feedback/feedback.component";
 import { GradesRefreshService } from "./service/grades/grades-refresh.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,7 +63,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         SemestereventsComponent,
         ActionButtonComponent,
         SettingsComponent,
-        AboutComponent
+        AboutComponent,
+        FeedbackComponent
     ],
     providers: [
         AuthGuard,

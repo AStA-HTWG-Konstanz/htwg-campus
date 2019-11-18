@@ -12,6 +12,7 @@ import { SemesterEvents } from "./model/events/semesterevents";
 import { SemestereventsComponent } from "./main/semesterevents/semesterevents.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { AboutComponent } from "./about/about.component";
+import { FeedbackComponent } from "~/app/feedback/feedback.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/main", pathMatch: "full" },
@@ -23,7 +24,8 @@ const routes: Routes = [
     { path: "endlicht", component: EndlichtComponent },
     { path: "events", component: SemestereventsComponent },
     { path: "settings", component: SettingsComponent },
-    { path: "about", component: AboutComponent }
+    { path: "about", component: AboutComponent },
+    { path: "feedback", component: FeedbackComponent }
 ];
 
 @NgModule({

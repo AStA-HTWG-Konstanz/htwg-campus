@@ -7,6 +7,10 @@
             "NSLocationWhenInUseUsageDescription": "This will be added to InfoPlist.strings"
         }
     },
+    "Feedback": {
+        "screenTitle": "Feedback",
+        "category": "select category"
+    },
     "about": {
         "screenTitle": "About",
         "developer": "Developed by",
