@@ -19,6 +19,12 @@
 
                 <StackLayout class="hr"></StackLayout>
 
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/feedback']" (tap)="closeDrawer()">
+                    <Label col="1" text="{{ 'nav.feedback' | translate}}" class="nav-name"></Label>
+                </GridLayout>
+
+                <StackLayout class="hr"></StackLayout>
+
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [nsRouterLink]="['/login']" (tap)="logout()">
                     <Label col="1" text="{{ 'nav.logout' | translate}}" class="nav-name"></Label>
                 </GridLayout>

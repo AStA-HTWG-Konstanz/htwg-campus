@@ -81,7 +81,8 @@
         "language": "Language",
         "about": "About",
         "settings": "Settings",
-        "logout": "Logout"
+        "logout": "Logout",
+        "feedback": "feedback"
     },
     "dashboard": {
         "screenTitle": "Dashboard",
