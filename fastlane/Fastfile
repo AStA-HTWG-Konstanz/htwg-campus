@@ -70,7 +70,7 @@ platform :ios do
     upload_to_testflight(
       username: "asta-it@htwg-konstanz.de",
       app_identifier: "de.htwg-konstanz.htwgCampus",
-      apple_id: "asta-it@htwg-konstanz.de",
+      apple_id: "1398194672",
       skip_waiting_for_build_processing: true,
       ipa: ENV["IPA_PATH"]
     )
