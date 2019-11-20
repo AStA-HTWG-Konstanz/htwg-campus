@@ -15,7 +15,10 @@
     },
     "feedback": {
         "screenTitle": "Feedback",
-        "category": "Kategorie wählen"
+        "category": "Kategorie wählen",
+        "header": "Hier kannst du uns Feedback geben oder Fehler melden",
+        "textHint": "Hinterlasse uns eine Nachricht",
+        "submit": "Abschicken"
     },
     "login": {
         "signin": "Anmelden",
