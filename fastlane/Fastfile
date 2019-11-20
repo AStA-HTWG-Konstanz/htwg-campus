@@ -29,18 +29,10 @@ platform :android do
         sh 'tns build android --release --compileSdk 28 --key-store-path /Users/vagrant/upload-keystore.keystore --key-store-password "$BITRISEIO_ANDROID_KEYSTORE_PASSWORD" --key-store-alias "$BITRISEIO_ANDROID_KEYSTORE_ALIAS" --key-store-alias-password "$BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD" --aab'
   end
 
-  desc "Upload alpha to Google Play"
-  lane :alpha do
+  desc "Upload build to Google Play"
+  lane :upload do
     #supply(
     #    track: "alpha",
-    #    apk: ENV["APK_PATH"]
-    #)
-  end
-
-  desc "Upload beta to Google Play"
-  lane :beta do
-    #supply(
-    #    track: "beta",
     #    apk: ENV["APK_PATH"]
     #)
   end
@@ -73,14 +65,15 @@ platform :ios do
         sh("tns", "build", "ios", "--release", "--provision", "d1e4b0d9-5f15-45a0-bdb2-ef9261d51db9", "--forDevice")
    end
 
-   desc "Upload alpha to Testflight"
-   lane :alpha do
-
-   end
-
-   desc "Upload beta to Testflight"
-   lane :beta do
-
+   desc "Upload build to Testflight"
+   lane :upload do
+    upload_to_testflight(
+      username: "asta-it@htwg-konstanz.de",
+      app_identifier: "de.htwg-konstanz.htwgCampus",
+      apple_id: "asta-it@htwg-konstanz.de",
+      skip_waiting_for_build_processing: true,
+      ipa: ENV["IPA_PATH"]
+    )
    end
 end
 
