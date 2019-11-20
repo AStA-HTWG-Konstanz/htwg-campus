@@ -72,7 +72,8 @@ platform :ios do
       app_identifier: "de.htwg-konstanz.htwgCampus",
       apple_id: "1398194672",
       skip_waiting_for_build_processing: true,
-      ipa: ENV["IPA_PATH"]
+      ipa: ENV["IPA_PATH"],
+      itc_provider: "MC8ZL86WAR"
     )
    end
 end
