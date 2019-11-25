@@ -33,7 +33,7 @@ platform :android do
   lane :upload do
     supply(
         track: "alpha",
-        apk: ENV["APK_PATH"]
+        aab: ENV["APK_PATH"]
     )
   end
 end
