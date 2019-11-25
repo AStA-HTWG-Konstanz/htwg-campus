@@ -8,6 +8,9 @@ import { TextField } from "tns-core-modules/ui/text-field";
 import { HttpResponse } from "tns-core-modules/http";
 import * as app from "tns-core-modules/application";
 import { device, screen, isAndroid, isIOS } from "tns-core-modules/platform";
+import { TranslateService } from "@ngx-translate/core";
+import * as dialogs from "tns-core-modules/ui/dialogs"
+
 
 
 
@@ -24,14 +27,23 @@ export class FeedbackComponent implements OnInit {
 
     constructor(
         private routerExtensions: RouterExtensions,
-        private feedbackService: FeedbackService
+        private feedbackService: FeedbackService,
+        private translate: TranslateService,
     ) { }
 
-    public category: Array<string> = ["Feedback", "Error"];
-
-    public onSelectedIndexChanged(args: EventData) {
-        const picker = <ListPicker>args.object;
-        this.feedback.category = picker.selectedIndex;
+    public selectFeedbackCategory() {
+        let message = this.translate.currentLang === "en" ? "Choose a Category" : "Wähle eine Kategorie"
+        dialogs.action({
+            message: message,
+            cancelButtonText: this.translate.currentLang === "en" ? "Close" : "Schließen",
+            actions: ["Error", "Feedback"]
+        }).then(result => {
+            if (result === "Error") {
+                this.feedback.category = 0;
+            } else {
+                this.feedback.category = 1;
+            }
+        })
     }
 
     public onFeedbackChanged(args: any) {
@@ -51,6 +63,8 @@ export class FeedbackComponent implements OnInit {
 
             }
         )
+        alert(this.translate.currentLang === "en" ? "Thanks for your Feedback!" : "Vielen Dank für dein Feedback!")
+        this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
     }
 
     ngOnInit() {

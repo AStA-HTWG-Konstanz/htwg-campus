@@ -8,8 +8,9 @@
 <ScrollView class="page page-content" heigth="100%" tkMainContent>
     <StackLayout style="background-color: white; margin:10; padding-left: 20; padding-right: 20;" class="event-page">
         <Label text="{{ 'feedback.header' | translate}}" class="feedback-header" textWrap="true"></Label>
-        <ListPicker [items]="category" selectedIndex="0" (selectedIndexChange)="onSelectedIndexChanged($event)"></ListPicker>
-        <TextField  style="margin-top: 10" borderColor="#009b91" borderWidth="1" hint="{{ 'feedback.textHint' | translate }}" class="input feedback-textfield" (textChange)="onFeedbackChanged($event)"></TextField>
+        <TextField class="feedback-category" editable="false" (tap)="selectFeedbackCategory()" hint="Kategorie wählen..."></TextField>
+        <!--<ListPicker [items]="category" selectedIndex="0" (selectedIndexChange)="onSelectedIndexChanged($event)"></ListPicker>-->
+        <TextView  style="margin-top: 10" borderColor="#009b91" borderWidth="1" hint="{{ 'feedback.textHint' | translate }}" maxLength="270" class="input feedback-textfield" (textChange)="onFeedbackChanged($event)"></TextView>
         <Button text="{{ 'feedback.submit' | translate }}" class="submit-button" (tap)="submitFeedback()"></Button>
     </StackLayout>
 </ScrollView>

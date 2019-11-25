@@ -24,6 +24,7 @@ export class FeedbackService {
     }
 
     private getRequestBody(feedback: Feedback) {
+        console.log(feedback);
         return JSON.stringify({ os: feedback.os, category: feedback.category, message: feedback.message})
     }
 }
