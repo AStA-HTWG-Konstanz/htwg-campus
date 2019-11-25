@@ -31,10 +31,10 @@ platform :android do
 
   desc "Upload build to Google Play"
   lane :upload do
-    #supply(
-    #    track: "alpha",
-    #    apk: ENV["APK_PATH"]
-    #)
+    supply(
+        track: "alpha",
+        apk: ENV["APK_PATH"]
+    )
   end
 end
 

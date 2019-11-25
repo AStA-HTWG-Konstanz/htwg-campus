@@ -62,7 +62,7 @@
   <string name="_general_notConnectedText_12Glk7">"Oopsie Woopsie, bitte verdinde Dich mit dem Internet."</string>
   <string name="_general_noDataTxt_2rofGV">"Wird geladen"</string>
   <string name="_ios_info_plist_NSLocationWhenInUseUsageDescription_ZpKiIF">"This will be added to InfoPlist.strings"</string>
-  <string name="_app_name_1k3Sbz">"HTWG Campus"</string>
-  <string name="app_name">"HTWG Campus"</string>
+  <string name="_app_name_1k3Sbz">"Campus"</string>
+  <string name="app_name">"Campus"</string>
   <string name="title_activity_kimera">"HTWG Campus"</string>
 </resources>
