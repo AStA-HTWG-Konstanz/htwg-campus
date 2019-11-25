@@ -325,6 +325,14 @@ components that have the btn class name.
 .event-page {
     /* background-color: #fff; */
 }
+.feedback-header {
+    font-size: 20;
+    font-weight: bold;
+    text-align: left;
+    padding: auto;
+    margin-top: 40vh;
+    vertical-align: middle;
+}
 .feedback-textfield {
     font-size: 20;
     height: 220vh;

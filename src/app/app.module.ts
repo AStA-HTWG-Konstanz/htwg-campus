@@ -28,6 +28,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { AboutComponent } from "./about/about.component";
 import { FeedbackComponent } from "~/app/feedback/feedback.component";
 import { GradesRefreshService } from "./service/grades/grades-refresh.service";
+import {FeedbackService} from "~/app/service/feedback/feedback.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, "/i18n/", ".json")
@@ -74,7 +75,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         HtwgscheduleService,
         LoginService,
         GradesService,
-        GradesRefreshService
+        GradesRefreshService,
+        FeedbackService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

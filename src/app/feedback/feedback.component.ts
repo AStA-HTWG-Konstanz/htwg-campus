@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { EventData } from "tns-core-modules/data/observable";
 import { ListPicker } from "tns-core-modules/ui/list-picker";
@@ -24,6 +24,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs"
 export class FeedbackComponent implements OnInit {
 
     feedback: Feedback;
+    @ViewChild("categoryInput", {static: false}) categoryInput: ElementRef;
 
     constructor(
         private routerExtensions: RouterExtensions,
@@ -40,8 +41,11 @@ export class FeedbackComponent implements OnInit {
         }).then(result => {
             if (result === "Error") {
                 this.feedback.category = 0;
+                this.categoryInput.nativeElement.text = "Error"
             } else {
                 this.feedback.category = 1;
+                this.categoryInput.nativeElement.text = "Feedback"
+
             }
         })
     }
@@ -58,13 +62,29 @@ export class FeedbackComponent implements OnInit {
             this.feedback.os = "iOS";
         }
 
-        this.feedbackService.submit(this.feedback).then(
-            (resolved: HttpResponse) => {
-
-            }
-        )
-        alert(this.translate.currentLang === "en" ? "Thanks for your Feedback!" : "Vielen Dank für dein Feedback!")
-        this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true })
+        if(this.feedback.message === '') {
+            dialogs.alert({
+                title: this.translate.currentLang === "en" ? "Message" : "Nachricht",
+                message: this.translate.currentLang === "en" ? "Please submit a Message" : "Bitte sende uns eine Nachricht",
+                okButtonText: "Ok"
+            })
+        } else {
+            this.feedbackService.submit(this.feedback).then(
+                (resolved: HttpResponse) => {
+                    if(resolved.statusCode != 200) {
+                        alert("Error");
+                    } else {
+                        this.routerExtensions.navigateByUrl("main", { transition: { name: 'slideRight' }, clearHistory: true }).then(() => {
+                            dialogs.alert({
+                                title: this.translate.currentLang === "en" ? "Message" : "Info",
+                                message: this.translate.currentLang === "en" ? "Thanks for your Feedback!" : "Vielen Dank für dein Feedback!",
+                                okButtonText: "Ok"
+                            })
+                        });
+                    }
+                }
+            )
+        }
     }
 
     ngOnInit() {
