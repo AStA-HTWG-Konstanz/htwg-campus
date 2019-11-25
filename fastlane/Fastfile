@@ -32,6 +32,7 @@ platform :android do
   desc "Upload build to Google Play"
   lane :upload do
     supply(
+        package_name: "de.htwgkonstanz.htwgCampus",
         track: "alpha",
         aab: ENV["APK_PATH"]
     )
