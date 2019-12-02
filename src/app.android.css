@@ -325,6 +325,37 @@ components that have the btn class name.
 .event-page {
     /* background-color: #fff; */
 }
+.feedback-header {
+    font-size: 20;
+    font-weight: bold;
+    text-align: left;
+    padding: auto;
+    margin-top: 40vh;
+    vertical-align: middle;
+}
+.feedback-textfield {
+    font-size: 20;
+    height: 220vh;
+    margin-bottom: 100vh;
+}
+.submit-button {
+    background-color: #334152;
+    max-width: 70;
+    margin: 0;
+    padding: 0;
+    width: 72%;
+    color: white;
+    font-size: 18;
+    border-radius: 0;
+    height: 55;
+}
+.feedback-category {
+    border-bottom-width: 1;
+    font-size: 20;
+    border-color: #009b91;
+    margin-top: 80vh;
+    margin-bottom: 50vh;
+}
 .event-header {
     font-size: 20;
     font-weight: bold;

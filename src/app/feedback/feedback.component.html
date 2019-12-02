@@ -1,0 +1,15 @@
+<ActionBar class="action-bar">
+    <NavigationButton visibility="collapsed"></NavigationButton>
+    <GridLayout columns="auto,*,auto" ios:padding="0 10" height="100%" width="100%">
+        <ActionButton (tap)="navigateBack()" isArrow="true"></ActionButton>
+        <Label col="1" text="{{ 'feedback.screenTitle' | translate}}" class="action-bar-label"></Label>
+    </GridLayout>
+</ActionBar>
+<ScrollView class="page page-content" heigth="100%" tkMainContent>
+    <StackLayout style="background-color: white; margin:10; padding-left: 20; padding-right: 20;" class="event-page">
+        <Label text="{{ 'feedback.header' | translate}}" class="feedback-header" textWrap="true"></Label>
+        <TextField class="feedback-category" #categoryInput editable="false" (tap)="selectFeedbackCategory()" hint="{{ 'feedback.category' | translate }}"></TextField>
+        <TextView  style="margin-top: 10" borderColor="#009b91" borderWidth="1" hint="{{ 'feedback.textHint' | translate }}" maxLength="270" class="input feedback-textfield" (textChange)="onFeedbackChanged($event)"></TextView>
+        <Button text="{{ 'feedback.submit' | translate }}" class="submit-button" (tap)="submitFeedback()"></Button>
+    </StackLayout>
+</ScrollView>
