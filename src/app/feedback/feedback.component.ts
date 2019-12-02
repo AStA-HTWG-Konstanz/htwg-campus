@@ -56,11 +56,9 @@ export class FeedbackComponent implements OnInit {
     }
 
     public submitFeedback() {
-        if(isAndroid) {
-            this.feedback.os = "Android";
-        } else {
-            this.feedback.os = "iOS";
-        }
+
+        this.feedback.os = device.os + " " + device.osVersion;
+        this.feedback.device = device.manufacturer + " " + device.model;
 
         if(this.feedback.message === '') {
             dialogs.alert({
@@ -88,7 +86,7 @@ export class FeedbackComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.feedback = new Feedback("", 0, "");
+        this.feedback = new Feedback("", 0, "", "");
     }
 
     navigateBack() {

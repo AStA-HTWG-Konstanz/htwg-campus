@@ -9,7 +9,7 @@ import { request } from "tns-core-modules/http";
 })
 
 export class FeedbackService {
-    private serverUrl = "https://app.asta.htwg-konstanz.de/api/feedback/userfeedback";
+    private serverUrl = "https://app.asta.htwg-konstanz.de/api/userfeedback";
     private header = { "Content-Type": "application/json" }
 
     constructor(){}
@@ -25,6 +25,6 @@ export class FeedbackService {
 
     private getRequestBody(feedback: Feedback) {
         console.log(feedback);
-        return JSON.stringify({ os: feedback.os, category: feedback.category, message: feedback.message})
+        return JSON.stringify({ os: feedback.os, category: feedback.category, message: feedback.message, device: feedback.device})
     }
 }
